@@ -4,7 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class Login extends AppCompatActivity {
 
@@ -13,6 +18,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
     }
+
 
     public void signupBtn_clicked(View view) {
         startActivity(new Intent(this,Register.class));

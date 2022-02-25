@@ -130,7 +130,7 @@
                 android:textSize="18sp" />
 
             <Button
-                android:id="@+id/Login"
+                android:id="@+id/Registered"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginStart="60dp"
@@ -140,8 +140,8 @@
                 android:textStyle="bold"
                 android:textColor="@color/text_col"
                 android:textSize="18sp"
-                android:onClick="login2Btn_clicked"
-                tools:ignore="UsingOnClickInXml" />
+
+                 />
 
         </LinearLayout>
     </LinearLayout>
