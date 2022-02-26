@@ -10,11 +10,14 @@
     <color name="white">#FFFFFFFF</color>
 
 <!--    Primary-->
-    <color name="primary_col">#feaa80</color>
+    <color name="primary_col">#F76E11</color>
     <color name="text_col">#3b3b3b</color>
 
-    <color name="edittext_bg_col">#E8E8E8</color>
+    <color name="edittext_bg_col">#f2f2f2</color>
 
     <color name="gray1">#b3b3b3</color>
     <color name="gray2">#707070</color>
+
+    <color name="gr1_start">@color/primary_col</color>
+    <color name="gr1_end">#f9d423</color>
 </resources>
