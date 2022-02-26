@@ -137,7 +137,7 @@
                 android:importantForAutofill="no" />
 
             <Button
-                android:id="@+id/Login"
+                android:id="@+id/Registered"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginStart="60dp"
@@ -150,6 +150,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:ignore="UsingOnClickInXml" />
+                 />
 
         </LinearLayout>
     </LinearLayout>
