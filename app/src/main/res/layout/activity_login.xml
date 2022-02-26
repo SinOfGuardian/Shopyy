@@ -13,20 +13,22 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="SHOPYY"
             android:fontFamily="monospace"
-            android:textSize="40sp"
-            android:textStyle="bold"
+            android:gravity="center"
+            android:text="@string/app_name2"
             android:textColor="@color/primary_col"
-            />
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -35,8 +37,8 @@
                 android:layout_width="100dp"
                 android:layout_height="56dp"
                 android:gravity="center"
-                android:text="Sign In"
-                android:textSize="24dp"
+                android:text="@string/signin"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -44,19 +46,20 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="/"
-                android:textSize="30dp"
-                android:textStyle="bold" />
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/register1"
                 android:layout_width="100dp"
                 android:layout_height="56dp"
                 android:gravity="center"
-                android:text="Sign Up"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:textColor="@color/gray1"
                 android:onClick="signupBtn_clicked"
+                android:text="@string/signup"
+                android:textColor="@color/gray1"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 tools:ignore="UsingOnClickInXml" />
 
         </LinearLayout>
@@ -75,17 +78,18 @@
                 android:layout_marginEnd="60dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/login_edittext"
-                android:hint="User Name"
-                android:paddingStart="25dp"
-                android:paddingTop="20dp"
-                android:paddingEnd="25dp"
-                android:paddingBottom="20dp"
-
+                android:hint="@string/username"
                 android:inputType="text"
                 android:maxLines="1"
-                android:textStyle="bold"
+                android:paddingStart="25dp"
+                android:paddingTop="20dp"
+
+                android:paddingEnd="25dp"
+                android:paddingBottom="20dp"
                 android:textColor="@color/text_col"
-                android:textSize="18sp" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/password"
@@ -95,31 +99,35 @@
                 android:layout_marginEnd="60dp"
                 android:layout_marginBottom="80dp"
                 android:background="@drawable/login_edittext"
-                android:hint="Password"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:maxLines="1"
                 android:paddingStart="25dp"
                 android:paddingTop="20dp"
+
                 android:paddingEnd="25dp"
                 android:paddingBottom="20dp"
-
-                android:inputType="text"
-                android:maxLines="1"
-                android:textStyle="bold"
                 android:textColor="@color/text_col"
-                android:textSize="18sp" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:ignore="TextFields"
+                android:importantForAutofill="no" />
 
             <Button
+                style="@style/Widget.AppCompat.Button"
                 android:id="@+id/Login"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="60dp"
                 android:layout_marginEnd="60dp"
 
-                android:text="Login"
-                android:textStyle="bold"
-                android:textColor="@color/text_col"
-                android:textSize="18sp"
                 android:onClick="loginBtn_clicked"
-                tools:ignore="UsingOnClickInXml" />
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:ignore="UsingOnClickInXml"
+                android:background="@drawable/login_button"/>
 
         </LinearLayout>
     </LinearLayout>
