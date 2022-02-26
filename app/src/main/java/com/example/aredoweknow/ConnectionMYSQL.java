@@ -12,9 +12,9 @@ public class ConnectionMYSQL {
 
     String classD = "com.mysql.jdbc.Driver";
 
-    String url = "jdbc:mysql://localhost:3306/aredoweknowsql";
+    String url = "jdbc:mysql://192.168.100.52/aredoweknowsql";
     String un = "root";
-    String passwd = "1234";
+    String passwd = "pass";
     @SuppressLint("NewApi")
     public Connection CONNECT() {
 
@@ -28,11 +28,7 @@ public class ConnectionMYSQL {
 
             conn = DriverManager.getConnection(url, un, passwd);
             conn = DriverManager.getConnection(ConnURL);
-            if (conn != null){
-                System.out.println("Connection Successful");
-            }else{
-                System.out.println("Unable Connect");
-            }
+
 
         } catch (SQLException se) {
             Log.e("Error", se.getMessage());
