@@ -20,4 +20,5 @@
 
     <color name="gr1_start">@color/primary_col</color>
     <color name="gr1_end">#f9d423</color>
+
 </resources>

@@ -51,6 +51,6 @@ public class Login extends AppCompatActivity {
 
     public void loginBtn_clicked(View view) {
         finish();
-        startActivity(new Intent(this, dashboard.class));
+        startActivity(new Intent(this, StoreName.class));
     }
 }

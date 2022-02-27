@@ -15,9 +15,9 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/shopyy_logo"
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="90dp"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/shopyy_icon" />
+            app:srcCompat="@drawable/shopyy_logo" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
