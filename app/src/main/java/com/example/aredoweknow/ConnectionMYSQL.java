@@ -10,11 +10,11 @@ import java.sql.SQLException;
 
 public class ConnectionMYSQL {
 
-    String classD = "com.mysql.jdbc.Driver";
+    String classD = "com.mysql.cj.jdbc.Driver";
 
-    String url = "jdbc:mysql://192.168.100.52:3306/aredoweknowsql";
+    String url = "jdbc:mysql://192.168.100.52:3306/aredoweknopw";
     String un = "root";
-    String passwd = "pass";
+    String passwd = "";
 
     @SuppressLint("NewApi")
     public Connection CONNECT() {
@@ -27,7 +27,7 @@ public class ConnectionMYSQL {
         try {
             Class.forName(classD);
 
-            conn = DriverManager.getConnection(url, un, passwd);
+            conn = DriverManager.getConnection(url,un,passwd);
             conn = DriverManager.getConnection(ConnURL);
 
 

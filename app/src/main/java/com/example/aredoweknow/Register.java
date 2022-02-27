@@ -88,7 +88,8 @@ public class Register extends AppCompatActivity {
                     if (conn == null) {
                         i = "Please check your internet Connection ";
                     } else {
-                        String query = "INSERT INTO user VALUES ('" + usernstr + "', '" + passwd1 + "', '" + passwd2 + "')";
+
+                        String query = "INSERT INTO account ('userName', 'passWD') VALUES ('" + usernstr + "', '" + passwd1 + "')";
 
                         Statement stmt = conn.createStatement();
                         stmt.executeUpdate(query);
