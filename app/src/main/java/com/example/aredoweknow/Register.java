@@ -20,6 +20,8 @@ import android.widget.Toast;
 import java.sql.Connection;
 import java.sql.Statement;
 
+import java.sql.SQLException;
+
 public class Register extends AppCompatActivity {
 
     EditText usern, passwd, cpasswd;
@@ -60,13 +62,13 @@ public class Register extends AppCompatActivity {
         });
     }
 
-    public class RegisterACTION extends AsyncTask<String, String, String> {
+    public class RegisterACTION extends AsyncTask< String, String, String > {
 
         ConnectionMYSQL connectionMYSQL = new ConnectionMYSQL();
 
         String usernstr = usern.getText().toString();
         String passwd1 = passwd.getText().toString();
-        String passwd2 = cpasswd.getText().toString();
+//        String passwd2 = cpasswd.getText().toString();
         String i = "";
         boolean isSuccess = false;
 
@@ -80,7 +82,7 @@ public class Register extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
-            if (usernstr.trim().equals("") || passwd1.trim().equals("") || passwd2.trim().equals(""))
+            if (usernstr.trim().equals("") || passwd1.trim().equals(""))
                 i = "Fill in the blank...";
             else {
                 try {
@@ -89,7 +91,7 @@ public class Register extends AppCompatActivity {
                         i = "Please check your internet Connection ";
                     } else {
 
-                        String query = "INSERT INTO account ('userName', 'passWD') VALUES ('" + usernstr + "', '" + passwd1 + "')";
+                        String query = "INSERT INTO account (userName,passWD) VALUES ('" + usernstr + "', '" + passwd1 + "')";
 
                         Statement stmt = conn.createStatement();
                         stmt.executeUpdate(query);

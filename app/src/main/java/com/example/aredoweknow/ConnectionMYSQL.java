@@ -21,14 +21,14 @@ public class ConnectionMYSQL {
 
         StrictMode.ThreadPolicy tp = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(tp);
-        Connection conn= null;
+        Connection con= null;
         String ConnURL= null;
 
         try {
             Class.forName(classD);
 
-            conn = DriverManager.getConnection(url,un,passwd);
-            conn = DriverManager.getConnection(ConnURL);
+            con = DriverManager.getConnection(url, un, passwd);
+            con = DriverManager.getConnection(ConnURL);
 
 
         } catch (SQLException se) {
@@ -40,7 +40,7 @@ public class ConnectionMYSQL {
         catch (Exception exception) {
             Log.e("Error", exception.getMessage());
         }
-        return conn;
+        return con;
     }
 
 }
