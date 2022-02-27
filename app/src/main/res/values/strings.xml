@@ -14,4 +14,10 @@
 
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="powered_by">powered by</string>
+    <string name="android_studio">Android Studio</string>
+    <string name="okay">Okay</string>
+    <string name="message1">Store Name must be provide!</string>
+    <string name="finish">Finish</string>
+    <string name="store_name">Store Name</string>
 </resources>
