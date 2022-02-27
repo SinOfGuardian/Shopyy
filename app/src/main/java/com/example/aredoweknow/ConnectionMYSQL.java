@@ -12,7 +12,7 @@ public class ConnectionMYSQL {
 
     String classD = "com.mysql.jdbc.Driver";
 
-    String url = "jdbc:mysql://192.168.100.52/aredoweknowsql";
+    String url = "jdbc:mysql://192.168.100.52:3306/aredoweknowsql";
     String un = "root";
     String passwd = "pass";
     @SuppressLint("NewApi")
