@@ -6,36 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".Register">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/Title"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/shopyy_logo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="110dp"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="monospace"
-            android:gravity="center"
-            android:text="@string/app_name2"
-            android:textColor="@color/primary_col"
-            android:textSize="40sp"
-            android:textStyle="bold" />
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/shopyy_icon" />
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/sigin2"
-                android:layout_width="100dp"
+                android:layout_width="80dp"
                 android:layout_height="56dp"
                 android:gravity="center"
                 android:onClick="signin2Btn_clicked"
@@ -56,16 +51,16 @@
 
             <TextView
                 android:id="@+id/singup2"
-                android:layout_width="100dp"
+                android:layout_width="80dp"
                 android:layout_height="56dp"
                 android:gravity="center"
                 android:text="@string/signup"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linear2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,61 +75,103 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/login_edittext"
                 android:hint="@string/username"
+                android:importantForAutofill="no"
                 android:inputType="text"
+                android:maxWidth="@dimen/maxwidth_edittext"
                 android:maxLines="1"
                 android:paddingStart="25dp"
-                android:paddingTop="20dp"
 
+                android:paddingTop="20dp"
                 android:paddingEnd="25dp"
                 android:paddingBottom="20dp"
                 android:textColor="@color/text_col"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:importantForAutofill="no"/>
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/password1"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
                 android:layout_marginEnd="60dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/login_edittext"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:paddingStart="25dp"
-                android:paddingTop="20dp"
+                android:layout_marginBottom="20dp">
 
-                android:paddingEnd="25dp"
-                android:paddingBottom="20dp"
-                android:textColor="@color/text_col"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                tools:ignore="TextFields"
-                android:importantForAutofill="no"/>
+                <EditText
+                    android:id="@+id/password1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/login_edittext"
+                    android:hint="@string/password"
+                    android:importantForAutofill="no"
+                    android:inputType="textPassword"
+                    android:maxWidth="@dimen/maxwidth_edittext"
+                    android:maxLines="1"
+                    android:paddingStart="25dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="43dp"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/text_col"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:ignore="TextFields" />
 
-            <EditText
-                android:id="@+id/password2"
+                <ImageButton
+                    android:id="@+id/eyeButton1"
+                    android:layout_width="29dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="14dp"
+                    android:background="@color/edittext_bg_col"
+                    android:onClick="reg_eye_clicked"
+                    android:padding="5dp"
+
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/hide_28px"
+                    tools:ignore="ContentDescription,UsingOnClickInXml" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
                 android:layout_marginEnd="60dp"
-                android:layout_marginBottom="30dp"
-                android:background="@drawable/login_edittext"
-                android:hint="@string/confirm_password"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:paddingStart="25dp"
-                android:paddingTop="20dp"
+                android:layout_marginBottom="30dp">
 
-                android:paddingEnd="25dp"
-                android:paddingBottom="20dp"
-                android:textColor="@color/text_col"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                tools:ignore="TextFields"
-                android:importantForAutofill="no" />
+                <EditText
+                    android:id="@+id/password2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/login_edittext"
+                    android:hint="@string/confirm_password"
+                    android:importantForAutofill="no"
+                    android:inputType="textPassword"
+                    android:maxWidth="@dimen/maxwidth_edittext"
+                    android:maxLines="1"
+                    android:paddingStart="25dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="43dp"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/text_col"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:ignore="TextFields" />
+
+                <ImageButton
+                    android:id="@+id/eyeButton2"
+                    android:layout_width="29dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="14dp"
+                    android:background="@color/edittext_bg_col"
+                    android:onClick="reg_eye_clicked"
+                    android:padding="5dp"
+
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/hide_28px"
+                    tools:ignore="ContentDescription,UsingOnClickInXml" />
+            </RelativeLayout>
+
 
             <Button
                 android:id="@+id/Registered"
@@ -142,17 +179,17 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="60dp"
                 android:layout_marginEnd="60dp"
+                android:maxWidth="@dimen/maxwidth_edittext"
 
                 android:background="@drawable/login_button"
-                android:onClick="login2Btn_clicked"
                 android:text="@string/register"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:ignore="UsingOnClickInXml" />
-                 />
 
-        </LinearLayout>
-    </LinearLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </RelativeLayout>

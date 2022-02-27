@@ -15,6 +15,7 @@ public class ConnectionMYSQL {
     String url = "jdbc:mysql://192.168.100.52/aredoweknowsql";
     String un = "root";
     String passwd = "pass";
+
     @SuppressLint("NewApi")
     public Connection CONNECT() {
 

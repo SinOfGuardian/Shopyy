@@ -10,19 +10,14 @@
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/drawable/login_button.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/drawable/login_edittext.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_dashboard.xml" value="0.2" />
-        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_login.xml" value="0.33" />
-        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_register.xml" value="0.2" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/AreDoWeKnow/app/src/main/res/layout/activity_dashboard.xml" value="0.25" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/AreDoWeKnow/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/AreDoWeKnow/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/AreDoWeKnow/app/src/main/res/layout/dashboard.xml" value="0.25" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/AreDoWeKnow/app/src/main/res/layout/register.xml" value="0.264" />
-        <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/drawable/login_edittext.xml" value="0.135" />
-        <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/layout/activity_dashboard.xml" value="0.25" />
-        <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/layout/activity_login.xml" value="0.25" />
-        <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/layout/activity_register.xml" value="0.25" />
       </map>
     </option>
   </component>
@@ -31,5 +26,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.18" />
+      </ProjectState>
+    </option>
   </component>
 </project>
