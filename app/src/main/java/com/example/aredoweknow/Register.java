@@ -117,7 +117,7 @@ public class Register extends AppCompatActivity {
         }
 
         if (isEmpty) {
-            display_messageDialog("One or more fields is Empty");
+            display_messageDialog("One or more field/s is Empty");
         }
 
         return isEmpty;

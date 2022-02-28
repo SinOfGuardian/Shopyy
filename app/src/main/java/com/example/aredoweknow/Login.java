@@ -66,8 +66,8 @@ public class Login extends AppCompatActivity {
 
 
         //Login SQL Function Starts Here
-
-        if (usernameLogIn(userNMLOGIN) && passwordLogIn(passLOGIN)) {
+        if (!isFieldsEmpty()) {
+          if (usernameLogIn(userNMLOGIN) && passwordLogIn(passLOGIN)) {
             if (db.ifStoreExist(userNMLOGIN)) {
                 startActivity(new Intent(this, dashboard.class));
                 finish();
@@ -75,13 +75,8 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(this, StoreName.class));
                 finish();
             }
+          }
         }
-
-
-
-
-
-
 
     }
 
@@ -104,11 +99,7 @@ public class Login extends AppCompatActivity {
         }
 
         if (isEmpty) {
-            Dialog dialog1 = new Dialog(this);
-            dialogClass dialog = new dialogClass();
-            eye_button.setFocusableInTouchMode(true);
-            eye_button.requestFocus();
-            dialog.simpleDialog(dialog1, "Fields is Empty"); //--> show simple dialog
+            display_messageDialog("One or more field/s is Empty!");
         }
         return isEmpty;
     } //-----------------------------------------------------------------------------------------

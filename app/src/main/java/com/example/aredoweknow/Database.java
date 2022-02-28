@@ -54,6 +54,16 @@ public class Database extends SQLiteOpenHelper {
 
        return db.insert(TABLE_NAME, null, values);
     }
+    // code to update the single employee
+    public void updateStore(String username, String storename) {
+        db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_STORE, storename); // Store Name
+
+        db.update(TABLE_NAME, values, KEY_USERNAME + "='" + username + "'",null);
+        db.close();
+    }
 
     // code to get the single employee
     public String getAccount() {
@@ -173,7 +183,6 @@ public class Database extends SQLiteOpenHelper {
                 KEY_USERNAME + "='" + username + "'", null, null, null, null, null);
 //        Cursor cursor = db.rawQuery("SELECT * FROM myTable WHERE column1 = "+ username, null);
 
-
         if (cursor.moveToFirst()) {
                 result = true;
         }
@@ -185,7 +194,6 @@ public class Database extends SQLiteOpenHelper {
         db = this.getReadableDatabase();
         boolean result = false;
 
-
         Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
                 KEY_PASSWORD + "='" + password + "'", null, null, null, null, null);
 
@@ -196,5 +204,22 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
+    public boolean ifStoreExist(String username) {
+        db = this.getReadableDatabase();
+        boolean result = false;
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
+                KEY_USERNAME + "='" + username + "'", null, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            String storename = "";
+            storename = cursor.getString(3);
+
+            if(!storename.equals("")) {
+                result = true;
+            }
+        }
+        return result;
+    }
 
 }
