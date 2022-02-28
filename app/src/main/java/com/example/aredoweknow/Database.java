@@ -81,6 +81,7 @@ public class Database extends SQLiteOpenHelper {
         return res;
     }
 
+
     // code to update the single employee
     public void updateAccount(long l, String name, String age, String city) {
         db = this.getWritableDatabase();
@@ -137,10 +138,36 @@ public class Database extends SQLiteOpenHelper {
 
         if (cursor != null) {
             cursor.moveToFirst();
-            String city = cursor.getString(3);
-            return  city;
+            String store = cursor.getString(3);
+            return  store;
         }
         return null;
+    }
+    //USENAME LOGIN
+    public Boolean ifUsernameExist(String username) {
+        db = this.getReadableDatabase();
+        Boolean result = false;
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_USERNAME},
+                KEY_USERNAME + "=" + username, null, null, null, null, null);
+
+        if (cursor != null) {
+            result = true;
+        }
+        return result;
+    }
+    //PASSWORD LOGIN
+    public Boolean ifPasswordExist(String password) {
+        db = this.getReadableDatabase();
+        Boolean result = false;
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_USERNAME},
+                KEY_PASSWORD + "=" + password, null, null, null, null, null);
+
+        if (cursor != null) {
+            result = true;
+        }
+        return result;
     }
 
 

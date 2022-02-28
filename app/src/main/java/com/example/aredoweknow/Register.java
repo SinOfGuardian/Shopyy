@@ -75,6 +75,7 @@ public class Register extends AppCompatActivity {
                     }else{
                         display_messageDialog("Registration Failed");
                     }
+
                 }
             }
         });

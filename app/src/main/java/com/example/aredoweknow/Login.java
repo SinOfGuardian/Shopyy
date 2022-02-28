@@ -18,6 +18,8 @@ import android.widget.ImageButton;
 public class Login extends AppCompatActivity {
     private boolean pass_isHidden = true;
 
+    Database db;
+
     EditText user_field, pass_field; ImageButton eye_button;
 
     @Override
@@ -54,8 +56,14 @@ public class Login extends AppCompatActivity {
     }
 
     public void loginBtn_clicked(View view) {
+        String userNMLOGIN = user_field.getText().toString();
+        String passLOGIN = pass_field.getText().toString();
         if (!isFieldsEmpty()) {
+
             //Login SQL Function Starts Here
+
+            if (userNMLOGIN = )
+
             finish();
             startActivity(new Intent(this, StoreName.class));
         }
