@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class Database extends SQLiteOpenHelper{
+public class Database extends SQLiteOpenHelper {
 
     //vAIRABLES
     private static final int DATABASE_VERSION = 1;
@@ -43,8 +43,9 @@ public class Database extends SQLiteOpenHelper{
         onCreate(db);
     }
 
+
     // code to add the new employee
-    public void addEmployee(String userNM, String passWD, String storeNM) {
+    public void addaccount(String userNM, String passWD, String storeNM) {
         db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -63,18 +64,18 @@ public class Database extends SQLiteOpenHelper{
                 null, null, null, null, null);
 
         int eId = cursor.getColumnIndex(KEY_ID);
-        int eName = cursor.getColumnIndex(KEY_USERNAME);
-        int eAge = cursor.getColumnIndex(KEY_PASSWORD);
-        int eCity = cursor.getColumnIndex(KEY_STORE);
+        int usern = cursor.getColumnIndex(KEY_USERNAME);
+        int passwd = cursor.getColumnIndex(KEY_PASSWORD);
+        int eSN = cursor.getColumnIndex(KEY_STORE);
 
         String res = "";
 
         for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
             res = res +
                     "Id: "+cursor.getString(eId)+"\n"+
-                    "Username: "+cursor.getString(eName)+"\n"+
-                    "Password: "+cursor.getString(eAge)+"\n"+
-                    "Store name: "+cursor.getString(eCity)+"\n\n";
+                    "Username: "+cursor.getString(usern)+"\n"+
+                    "Password: "+cursor.getString(passwd)+"\n"+
+                    "Store name: "+cursor.getString(eSN)+"\n\n";
         }
 
         db.close();
@@ -142,6 +143,7 @@ public class Database extends SQLiteOpenHelper{
         }
         return null;
     }
+
 
 }
 
