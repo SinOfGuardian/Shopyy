@@ -24,11 +24,11 @@ public class Register extends AppCompatActivity {
     Button register;
 
     ProgressDialog progressDialog;
-    Database db;
-    //Jerreme Objects and Variables
+
+
     ImageButton eye1, eye2;
     private boolean pass_isHidden1 = true, pass_isHidden2 = true;
-    //Jerreme Objects and Variables//
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,7 @@ public class Register extends AppCompatActivity {
         eye1 = findViewById(R.id.eyeButton1);
         eye2 = findViewById(R.id.eyeButton2);
 
+
         progressDialog = new ProgressDialog(this);
         db = new Database(this);
 
@@ -54,13 +55,20 @@ public class Register extends AppCompatActivity {
                 String user = usern.getText().toString();
                 String pass = passwd.getText().toString();
                 String cpass = cpasswd.getText().toString();
-
-                String store = "";
+                String storename = "";
 
                 if (!isFieldsEmpty(user, pass, cpass) && isPasswordLength6(pass) && isPasswordMatch(pass, cpass)) {
-                   //TODO BUTTON REGISTER
-                    db.addEmployee(user, pass, store);
+                    //TODO BUTTON REGISTER
+
+                if ( db.addaccount(user,pass,storename) > 1) {
                     display_messageDialog("You’re Registered. Now What?...");
+
+                }else{
+                    display_messageDialog("Registration Failed");
+                }
+
+
+
                 }
             }
         });
@@ -160,7 +168,7 @@ public class Register extends AppCompatActivity {
         }
         return isMatch;
     }
-     private void display_messageDialog(String message) {
+    private void display_messageDialog(String message) {
         Dialog dialog1 = new Dialog(this);
         dialogClass dialog = new dialogClass();
         eye1.setFocusableInTouchMode(true);
@@ -206,4 +214,3 @@ public class Register extends AppCompatActivity {
 
 
 }
-

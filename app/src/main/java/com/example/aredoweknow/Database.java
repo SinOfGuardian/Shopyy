@@ -8,8 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Database extends SQLiteOpenHelper {
 
-    //vAIRABLES
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "aredoweknow";
     private static final String TABLE_EMPLOYEE = "account";
     private static final String KEY_ID = "id";
@@ -45,7 +44,7 @@ public class Database extends SQLiteOpenHelper {
 
 
     // code to add the new employee
-    public void addaccount(String userNM, String passWD, String storeNM) {
+    public long addaccount(String userNM, String passWD, String storeNM) {
         db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -53,11 +52,11 @@ public class Database extends SQLiteOpenHelper {
         values.put(KEY_PASSWORD, passWD); // password
         values.put(KEY_STORE, storeNM); // Store Name
 
-        db.insert(TABLE_EMPLOYEE, null, values);
+       return db.insert(TABLE_EMPLOYEE, null, values);
     }
 
     // code to get the single employee
-    public String getEmployee() {
+    public String getAccount() {
         db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_EMPLOYEE, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
@@ -146,4 +145,3 @@ public class Database extends SQLiteOpenHelper {
 
 
 }
-
