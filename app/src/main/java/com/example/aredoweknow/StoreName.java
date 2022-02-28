@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 public class StoreName extends AppCompatActivity {
     EditText textField;
-    Dialog dialog1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +21,15 @@ public class StoreName extends AppCompatActivity {
         setContentView(R.layout.activity_store_name);
 
         textField = findViewById(R.id.storeNameField);
-        dialog1 = new Dialog(this);
+
+        textField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (textField.isFocused()) {
+                    textField.setSelected(false);
+                }
+            }
+        });
     }
 
     //------------------Finish Function & Prompt Dialog for empty input-------------------
@@ -32,21 +39,14 @@ public class StoreName extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, dashboard.class));
         }else {
-            dialog1.setContentView(R.layout.dialog_alert);
-            dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Dialog dialog1 = new Dialog(this);
+            dialogClass dialog = new dialogClass();
 
-            TextView message = dialog1.findViewById(R.id.messageLabel);
-            Button okayBtn = dialog1.findViewById(R.id.okayBtn);
-
-            okayBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog1.dismiss();
-                }
-            });
-
-            message.setText(R.string.message1);
-            dialog1.show();
+            textField.setSelected(true);
+            Button b = findViewById(R.id.finishBtn);
+            b.setFocusableInTouchMode(true);
+            b.requestFocus();
+            dialog.simpleDialog(dialog1, "Store Name must be provide!"); //--> show simple dialog
         }
     }// ----------------------------------------------------------------------------------
 
