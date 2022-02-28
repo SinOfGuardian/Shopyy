@@ -18,6 +18,8 @@ import android.widget.Toast;
 import java.sql.Connection;
 import java.sql.Statement;
 
+import java.sql.SQLException;
+
 public class Register extends AppCompatActivity {
 
     EditText usern, passwd, cpasswd;
@@ -31,7 +33,7 @@ public class Register extends AppCompatActivity {
     //Jerreme Objects and Variables//
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -58,53 +60,59 @@ public class Register extends AppCompatActivity {
     }
 
     @SuppressWarnings("deprecation")
-    @SuppressLint("StaticFieldLeak")
-    public class RegisterACTION extends AsyncTask<String, String, String> {
+    @SuppressLint({"NewApi", "StaticFieldLeak"})
+    protected class RegisterACTION extends AsyncTask< String, String, String > {
 
         ConnectionMYSQL connectionMYSQL = new ConnectionMYSQL();
 
         String usernstr = usern.getText().toString();
         String passwd1 = passwd.getText().toString();
-        String passwd2 = cpasswd.getText().toString();
+//        String passwd2 = cpasswd.getText().toString();
         String i = "";
         boolean isSuccess = false;
 
+
         @Override
         protected void onPreExecute() {
+
             progressDialog.setMessage("Loading...");
             progressDialog.show();
 
+
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        public String doInBackground(String... params) {
 
-            if (usernstr.trim().equals("") || passwd1.trim().equals("") || passwd2.trim().equals(""))
+            if (usernstr.trim().equals("") || passwd1.trim().equals("")) {
+                System.out.println("Fill in the blank");
                 i = "Fill in the blank...";
-            else {
-                try {
-                    Connection conn = connectionMYSQL.CONNECT();
-                    if (conn == null) {
-                        i = "Please check your internet Connection ";
-                    } else {
-                        String query = "INSERT INTO user VALUES ('" + usernstr + "', '" + passwd1 + "', '" + passwd2 + "')";
+            }else{
+                    try {
+                        Connection conn = connectionMYSQL.CONNECT();
+                        if (conn == null) {
+                            i = "Please check your internet Connection ";
+                        } else {
+                          
+                            String query = "INSERT INTO account (userName,passWD) VALUES ('" + usernstr + "', '" + passwd1 + "')";
+                          
+                            Statement stmt = conn.createStatement();
+                            stmt.executeUpdate(query);
 
-                        Statement stmt = conn.createStatement();
-                        stmt.executeUpdate(query);
+                            i = "Register Successful Please Proceed To Log in";
+                            isSuccess = true;
+                        }
 
-                        i = "Register Successful Please Proceed To Log in";
-                        isSuccess = true;
+                    } catch (SQLException ex) {
+                        isSuccess = false;
+                        i = "Exceptions" + ex;
+
                     }
-
-                } catch (Exception ex) {
-                    isSuccess = false;
-                    i = "Exceptions: " + ex;
-
                 }
-            }
-            return i;
+                return i;
 
-        }
+            }
+
 
         @Override
         protected void onPostExecute(String s) {

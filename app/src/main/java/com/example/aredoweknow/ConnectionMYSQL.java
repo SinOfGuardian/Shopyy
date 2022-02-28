@@ -6,29 +6,30 @@ import android.util.Log;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Statement;
 import java.sql.SQLException;
 
 public class ConnectionMYSQL {
 
-    String classD = "com.mysql.jdbc.Driver";
+    String classD = "com.mysql.cj.jdbc.Driver";
 
-    String url = "jdbc:mysql://192.168.100.52/aredoweknowsql";
+    String url = "jdbc:mysql://192.168.100.69:3306/aredoweknopw";
     String un = "root";
-    String passwd = "pass";
+    String passwd = "";
 
     @SuppressLint("NewApi")
     public Connection CONNECT() {
 
         StrictMode.ThreadPolicy tp = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(tp);
-        Connection conn= null;
+        Connection con= null;
         String ConnURL= null;
 
         try {
             Class.forName(classD);
 
-            conn = DriverManager.getConnection(url, un, passwd);
-            conn = DriverManager.getConnection(ConnURL);
+            con = DriverManager.getConnection(url,un,passwd);
+            con = DriverManager.getConnection(ConnURL);
 
 
         } catch (SQLException se) {
@@ -40,7 +41,7 @@ public class ConnectionMYSQL {
         catch (Exception exception) {
             Log.e("Error", exception.getMessage());
         }
-        return conn;
+        return con;
     }
 
 }
