@@ -58,13 +58,15 @@ public class Login extends AppCompatActivity {
     public void loginBtn_clicked(View view) {
         String userNMLOGIN = user_field.getText().toString();
         String passLOGIN = pass_field.getText().toString();
-        if (!isFieldsEmpty()&&) {
+
 
             //Login SQL Function Starts Here
-            if
+
+
+
             finish();
             startActivity(new Intent(this, StoreName.class));
-        }
+
     }
 
     //---------------------This checks if one or more fields are empty--------------------------

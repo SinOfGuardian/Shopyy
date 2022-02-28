@@ -184,7 +184,7 @@ public class Register extends AppCompatActivity {
         dialog.simpleDialog(dialog1, message); //--> show simple dialog
     }
     //-------------This sets the Password Field view to either to SHOW password or NOT-------------
-    private void reg_eye_clicked(View view) {
+    public void reg_eye_clicked(View view) {
         ImageButton eye = (ImageButton) view;
 
         if (eye.equals(eye1)) {
