@@ -24,7 +24,7 @@ public class Register extends AppCompatActivity {
     Button register;
 
     ProgressDialog progressDialog;
-
+    Database db;
     //Jerreme Objects and Variables
     ImageButton eye1, eye2;
     private boolean pass_isHidden1 = true, pass_isHidden2 = true;
@@ -45,9 +45,8 @@ public class Register extends AppCompatActivity {
         eye1 = findViewById(R.id.eyeButton1);
         eye2 = findViewById(R.id.eyeButton2);
 
-
         progressDialog = new ProgressDialog(this);
-
+        db = new Database(this);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,19 +54,13 @@ public class Register extends AppCompatActivity {
                 String user = usern.getText().toString();
                 String pass = passwd.getText().toString();
                 String cpass = cpasswd.getText().toString();
-                String storename = " ";
+
+                String store = "";
 
                 if (!isFieldsEmpty(user, pass, cpass) && isPasswordLength6(pass) && isPasswordMatch(pass, cpass)) {
                    //TODO BUTTON REGISTER
-                    db.addaccount(user,pass,storename);
-
+                    db.addEmployee(user, pass, store);
                     display_messageDialog("You’re Registered. Now What?...");
-//                    progressDialog.setMessage("You’re Registered. Now What?...");
-//                    progressDialog.show();
-
-
-
-
                 }
             }
         });
