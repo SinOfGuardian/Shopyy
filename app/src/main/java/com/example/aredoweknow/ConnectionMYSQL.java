@@ -11,9 +11,9 @@ import java.sql.SQLException;
 
 public class ConnectionMYSQL {
 
-    String classD = "com.mysql.cj.jdbc.Driver";
+    String classd = "com.mysql.jc.jdbc.Driver";
 
-    String url = "jdbc:mysql://192.168.100.69:3306/aredoweknopw";
+    String url = "jdbc:mysql://192.168.100.69:3307/aredoweknopw";
     String un = "root";
     String passwd = "";
 
@@ -26,7 +26,7 @@ public class ConnectionMYSQL {
         String ConnURL= null;
 
         try {
-            Class.forName(classD);
+            Class.forName(classd);
 
             con = DriverManager.getConnection(url,un,passwd);
             con = DriverManager.getConnection(ConnURL);
