@@ -58,12 +58,10 @@ public class Login extends AppCompatActivity {
     public void loginBtn_clicked(View view) {
         String userNMLOGIN = user_field.getText().toString();
         String passLOGIN = pass_field.getText().toString();
-        if (!isFieldsEmpty()) {
+        if (!isFieldsEmpty()&&) {
 
             //Login SQL Function Starts Here
-
-            if (userNMLOGIN = )
-
+            if
             finish();
             startActivity(new Intent(this, StoreName.class));
         }
@@ -96,7 +94,12 @@ public class Login extends AppCompatActivity {
         }
         return isEmpty;
     } //-----------------------------------------------------------------------------------------
+    private void display_messageDialog(String message) {
+        Dialog dialog1 = new Dialog(this);
+        dialogClass dialog = new dialogClass();
 
+        dialog.simpleDialog(dialog1, message); //--> show simple dialog
+    }
     //-------------This sets the Password Field view to either to SHOW password or NOT-------------
     public void eye_clicked(View view) {
         if (pass_isHidden) { // --> Show Password
@@ -113,5 +116,6 @@ public class Login extends AppCompatActivity {
             pass_isHidden = true;
         }
     } //-----------------------------------------------------------------------------------------
+
 
 }
