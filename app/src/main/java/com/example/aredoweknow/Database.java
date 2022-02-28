@@ -10,7 +10,7 @@ public class Database extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "aredoweknow";
-    private static final String TABLE_EMPLOYEE = "account";
+    private static final String TABLE_NAME = "account";
     private static final String KEY_ID = "id";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
@@ -25,7 +25,7 @@ public class Database extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "CREATE TABLE " + TABLE_EMPLOYEE + "("
+        String query = "CREATE TABLE " + TABLE_NAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_USERNAME + " TEXT,"
                 + KEY_PASSWORD + " TEXT,"
                 + KEY_STORE + " TEXT " + ")";
@@ -36,7 +36,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EMPLOYEE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
 
         // Create tables again
         onCreate(db);
@@ -52,14 +52,14 @@ public class Database extends SQLiteOpenHelper {
         values.put(KEY_PASSWORD, passWD); // password
         values.put(KEY_STORE, storeNM); // Store Name
 
-       return db.insert(TABLE_EMPLOYEE, null, values);
+       return db.insert(TABLE_NAME, null, values);
     }
 
     // code to get the single employee
     public String getAccount() {
         db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_EMPLOYEE, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
                 null, null, null, null, null);
 
         int eId = cursor.getColumnIndex(KEY_ID);
@@ -81,6 +81,7 @@ public class Database extends SQLiteOpenHelper {
         return res;
     }
 
+
     // code to update the single employee
     public void updateAccount(long l, String name, String age, String city) {
         db = this.getWritableDatabase();
@@ -90,7 +91,7 @@ public class Database extends SQLiteOpenHelper {
         values.put(KEY_PASSWORD, age); // Employee Age
         values.put(KEY_STORE, city); // Employee City
 
-        db.update(TABLE_EMPLOYEE, values, KEY_ID+"="+l,null);
+        db.update(TABLE_NAME, values, KEY_ID+"="+l,null);
         db.close();
 
     }
@@ -98,13 +99,13 @@ public class Database extends SQLiteOpenHelper {
     // Deleting single employee
     public void deleteAccount(long l) {
         db = this.getWritableDatabase();
-        db.delete(TABLE_EMPLOYEE, KEY_ID + " ="+l,null);
+        db.delete(TABLE_NAME, KEY_ID + " ="+l,null);
     }
 
     public String getUSERname(long l1){
         db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_EMPLOYEE, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
                 KEY_ID+"="+l1, null, null, null, null);
 
         if (cursor != null) {
@@ -118,7 +119,7 @@ public class Database extends SQLiteOpenHelper {
     public String getPASSword(long l1){
         db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_EMPLOYEE, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
                 KEY_ID+"="+l1, null, null, null, null);
 
         if (cursor != null) {
@@ -132,15 +133,41 @@ public class Database extends SQLiteOpenHelper {
     public String getstoreNAME(long l1){
         db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_EMPLOYEE, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
                 KEY_ID+"="+l1, null, null, null, null);
 
         if (cursor != null) {
             cursor.moveToFirst();
-            String city = cursor.getString(3);
-            return  city;
+            String store = cursor.getString(3);
+            return  store;
         }
         return null;
+    }
+    //USENAME LOGIN
+    public Boolean ifUsernameExist(String username) {
+        db = this.getReadableDatabase();
+        Boolean result = false;
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_USERNAME},
+                KEY_USERNAME + "=" + username, null, null, null, null, null);
+
+        if (cursor != null) {
+            result = true;
+        }
+        return result;
+    }
+    //PASSWORD LOGIN
+    public Boolean ifPasswordExist(String password) {
+        db = this.getReadableDatabase();
+        Boolean result = false;
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_USERNAME},
+                KEY_PASSWORD + "=" + password, null, null, null, null, null);
+
+        if (cursor != null) {
+            result = true;
+        }
+        return result;
     }
 
 
