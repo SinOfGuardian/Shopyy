@@ -6,13 +6,14 @@ import android.util.Log;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Statement;
 import java.sql.SQLException;
 
 public class ConnectionMYSQL {
 
     String classD = "com.mysql.cj.jdbc.Driver";
 
-    String url = "jdbc:mysql://192.168.100.52:3306/aredoweknopw";
+    String url = "jdbc:mysql://192.168.100.69:3306/aredoweknopw";
     String un = "root";
     String passwd = "";
 
@@ -27,7 +28,7 @@ public class ConnectionMYSQL {
         try {
             Class.forName(classD);
 
-            con = DriverManager.getConnection(url, un, passwd);
+            con = DriverManager.getConnection(url,un,passwd);
             con = DriverManager.getConnection(ConnURL);
 
 

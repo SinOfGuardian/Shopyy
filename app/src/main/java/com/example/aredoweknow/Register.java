@@ -2,6 +2,7 @@ package com.example.aredoweknow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.graphics.Typeface;
@@ -35,7 +36,7 @@ public class Register extends AppCompatActivity {
     //Jerreme Objects and Variables//
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -62,7 +63,10 @@ public class Register extends AppCompatActivity {
         });
     }
 
-    public class RegisterACTION extends AsyncTask< String, String, String > {
+    @SuppressWarnings("deprecation")
+    @SuppressLint({"NewApi", "StaticFieldLeak"})
+
+    protected class RegisterACTION extends AsyncTask< String, String, String > {
 
         ConnectionMYSQL connectionMYSQL = new ConnectionMYSQL();
 
@@ -72,43 +76,48 @@ public class Register extends AppCompatActivity {
         String i = "";
         boolean isSuccess = false;
 
+
         @Override
         protected void onPreExecute() {
+
             progressDialog.setMessage("Loading...");
             progressDialog.show();
 
+
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        public String doInBackground(String... params) {
 
-            if (usernstr.trim().equals("") || passwd1.trim().equals(""))
+            if (usernstr.trim().equals("") || passwd1.trim().equals("")) {
+                System.out.println("Fill in the blank");
                 i = "Fill in the blank...";
-            else {
-                try {
-                    Connection conn = connectionMYSQL.CONNECT();
-                    if (conn == null) {
-                        i = "Please check your internet Connection ";
-                    } else {
+            }else{
+                    try {
+                        Connection conn = connectionMYSQL.CONNECT();
+                        if (conn == null) {
+                            i = "Please check your internet Connection ";
+                        } else {
 
-                        String query = "INSERT INTO account (userName,passWD) VALUES ('" + usernstr + "', '" + passwd1 + "')";
+                            String query = "INSERT INTO account (userName,passWD) VALUES ('" + usernstr + "', '" + passwd1 + "')";
 
-                        Statement stmt = conn.createStatement();
-                        stmt.executeUpdate(query);
+                            Statement stmt = conn.createStatement();
+                            stmt.executeUpdate(query);
 
-                        i = "Register Successful Please Proceed To Log in";
-                        isSuccess = true;
+                            i = "Register Successful Please Proceed To Log in";
+                            isSuccess = true;
+                        }
+
+                    } catch (SQLException ex) {
+                        isSuccess = false;
+                        i = "Exceptions" + ex;
+
                     }
-
-                } catch (Exception ex) {
-                    isSuccess = false;
-                    i = "Exceptions" + ex;
-
                 }
-            }
-            return i;
+                return i;
 
-        }
+            }
+
 
         @Override
         protected void onPostExecute(String s) {
