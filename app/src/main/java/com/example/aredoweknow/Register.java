@@ -22,9 +22,6 @@ public class Register extends AppCompatActivity {
     EditText usern, passwd, cpasswd;
     Button register;
 
-    ProgressDialog progressDialog;
-
-
     ImageButton eye1, eye2;
     private boolean pass_isHidden1 = true, pass_isHidden2 = true;
 
@@ -44,21 +41,6 @@ public class Register extends AppCompatActivity {
         eye1 = findViewById(R.id.eyeButton1);
         eye2 = findViewById(R.id.eyeButton2);
 
-
-        progressDialog = new ProgressDialog(this);
-        db = new Database(this);
-
-        usern.setOnFocusChangeListener(new View.OnFocusChangeListener()
-        {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus)
-            {
-                if (!hasFocus) {
-                    String user = usern.getText().toString();
-//                    if (isUSernameExists(user)) { }
-                }
-            }
-        });
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,13 +51,12 @@ public class Register extends AppCompatActivity {
 
                 if (!isFieldsEmpty(user, pass, cpass) && !isUSernameExists(user) && isPasswordLength6(pass) && isPasswordMatch(pass, cpass)) {
                     //TODO BUTTON REGISTER
-                    if ( db.addaccount(user,pass,storename) > 1) {
+                    if ( db.addaccount(user,pass,storename) > -1) {
                         display_messageDialog("Registration Successfull :)");
                         finish();
                     }else{
                         display_messageDialog("Registration Failed");
                     }
-
                 }
             }
         });
@@ -109,9 +90,6 @@ public class Register extends AppCompatActivity {
             }
         });
     }
-
-
-
 
 
     public void signin2Btn_clicked(View view) {
@@ -184,7 +162,7 @@ public class Register extends AppCompatActivity {
         dialog.simpleDialog(dialog1, message); //--> show simple dialog
     }
     //-------------This sets the Password Field view to either to SHOW password or NOT-------------
-    private void reg_eye_clicked(View view) {
+    public void reg_eye_clicked(View view) {
         ImageButton eye = (ImageButton) view;
 
         if (eye.equals(eye1)) {
@@ -220,11 +198,11 @@ public class Register extends AppCompatActivity {
     //-----------------------------------------------------------------------------------------
     private boolean isUSernameExists(String username) {
         boolean isExist = false;
+        isExist = db.ifUsernameExist(username);
 
-        if(db.ifUsernameExist(username)) {
-            usern.isSelected();
+        if(isExist) {
+            usern.setSelected(true);
             display_messageDialog("Username Already Exists!");
-            isExist = true;
         }
         return isExist;
     }

@@ -143,44 +143,20 @@ public class Database extends SQLiteOpenHelper {
         }
         return null;
     }
-    //USENAME LOGIN
-    public Boolean ifUsernameExist(String username) {
-        db = this.getReadableDatabase();
-        Boolean result = false;
-
-        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_USERNAME},
-                KEY_USERNAME + "=" + username, null, null, null, null, null);
-
-        if (cursor != null) {
-            result = true;
-        }
-        return result;
-    }
-    //PASSWORD LOGIN
-    public Boolean ifPasswordExist(String password) {
-        db = this.getReadableDatabase();
-        Boolean result = false;
-
-        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_USERNAME},
-                KEY_PASSWORD + "=" + password, null, null, null, null, null);
-
-        if (cursor != null) {
-            result = true;
-        }
-        return result;
-    }
 
 
     public boolean ifUsernameExist(String username) {
         db = this.getReadableDatabase();
         boolean result = false;
 
-        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_USERNAME},
-                KEY_USERNAME + "=" + username, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
+                KEY_USERNAME + "='" + username + "'", null, null, null, null, null);
+//        Cursor cursor = db.rawQuery("SELECT * FROM myTable WHERE column1 = "+ username, null);
 
-        if (cursor != null) {
-            result = true;
+        if (cursor.moveToFirst()) {
+                result = true;
         }
+//        db.close();
         return result;
     }
 
@@ -188,10 +164,10 @@ public class Database extends SQLiteOpenHelper {
         db = this.getReadableDatabase();
         boolean result = false;
 
-        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_PASSWORD},
-                KEY_PASSWORD + "=" + password, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
+                KEY_PASSWORD + "='" + password + "'", null, null, null, null, null);
 
-        if (cursor != null) {
+        if (cursor.moveToFirst()) {
             result = true;
         }
         return result;

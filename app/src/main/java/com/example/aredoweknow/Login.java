@@ -62,7 +62,7 @@ public class Login extends AppCompatActivity {
 
             //Login SQL Function Starts Here
 
-            if (userNMLOGIN = )
+//            if (userNMLOGIN = )
 
             finish();
             startActivity(new Intent(this, StoreName.class));
