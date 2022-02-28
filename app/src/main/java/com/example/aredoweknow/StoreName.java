@@ -24,7 +24,8 @@ public class StoreName extends AppCompatActivity {
         setContentView(R.layout.activity_store_name);
 
         textField = findViewById(R.id.storeNameField);
-
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
         textField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

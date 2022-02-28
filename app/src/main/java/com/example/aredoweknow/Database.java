@@ -91,24 +91,7 @@ public class Database extends SQLiteOpenHelper {
         return res;
     }
     // code to glogin
-    public String LogIn() {
-        db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
-                null, null, null, null, null);
-
-
-        int usern = cursor.getColumnIndex(KEY_USERNAME);
-        int passwd = cursor.getColumnIndex(KEY_PASSWORD);
-
-
-        String res = "";
-
-
-
-        db.close();
-        return res;
-    }
 
 
 

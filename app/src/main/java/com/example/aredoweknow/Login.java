@@ -35,6 +35,7 @@ public class Login extends AppCompatActivity {
         pass_field = findViewById(R.id.password);
         eye_button = findViewById(R.id.eyeButton);
 
+        db = new Database(this);
 
         user_field.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -70,11 +71,12 @@ public class Login extends AppCompatActivity {
           if (usernameLogIn(userNMLOGIN) && passwordLogIn(passLOGIN)) {
             if (db.ifStoreExist(userNMLOGIN)) {
                 startActivity(new Intent(this, dashboard.class));
-                finish();
             }else{
-                startActivity(new Intent(this, StoreName.class));
-                finish();
+                Intent intent = new Intent(getApplicationContext(),StoreName.class);
+                intent.putExtra("username", userNMLOGIN);
+                startActivity( intent);
             }
+              finish();
           }
         }
 

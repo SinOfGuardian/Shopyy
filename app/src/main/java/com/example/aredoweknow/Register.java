@@ -10,7 +10,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.ImageButton;
 
-import android.app.ProgressDialog;
+
 
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +40,7 @@ public class Register extends AppCompatActivity {
 
         eye1 = findViewById(R.id.eyeButton1);
         eye2 = findViewById(R.id.eyeButton2);
+        db = new Database(this);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +53,7 @@ public class Register extends AppCompatActivity {
                 if (!isFieldsEmpty(user, pass, cpass) && !isUsernameExist(user) && isPasswordLength6(pass) && isPasswordMatch(pass, cpass)) {
                     //TODO BUTTON REGISTER
                     if ( db.addaccount(user,pass,storename) > -1) {
-                        display_messageDialog("Registration Successfull :)");
+                        display_messageDialog("Registration Successful :)");
                         finish();
                     }else{
                         display_messageDialog("Registration Failed");

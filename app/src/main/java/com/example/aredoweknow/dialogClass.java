@@ -24,6 +24,7 @@ public class dialogClass {
         });
 
         message.setText(text);
-        dialog.show();
+       // dialog.show();
+        System.out.println(text);
     }
 }
