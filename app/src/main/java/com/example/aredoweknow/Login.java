@@ -59,11 +59,11 @@ public class Login extends AppCompatActivity {
         String userNMLOGIN = user_field.getText().toString();
         String passLOGIN = pass_field.getText().toString();
 
-
+            if (!isFieldsEmpty()) {
+                finish();
+                startActivity(new Intent(this, StoreName.class));
+            }
             //Login SQL Function Starts Here
-
-            finish();
-            startActivity(new Intent(this, StoreName.class));
 
     }
 
@@ -86,11 +86,7 @@ public class Login extends AppCompatActivity {
         }
 
         if (isEmpty) {
-            Dialog dialog1 = new Dialog(this);
-            dialogClass dialog = new dialogClass();
-            eye_button.setFocusableInTouchMode(true);
-            eye_button.requestFocus();
-            dialog.simpleDialog(dialog1, "Fields is Empty"); //--> show simple dialog
+            display_messageDialog("One or more field/s is Empty!");
         }
         return isEmpty;
     } //-----------------------------------------------------------------------------------------
