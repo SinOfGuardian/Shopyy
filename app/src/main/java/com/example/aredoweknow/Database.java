@@ -161,19 +161,20 @@ public class Database extends SQLiteOpenHelper {
         }
         return null;
     }
-    //USENAME LOGIN
-
 
     public boolean ifUsernameExist(String username) {
         db = this.getReadableDatabase();
         boolean result = false;
 
-        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_USERNAME},
-                KEY_USERNAME + "='" + username + "'", null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
+                KEY_USERNAME + "='" + username + "'", null, null, null, null, null);
+//        Cursor cursor = db.rawQuery("SELECT * FROM myTable WHERE column1 = "+ username, null);
 
-        if (cursor != null) {
-            result = true;
+
+        if (cursor.moveToFirst()) {
+                result = true;
         }
+//        db.close();
         return result;
     }
 
@@ -181,10 +182,11 @@ public class Database extends SQLiteOpenHelper {
         db = this.getReadableDatabase();
         boolean result = false;
 
-        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_PASSWORD},
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
                 KEY_PASSWORD + "='" + password + "'", null, null, null, null, null);
 
-        if (cursor != null) {
+        if (cursor.moveToFirst()) {
             result = true;
         }
         return result;
