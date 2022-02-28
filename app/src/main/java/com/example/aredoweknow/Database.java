@@ -12,7 +12,7 @@ public class Database extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "shopyy_db";
     private static final String TABLE_NAME = "account";
     private static final String KEY_ID = "id";
-    private static final String KEY_USERNAME = "username";
+    public static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_STORE = "storename";
 
@@ -80,8 +80,8 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return res;
     }
-    //LOG ACCOUNT
-    public String logInAccount() {
+    // code to glogin
+    public String LogIn() {
         db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
@@ -94,9 +94,12 @@ public class Database extends SQLiteOpenHelper {
 
         String res = "";
 
+
+
         db.close();
         return res;
     }
+
 
 
 
@@ -191,5 +194,7 @@ public class Database extends SQLiteOpenHelper {
         }
         return result;
     }
+
+
 
 }
