@@ -1,5 +1,9 @@
 package com.example.aredoweknow;
 
+import static android.accounts.AccountManager.KEY_PASSWORD;
+
+import static com.example.aredoweknow.Database.KEY_USERNAME;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 //Jerreme Imports
@@ -56,14 +60,23 @@ public class Login extends AppCompatActivity {
     }
 
     public void loginBtn_clicked(View view) {
+
         String userNMLOGIN = user_field.getText().toString();
         String passLOGIN = pass_field.getText().toString();
 
-            if (!isFieldsEmpty()) {
+
+        //Login SQL Function Starts Here
+        if (!isFieldsEmpty()) {
+          if (usernameLogIn(userNMLOGIN) && passwordLogIn(passLOGIN)) {
+            if (db.ifStoreExist(userNMLOGIN)) {
+                startActivity(new Intent(this, dashboard.class));
                 finish();
+            }else{
                 startActivity(new Intent(this, StoreName.class));
+                finish();
             }
-            //Login SQL Function Starts Here
+          }
+        }
 
     }
 
@@ -112,6 +125,28 @@ public class Login extends AppCompatActivity {
             pass_isHidden = true;
         }
     } //-----------------------------------------------------------------------------------------
+    private boolean usernameLogIn(String username) {
+        boolean isExist = true;
+        isExist = db.ifUsernameExist(username);
 
+
+        if(!isExist) {
+            user_field.setSelected(true);
+            pass_field.setSelected(true);
+            display_messageDialog("Incorrect Username!");
+        }
+        return isExist;
+    }
+    private boolean passwordLogIn(String password) {
+        boolean isExist = true;
+        isExist =db.ifPasswordExist(password) ;
+
+
+        if(!isExist) {
+            pass_field.setSelected(true);
+            display_messageDialog("Incorrect Password!");
+        }
+        return isExist;
+    }
 
 }
