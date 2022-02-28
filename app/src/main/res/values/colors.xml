@@ -8,17 +8,19 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
 <!--    Primary-->
     <color name="primary_col">#F76E11</color>
     <color name="text_col">#3b3b3b</color>
 
     <color name="edittext_bg_col">#f2f2f2</color>
+    <color name="edittext_focused">#fcf7de</color>
 
     <color name="gray1">#b3b3b3</color>
     <color name="gray2">#707070</color>
 
     <color name="gr1_start">@color/primary_col</color>
     <color name="gr1_end">#f9d423</color>
+
+    <color name="red_border">#f07a62</color>
 
 </resources>

@@ -33,10 +33,10 @@
                 android:layout_toEndOf="@id/iconLabel"
                 android:gravity="center"
                 android:paddingStart="5dp"
-                android:text="@string/message1"
+                android:text="Message goes here"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="HardcodedText,RtlSymmetry" />
 
             <Button
                 android:id="@+id/okayBtn"

@@ -2,14 +2,12 @@ package com.example.aredoweknow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.LinearGradient;
-import android.graphics.Shader;
+import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -53,13 +51,14 @@ public class Register extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 RegisterACTION registeract = new RegisterACTION();
                 registeract.execute("");
             }
         });
     }
 
+    @SuppressWarnings("deprecation")
+    @SuppressLint("StaticFieldLeak")
     public class RegisterACTION extends AsyncTask<String, String, String> {
 
         ConnectionMYSQL connectionMYSQL = new ConnectionMYSQL();
@@ -99,7 +98,7 @@ public class Register extends AppCompatActivity {
 
                 } catch (Exception ex) {
                     isSuccess = false;
-                    i = "Exceptions" + ex;
+                    i = "Exceptions: " + ex;
 
                 }
             }
@@ -109,13 +108,18 @@ public class Register extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
+            progressDialog.hide();
 
             if (isSuccess) {
                 Toast.makeText(getBaseContext(), "" + i, Toast.LENGTH_LONG).show();
+                signin2Btn_clicked(null);
             }
-            progressDialog.hide();
+            System.out.println(i);
         }
     }
+
+
+
 
     public void signin2Btn_clicked(View view) {
         finish();
