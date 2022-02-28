@@ -12,7 +12,6 @@ import java.sql.SQLException;
 public class ConnectionMYSQL {
 
     String classd = "com.mysql.jc.jdbc.Driver";
-
     String url = "jdbc:mysql://192.168.100.69:3307/aredoweknopw";
     String un = "root";
     String passwd = "";
