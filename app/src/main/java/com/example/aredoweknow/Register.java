@@ -49,7 +49,7 @@ public class Register extends AppCompatActivity {
                 String cpass = cpasswd.getText().toString();
                 String storename = "";
 
-                if (!isFieldsEmpty(user, pass, cpass) && !isUSernameExists(user) && isPasswordLength6(pass) && isPasswordMatch(pass, cpass)) {
+                if (!isFieldsEmpty(user, pass, cpass) && !isUsernameExist(user) && isPasswordLength6(pass) && isPasswordMatch(pass, cpass)) {
                     //TODO BUTTON REGISTER
                     if ( db.addaccount(user,pass,storename) > -1) {
                         display_messageDialog("Registration Successfull :)");
@@ -196,9 +196,10 @@ public class Register extends AppCompatActivity {
         }
     }
     //-----------------------------------------------------------------------------------------
-    private boolean isUSernameExists(String username) {
+    private boolean isUsernameExist(String username) {
         boolean isExist = false;
         isExist = db.ifUsernameExist(username);
+
 
         if(isExist) {
             usern.setSelected(true);

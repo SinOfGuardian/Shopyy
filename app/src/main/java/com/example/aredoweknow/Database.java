@@ -80,6 +80,24 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return res;
     }
+    //LOG ACCOUNT
+    public String logInAccount() {
+        db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
+                null, null, null, null, null);
+
+
+        int usern = cursor.getColumnIndex(KEY_USERNAME);
+        int passwd = cursor.getColumnIndex(KEY_PASSWORD);
+
+
+        String res = "";
+
+        db.close();
+        return res;
+    }
+
 
 
     // code to update the single employee
@@ -144,7 +162,6 @@ public class Database extends SQLiteOpenHelper {
         return null;
     }
 
-
     public boolean ifUsernameExist(String username) {
         db = this.getReadableDatabase();
         boolean result = false;
@@ -152,6 +169,7 @@ public class Database extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
                 KEY_USERNAME + "='" + username + "'", null, null, null, null, null);
 //        Cursor cursor = db.rawQuery("SELECT * FROM myTable WHERE column1 = "+ username, null);
+
 
         if (cursor.moveToFirst()) {
                 result = true;
@@ -163,6 +181,7 @@ public class Database extends SQLiteOpenHelper {
     public boolean ifPasswordExist(String password) {
         db = this.getReadableDatabase();
         boolean result = false;
+
 
         Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
                 KEY_PASSWORD + "='" + password + "'", null, null, null, null, null);
