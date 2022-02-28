@@ -123,15 +123,16 @@ public class Register extends AppCompatActivity {
             if (usernstr.trim().equals("") || passwd1.trim().equals("")) {
                 System.out.println("Fill in the blank");
                 i = "Fill in the blank...";
+   // Toast.makeText(Register.this, "i", Toast.LENGTH_SHORT).show();
             }else{
                     try {
                         Connection conn = connectionMYSQL.CONNECT();
                         if (conn == null) {
                             i = "Please check your internet Connection ";
                         } else {
-                          
+
                             String query = "INSERT INTO account (userName,passWD) VALUES ('" + usernstr + "', '" + passwd1 + "')";
-                          
+
                             Statement stmt = conn.createStatement();
                             stmt.execute(query);
 
@@ -155,7 +156,7 @@ public class Register extends AppCompatActivity {
             progressDialog.hide();
 
             if (isSuccess) {
-                Toast.makeText(getBaseContext(), "" + i, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getBaseContext(), "" + i, Toast.LENGTH_LONG).show();
                 signin2Btn_clicked(null);
             }
             System.out.println(i);
