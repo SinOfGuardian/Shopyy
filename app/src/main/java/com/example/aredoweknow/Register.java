@@ -14,7 +14,6 @@ import android.app.ProgressDialog;
 
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 
 public class Register extends AppCompatActivity {
@@ -49,6 +48,17 @@ public class Register extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         db = new Database(this);
 
+        usern.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (!hasFocus) {
+                    String user = usern.getText().toString();
+//                    if (isUSernameExists(user)) { }
+                }
+            }
+        });
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,15 +67,14 @@ public class Register extends AppCompatActivity {
                 String cpass = cpasswd.getText().toString();
                 String storename = "";
 
-                if (!isFieldsEmpty(user, pass, cpass) && isPasswordLength6(pass) && isPasswordMatch(pass, cpass)) {
+                if (!isFieldsEmpty(user, pass, cpass) && !isUSernameExists(user) && isPasswordLength6(pass) && isPasswordMatch(pass, cpass)) {
                     //TODO BUTTON REGISTER
-
-                if ( db.addaccount(user,pass,storename) > 1) {
-                    display_messageDialog("You’re Registered. Now What?...");
-
-                }else{
-                    display_messageDialog("Registration Failed");
-                }
+                    if ( db.addaccount(user,pass,storename) > 1) {
+                        display_messageDialog("Registration Successfull :)");
+                        finish();
+                    }else{
+                        display_messageDialog("Registration Failed");
+                    }
 
                 }
             }
@@ -134,7 +143,8 @@ public class Register extends AppCompatActivity {
         }
 
         return isEmpty;
-    } //-----------------------------------------------------------------------------------------
+    }
+    //---------------------This checks if password length is 6 characters------------------------
     private boolean isPasswordLength6(String pass) {
         boolean isLength6;
 
@@ -173,10 +183,8 @@ public class Register extends AppCompatActivity {
         eye1.requestFocus();
         dialog.simpleDialog(dialog1, message); //--> show simple dialog
     }
-
-
     //-------------This sets the Password Field view to either to SHOW password or NOT-------------
-    public void reg_eye_clicked(View view) {
+    private void reg_eye_clicked(View view) {
         ImageButton eye = (ImageButton) view;
 
         if (eye.equals(eye1)) {
@@ -208,7 +216,17 @@ public class Register extends AppCompatActivity {
                 pass_isHidden2 = true;
             }
         }
-    } //-----------------------------------------------------------------------------------------
+    }
+    //-----------------------------------------------------------------------------------------
+    private boolean isUSernameExists(String username) {
+        boolean isExist = false;
 
+        if(db.ifUsernameExist(username)) {
+            usern.isSelected();
+            display_messageDialog("Username Already Exists!");
+            isExist = true;
+        }
+        return isExist;
+    }
 
 }

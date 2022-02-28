@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class Database extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 2;
-    private static final String DATABASE_NAME = "aredoweknow";
+    private static final String DATABASE_NAME = "shopyy_db";
     private static final String TABLE_NAME = "account";
     private static final String KEY_ID = "id";
     private static final String KEY_USERNAME = "username";
@@ -170,5 +170,31 @@ public class Database extends SQLiteOpenHelper {
         return result;
     }
 
+
+    public boolean ifUsernameExist(String username) {
+        db = this.getReadableDatabase();
+        boolean result = false;
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_USERNAME},
+                KEY_USERNAME + "=" + username, null, null, null, null, null);
+
+        if (cursor != null) {
+            result = true;
+        }
+        return result;
+    }
+
+    public boolean ifPasswordExist(String password) {
+        db = this.getReadableDatabase();
+        boolean result = false;
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_PASSWORD},
+                KEY_PASSWORD + "=" + password, null, null, null, null, null);
+
+        if (cursor != null) {
+            result = true;
+        }
+        return result;
+    }
 
 }
