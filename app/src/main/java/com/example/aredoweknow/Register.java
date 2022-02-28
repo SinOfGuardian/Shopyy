@@ -3,6 +3,7 @@ package com.example.aredoweknow;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
@@ -53,8 +54,43 @@ public class Register extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegisterACTION registeract = new RegisterACTION();
-                registeract.execute("");
+                String user = usern.getText().toString().trim();
+                String pass = passwd.getText().toString();
+                String cpass = cpasswd.getText().toString();
+
+                if (!isFieldsEmpty(user, pass, cpass) && isPasswordLength6(pass) && isPasswordMatch(pass, cpass)) {
+                    RegisterACTION registeract = new RegisterACTION();
+                    registeract.execute("");
+                }
+            }
+        });
+
+
+        //------------------------------Reset Fields---------------------------------
+        usern.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (usern.isFocused()) {
+                    usern.setSelected(false); //--> Remove Highlight red
+                }
+            }
+        });
+
+        passwd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (passwd.isFocused()) {
+                    passwd.setSelected(false); //--> Remove Highlight red
+                }
+            }
+        });
+
+        cpasswd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (cpasswd.isFocused()) {
+                    cpasswd.setSelected(false); //--> Remove Highlight red
+                }
             }
         });
     }
@@ -97,7 +133,7 @@ public class Register extends AppCompatActivity {
                             String query = "INSERT INTO account (userName,passWD) VALUES ('" + usernstr + "', '" + passwd1 + "')";
                           
                             Statement stmt = conn.createStatement();
-                            stmt.executeUpdate(query);
+                            stmt.execute(query);
 
                             i = "Register Successful Please Proceed To Log in";
                             isSuccess = true;
@@ -132,6 +168,72 @@ public class Register extends AppCompatActivity {
     public void signin2Btn_clicked(View view) {
         finish();
     }
+
+    //---------------------This checks if one or more fields are empty--------------------------
+    private boolean isFieldsEmpty(String user, String pass, String cpass) {
+        boolean isEmpty = false;
+        usern.setText(user); //--> Remove leading and trailing spaces
+
+        if (user.equals("")) {
+            isEmpty = true;
+            usern.setSelected(true); //--> Highlight red
+        }
+
+        if (pass.equals("")) {
+            isEmpty = true;
+            passwd.setSelected(true); //--> Highlight red
+        }
+
+        if (cpass.equals("")) {
+            isEmpty = true;
+            cpasswd.setSelected(true); //--> Highlight red
+        }
+
+        if (isEmpty) {
+            display_messageDialog("One or more fields is Empty");
+        }
+
+        return isEmpty;
+    } //-----------------------------------------------------------------------------------------
+    private boolean isPasswordLength6(String pass) {
+        boolean isLength6;
+
+        if (pass.length() >= 6) {
+            isLength6 = true;
+        }else {
+            isLength6 = false;
+            passwd.setSelected(true); //--> Highlight red
+        }
+
+        if (!isLength6) {
+            display_messageDialog("Password must be 6 characters!");
+        }
+        return isLength6;
+    }
+
+    private boolean isPasswordMatch(String pass, String cpass) {
+        boolean isMatch;
+
+        if (!pass.equals(cpass)) {
+            isMatch = false;
+            cpasswd.setSelected(true);
+        }else {
+            isMatch = true;
+        }
+
+        if (!isMatch) {
+            display_messageDialog("Password did not match!");
+        }
+        return isMatch;
+    }
+     private void display_messageDialog(String message) {
+        Dialog dialog1 = new Dialog(this);
+        dialogClass dialog = new dialogClass();
+        eye1.setFocusableInTouchMode(true);
+        eye1.requestFocus();
+        dialog.simpleDialog(dialog1, message); //--> show simple dialog
+    }
+
 
     //-------------This sets the Password Field view to either to SHOW password or NOT-------------
     public void reg_eye_clicked(View view) {

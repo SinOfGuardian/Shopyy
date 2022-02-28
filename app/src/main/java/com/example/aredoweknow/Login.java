@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
@@ -91,13 +92,13 @@ public class Login extends AppCompatActivity {
     //-------------This sets the Password Field view to either to SHOW password or NOT-------------
     public void eye_clicked(View view) {
         if (pass_isHidden) { // --> Show Password
-            pass_field.setInputType(InputType.TYPE_CLASS_TEXT);
+            pass_field.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
             pass_field.setSelection(pass_field.getText().length());
             pass_field.setTypeface(pass_field.getTypeface(), Typeface.BOLD);
             eye_button.setImageResource(R.drawable.eye_28px);
             pass_isHidden = false;
         } else { // --> Hide Password
-            pass_field.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            pass_field.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
             pass_field.setSelection(pass_field.getText().length());
             pass_field.setTypeface(pass_field.getTypeface(), Typeface.BOLD);
             eye_button.setImageResource(R.drawable.hide_28px);
