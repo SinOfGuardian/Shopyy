@@ -2,7 +2,7 @@ package com.example.aredoweknow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
+
 import android.app.Dialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -11,21 +11,18 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import android.app.ProgressDialog;
-import android.os.AsyncTask;
+
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.sql.Connection;
-import java.sql.Statement;
 
-import java.sql.SQLException;
+
 
 public class Register extends AppCompatActivity {
 
     EditText usern, passwd, cpasswd;
     Button register;
-    ConnectionMYSQL ConnectionMYSQL;
+
     ProgressDialog progressDialog;
 
     //Jerreme Objects and Variables
@@ -47,7 +44,7 @@ public class Register extends AppCompatActivity {
         eye1 = findViewById(R.id.eyeButton1);
         eye2 = findViewById(R.id.eyeButton2);
 
-        ConnectionMYSQL = new ConnectionMYSQL();
+
         progressDialog = new ProgressDialog(this);
 
 
@@ -59,8 +56,7 @@ public class Register extends AppCompatActivity {
                 String cpass = cpasswd.getText().toString();
 
                 if (!isFieldsEmpty(user, pass, cpass) && isPasswordLength6(pass) && isPasswordMatch(pass, cpass)) {
-                    RegisterACTION registeract = new RegisterACTION();
-                    registeract.execute("");
+                   //TODO BUTTON REGISTER
                 }
             }
         });
@@ -95,73 +91,6 @@ public class Register extends AppCompatActivity {
         });
     }
 
-    @SuppressWarnings("deprecation")
-    @SuppressLint({"NewApi", "StaticFieldLeak"})
-    protected class RegisterACTION extends AsyncTask< String, String, String > {
-
-        ConnectionMYSQL connectionMYSQL = new ConnectionMYSQL();
-
-        String usernstr = usern.getText().toString();
-        String passwd1 = passwd.getText().toString();
-//        String passwd2 = cpasswd.getText().toString();
-        String i = "";
-        boolean isSuccess = false;
-
-
-        @Override
-        protected void onPreExecute() {
-
-            progressDialog.setMessage("Loading...");
-            progressDialog.show();
-
-
-        }
-
-        @Override
-        public String doInBackground(String... params) {
-
-            if (usernstr.trim().equals("") || passwd1.trim().equals("")) {
-                System.out.println("Fill in the blank");
-                i = "Fill in the blank...";
-   // Toast.makeText(Register.this, "i", Toast.LENGTH_SHORT).show();
-            }else{
-                    try {
-                        Connection conn = connectionMYSQL.CONNECT();
-                        if (conn == null) {
-                            i = "Please check your internet Connection ";
-                        } else {
-
-                            String query = "INSERT INTO account (userName,passWD) VALUES ('" + usernstr + "', '" + passwd1 + "')";
-
-                            Statement stmt = conn.createStatement();
-                            stmt.execute(query);
-
-                            i = "Register Successful Please Proceed To Log in";
-                            isSuccess = true;
-                        }
-
-                    } catch (SQLException ex) {
-                        isSuccess = false;
-                        i = "Exceptions" + ex;
-
-                    }
-                }
-                return i;
-
-            }
-
-
-        @Override
-        protected void onPostExecute(String s) {
-            progressDialog.hide();
-
-            if (isSuccess) {
-//                Toast.makeText(getBaseContext(), "" + i, Toast.LENGTH_LONG).show();
-                signin2Btn_clicked(null);
-            }
-            System.out.println(i);
-        }
-    }
 
 
 
