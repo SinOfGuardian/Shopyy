@@ -25,9 +25,6 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
     DrawerLayout drawerLayout;
     Toolbar toolbar;
 
-
-        public DrawerLayout drawerLayout;
-        public ActionBarDrawerToggle actionBarDrawerToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
