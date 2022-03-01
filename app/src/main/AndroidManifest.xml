@@ -4,8 +4,10 @@
     package="com.example.aredoweknow">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
 
 
     <application
@@ -16,13 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopyyTheme"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m" >
-
+        tools:targetApi="m">
+        <activity
+            android:name=".Scanner"
+            android:exported="false" />
         <activity
             android:name=".Web"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".StoreName"
             android:exported="false"
@@ -47,8 +51,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" >
-
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

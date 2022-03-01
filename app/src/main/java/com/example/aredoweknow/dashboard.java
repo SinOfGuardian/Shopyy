@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,19 +21,20 @@ import com.google.android.material.navigation.NavigationView;
 
 public class dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     FloatingActionButton browser_btn;
+    FloatingActionButton scan_btn;
+    FloatingActionButton add_btn;
 
     NavigationView navigationView;
     DrawerLayout drawerLayout;
+    public static TextView resulttextview;
     Toolbar toolbar;
 
-
-        public DrawerLayout drawerLayout;
-        public ActionBarDrawerToggle actionBarDrawerToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        resulttextview = findViewById(R.id.dashboard);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Navigation Drawer");
@@ -59,6 +61,24 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(intent);
             }
         });
+        //Open camera for scan
+        scan_btn = findViewById(R.id.scan_button);
+        scan_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(dashboard.this, Scanner.class);
+                startActivity(intent);
+            }
+        });
+        add_btn = findViewById(R.id.add_button);
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(dashboard.this, Scanner.class);
+                startActivity(intent);
+            }
+        });
+
 
 
     }
