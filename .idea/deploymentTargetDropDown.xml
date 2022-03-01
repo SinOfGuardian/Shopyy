@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="deploymentTargetDropDown">
+
     <runningDeviceTargetsSelectedWithDialog>
       <Target>
         <type value="RUNNING_DEVICE_TARGET" />
@@ -12,16 +13,20 @@
         </deviceKey>
       </Target>
     </runningDeviceTargetsSelectedWithDialog>
+    
     <targetsSelectedWithDialog>
       <Target>
         <type value="QUICK_BOOT_TARGET" />
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\jiide\.android\avd\Pixel_3_XL_API_29_-_Android_10.avd" />
+            <<value value="C:\Users\natha\.android\avd\Nexus_6_API_30.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetsSelectedWithDialog>
+
+
+    <timeTargetWasSelectedWithDropDown value="2022-03-01T02:01:13.275450100Z" />
   </component>
 </project>

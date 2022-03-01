@@ -3,6 +3,7 @@ package com.example.aredoweknow;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -25,10 +26,13 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
     Toolbar toolbar;
 
 
+        public DrawerLayout drawerLayout;
+        public ActionBarDrawerToggle actionBarDrawerToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Navigation Drawer");
