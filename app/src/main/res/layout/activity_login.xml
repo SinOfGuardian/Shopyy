@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Login">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -75,6 +76,7 @@
                 android:autofillHints="username"
                 android:background="@drawable/edittext_round"
                 android:hint="@string/username"
+                android:importantForAutofill="auto"
                 android:inputType="text|textNoSuggestions"
                 android:lineHeight="5dp"
                 android:maxWidth="@dimen/maxwidth_edittext"
@@ -116,7 +118,7 @@
                     android:textStyle="bold"
                     tools:ignore="TextFields" />
 
-                <ImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/eyeButton"
                     android:layout_width="29dp"
                     android:layout_height="40dp"

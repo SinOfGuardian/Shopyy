@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Register">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -99,9 +100,9 @@
                     android:id="@+id/password1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autofillHints="password"
                     android:background="@drawable/edittext_round"
                     android:hint="@string/password"
+                    android:importantForAutofill="no"
                     android:inputType="textPassword|textNoSuggestions"
                     android:maxWidth="@dimen/maxwidth_edittext"
                     android:maxLines="1"
@@ -114,7 +115,7 @@
                     android:textStyle="bold"
                     tools:ignore="TextFields" />
 
-                <ImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/eyeButton1"
                     android:layout_width="29dp"
                     android:layout_height="40dp"
@@ -141,9 +142,9 @@
                     android:id="@+id/password2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autofillHints="password"
                     android:background="@drawable/edittext_round"
                     android:hint="@string/confirm_password"
+                    android:importantForAutofill="no"
                     android:inputType="textPassword|textNoSuggestions"
                     android:maxWidth="@dimen/maxwidth_edittext"
                     android:maxLines="1"
@@ -156,7 +157,7 @@
                     android:textStyle="bold"
                     tools:ignore="TextFields" />
 
-                <ImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/eyeButton2"
                     android:layout_width="29dp"
                     android:layout_height="40dp"
