@@ -20,4 +20,7 @@
     <string name="finish">Finish</string>
     <string name="store_name">Store Name</string>
     <string name="web_browser">Web Browser</string>
+
+    <string name="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close Navigation Drawer</string>
 </resources>

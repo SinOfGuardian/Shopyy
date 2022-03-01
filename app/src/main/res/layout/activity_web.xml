@@ -15,7 +15,7 @@
             android:id="@+id/HeadingView"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/primary_col"
+            android:background="@drawable/gradient_bg"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
-                android:backgroundTint="@color/primary_col"
+                android:backgroundTint="@android:color/transparent"
                 android:padding="10dp"
                 android:scaleType="centerInside"
                 app:srcCompat="@drawable/left_48px" />
