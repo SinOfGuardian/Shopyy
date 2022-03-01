@@ -6,17 +6,11 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+
     tools:context=".dashboard"
     tools:ignore="HardcodedText">
 
-<!--    The navigation drawer-->
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_items"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,9 +28,11 @@
             app:navigationIcon="@drawable/menu_fixed_28px"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:subtitle="User"
-            app:title="Store Name"
             app:titleMarginTop="15dp"
-            app:titleTextColor="@color/primary_col"></androidx.appcompat.widget.Toolbar>
+            app:title="Store Name"
+            app:titleTextColor="@color/primary_col">
+        </androidx.appcompat.widget.Toolbar>
+
 
 
         <TextView
