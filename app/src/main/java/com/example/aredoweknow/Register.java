@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.ImageButton;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class Register extends AppCompatActivity {
@@ -50,17 +52,10 @@ public class Register extends AppCompatActivity {
                 String user = usern.getText().toString();
                 String pass = passwd.getText().toString();
                 String cpass = cpasswd.getText().toString();
-                String storename = "";
-                String i = "";
 
                 if (!isFieldsEmpty(user, pass, cpass) && !isUsernameExist(user) && isPasswordLength6(pass) && isPasswordMatch(pass, cpass)) {
-                    //TODO BUTTON REGISTER
-                    if (db.addaccount(user, pass, storename) > -1) {
-                        display_messageDialog("Registration Successful :)");
-                        finish();
-                    } else {
-                        display_messageDialog("Registration Failed");
-                    }
+                    RegisterACTION registeract = new RegisterACTION(user, pass, "");
+                    registeract.execute("");
                 }
             }
         });
@@ -213,4 +208,46 @@ public class Register extends AppCompatActivity {
         return isExist;
     }
 
+
+    //---------------------------------------Async Task--------------------------------------
+    @SuppressWarnings("deprecation")
+    protected class RegisterACTION extends AsyncTask<String, String, String> {
+        private String user, pass, storename, result;
+        ProgressDialog progressDialog;
+
+        public RegisterACTION(String un, String pwd, String store) {
+            user = un;
+            pass = pwd;
+            storename = store;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(Register.this);
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            //TODO BUTTON REGISTER
+            if ( db.addaccount(user,pass,storename) > -1) {
+                return result = "Registration Successful :)";
+            }else{
+                return result = "Registration Failed";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            try {
+                Thread.sleep(1000);
+                progressDialog.dismiss();
+                finish();
+                Toast.makeText(getBaseContext(), result, Toast.LENGTH_SHORT).show();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
