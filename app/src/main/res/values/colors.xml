@@ -21,6 +21,10 @@
     <color name="gr1_start">@color/primary_col</color>
     <color name="gr1_end">#f9d423</color>
 
+    <color name="colorPrimaryDark" />
+    <color name="colorPrimary" />
+
     <color name="red_border">#f07a62</color>
+    <color name="colorAccent" />
 
 </resources>
