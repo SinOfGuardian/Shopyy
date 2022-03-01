@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -45,54 +46,57 @@ public class Register extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String user = usern.getText().toString();
                 String pass = passwd.getText().toString();
                 String cpass = cpasswd.getText().toString();
                 String storename = "";
+                String i = "";
 
                 if (!isFieldsEmpty(user, pass, cpass) && !isUsernameExist(user) && isPasswordLength6(pass) && isPasswordMatch(pass, cpass)) {
                     //TODO BUTTON REGISTER
-                    if ( db.addaccount(user,pass,storename) > -1) {
+                    if (db.addaccount(user, pass, storename) > -1) {
                         display_messageDialog("Registration Successful :)");
                         finish();
-                    }else{
+                    } else {
                         display_messageDialog("Registration Failed");
                     }
                 }
             }
         });
+    
+//------------------------------------REGISTER ASYNC--------------------------------
 
 
         //------------------------------Reset Fields---------------------------------
-        usern.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (usern.isFocused()) {
-                    usern.setSelected(false); //--> Remove Highlight red
-                }
+
+   usern.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (usern.isFocused()) {
+                usern.setSelected(false); //--> Remove Highlight red
             }
-        });
+        }
+    });
 
-        passwd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (passwd.isFocused()) {
-                    passwd.setSelected(false); //--> Remove Highlight red
-                }
+                passwd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (passwd.isFocused()) {
+                passwd.setSelected(false); //--> Remove Highlight red
             }
-        });
+        }
+    });
 
-        cpasswd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (cpasswd.isFocused()) {
-                    cpasswd.setSelected(false); //--> Remove Highlight red
-                }
+                cpasswd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (cpasswd.isFocused()) {
+                cpasswd.setSelected(false); //--> Remove Highlight red
             }
-        });
-    }
-
-
+        }
+    });
+}
     public void signin2Btn_clicked(View view) {
         finish();
     }
