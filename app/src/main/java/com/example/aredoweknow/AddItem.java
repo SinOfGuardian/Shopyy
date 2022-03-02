@@ -4,14 +4,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -21,51 +27,53 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+public class AddItem extends AppCompatActivity implements View.OnFocusChangeListener {
 
-public class AddItem extends AppCompatActivity {
-    AppCompatImageButton ADDBTN;
-        ImageView imageView;
-        Button cameraBTN, GalleryBTN, backbtn;
-        ImageButton scanBTN;
-        public static EditText resulttextview;
-  
+    AppCompatImageButton backbtn;
+    Button cameraBTN, GalleryBTN, AddBTN;
+    ImageButton scanBTN;
+
+    public static EditText resulttextview;
+
+    EditText name_field, barcode_field, description_field, quantity_field, price_field;
+    ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-      
-        ADDBTN = findViewById(R.id.add_back_btn);
+
         resulttextview = findViewById(R.id.barcode_val);
-        
-      
-       backbtn = findViewById(R.id.add_back_btn);
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-      
-        ADDBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddItem.this, DashboardNew.class);
-                startActivity(intent);
-            }
-        });
+
+        name_field = findViewById(R.id.itemname_val);
+        barcode_field = findViewById(R.id.barcode_val);
+        description_field = findViewById(R.id.description_val);
+        quantity_field = findViewById(R.id.quantity_val);
+        price_field = findViewById(R.id.price_val);
+
       
         //--------------CAMERA CODE
         imageView = findViewById(R.id.image_val);
-        cameraBTN = findViewById(R.id.camera_btn);
 
         if (ContextCompat.checkSelfPermission(AddItem.this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(AddItem.this, new String[]{Manifest.permission.CAMERA}, 100);
         }
 
+
+        //------------------Back to Dashboard
+        backbtn = findViewById(R.id.add_back_btn);
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        //-------------------Open Camera for Image
+        cameraBTN = findViewById(R.id.camera_btn);
         cameraBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,8 +82,7 @@ public class AddItem extends AppCompatActivity {
             }
         });
 
-
-        //-----------------Open gallery
+        //--------------------Open gallery
         GalleryBTN = findViewById(R.id.gallery_btn);
         GalleryBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +91,8 @@ public class AddItem extends AppCompatActivity {
                 startActivityForResult(intent, 3);
             }
         });
-//----------Open Scanner
+
+        //-------------------Open Scanner
         scanBTN = findViewById(R.id.barscan_btn);
         scanBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,10 +101,35 @@ public class AddItem extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //-------------------Add New Item
+        AddBTN = findViewById(R.id.add_btn);
+        AddBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
+//                    TODO Add Data to database
+                    Toast.makeText(AddItem.this, "Added Successfully", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        name_field.setOnFocusChangeListener(this);
+        barcode_field.setOnFocusChangeListener(this);
+        description_field.setOnFocusChangeListener(this);
+        quantity_field.setOnFocusChangeListener(this);
+        price_field.setOnFocusChangeListener(this);
+    }
+    //--------------Removes Warning on Text Fields when received focus
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (view.isFocused()) {
+            view.setSelected(false); //--> Remove Highlight red
+        }
     }
 
 
-//-------------capture camera code And pick picture in Gallery
+    //---------------capture camera code And pick picture in Gallery
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -111,6 +144,99 @@ public class AddItem extends AppCompatActivity {
             ImageView imageView = findViewById(R.id.image_val);
             imageView.setImageURI(selectedImage);
         }
-
     }
+
+
+    //---------------------------------------------------------
+    //This checks if one or more fields are empty-
+    private boolean isFieldsEmpty() {
+        boolean isEmpty = false;
+
+        if (name_field.getText().toString().trim().equals("")) {
+            isEmpty = true;
+            name_field.setSelected(true); //--> Highlight red
+        }
+        if (barcode_field.getText().toString().trim().equals("")) {
+            isEmpty = true;
+            barcode_field.setSelected(true); //--> Highlight red
+        }
+        if (description_field.getText().toString().trim().equals("")) {
+            isEmpty = true;
+            description_field.setSelected(true); //--> Highlight red
+        }
+        if (quantity_field.getText().toString().trim().equals("")) {
+            isEmpty = true;
+            quantity_field.setSelected(true); //--> Highlight red
+        }
+        if (price_field.getText().toString().trim().equals("")) {
+            isEmpty = true;
+            price_field.setSelected(true); //--> Highlight red
+        }
+
+        if (isEmpty) {
+            display_messageDialog("One or more field/s is Empty!");
+        }
+        return isEmpty;
+    }
+
+    //Check inputed formats
+    private boolean wrongInputFormat() {
+        boolean isWrongFormat = false;
+
+        //Check barcode
+        int length = barcode_field.getText().toString().trim().length();
+        if (length > 128 || length < 3) {
+            isWrongFormat = true;
+            barcode_field.setSelected(true);
+        }
+
+        //check quantity
+        int quantity = Integer.parseInt(quantity_field.getText().toString().trim());
+        if (quantity < 1) {
+            isWrongFormat = true;
+            quantity_field.setSelected(true);
+        }
+        //check price
+        int price = Integer.parseInt(price_field.getText().toString().trim());
+        if (price < 1) {
+            isWrongFormat = true;
+            price_field.setSelected(true);
+        }
+
+        if (isWrongFormat) {
+            barcode_field.setSelected(true);
+            display_messageDialog("Invalid Format/s");
+        }
+        return isWrongFormat;
+    }
+
+    //Lastly checks if images is selected
+    private boolean nullImage() {
+        Resources resources  = getResources();
+        boolean res = false;
+
+//        //check image if not empty
+        final ImageView img  = (ImageView)findViewById(R.id.image_val);
+        final Bitmap bmap = ((BitmapDrawable)img.getDrawable()).getBitmap();
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable myDrawable = getResources().getDrawable(R.drawable.image_100px);
+        final Bitmap myLogo = ((BitmapDrawable) myDrawable).getBitmap();
+
+        if (bmap.sameAs(myLogo)) {
+            res = true;
+            CardView cardView = findViewById(R.id.image_panel);
+            cardView.setCardBackgroundColor(resources.getColor(R.color.red_border));
+            display_messageDialog("Image cannot be empty.");
+        }
+
+        return res;
+    }
+
+    //Message Dialog that notifies user
+    private void display_messageDialog(String message) {
+        Dialog dialog1 = new Dialog(this);
+        dialogClass dialog = new dialogClass();
+
+        dialog.simpleDialog(dialog1, message); //--> show simple dialog
+    }
+    //-----------------------------------------------------------
 }
