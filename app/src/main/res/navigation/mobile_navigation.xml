@@ -25,4 +25,10 @@
         android:id="@+id/nav_about"
         android:name="com.example.aredoweknow.ui.about.AboutFragment"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/logoutClass"
+        android:name="com.example.aredoweknow.fragments_folder.LogoutClass"
+        android:label="logout_fragment"
+        tools:layout="@layout/logout_fragment" />
+
 </navigation>
