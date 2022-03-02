@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 //                Intent activity = new Intent(MainActivity.this, Login.class);
-//                Intent activity = new Intent(MainActivity.this, DashboardNew.class);
-                Intent activity = new Intent(MainActivity.this, AddItem.class);
+                Intent activity = new Intent(MainActivity.this, DashboardNew.class);
+//                Intent activity = new Intent(MainActivity.this, AddItem.class);
                 startActivity((Intent) activity); // --> Start Login Activity
                 finish(); // --> prevent user from coming back to this activity
             }

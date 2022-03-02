@@ -85,7 +85,8 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(DashboardNew.this, AddItem.class);
+                startActivity(intent);
             }
         });
 
