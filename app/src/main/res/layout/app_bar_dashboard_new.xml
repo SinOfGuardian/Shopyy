@@ -9,13 +9,20 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:elevation="5dp"
         android:theme="@style/Theme.ShopyyTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_height="75dp"
+            app:buttonGravity="center_vertical"
+            app:titleMarginTop="15dp"
+            android:background="@color/white"
+            app:titleTextColor="@color/primary_col"
+
+            app:title="Store Puring"
+            app:subtitle="Neneng Puring"
             app:popupTheme="@style/Theme.ShopyyTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -28,7 +35,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:backgroundTint="@color/primary_col"
+        android:layout_marginBottom="200dp"
+        app:srcCompat="@drawable/plus_math_36px"
+        android:visibility="invisible"/>
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

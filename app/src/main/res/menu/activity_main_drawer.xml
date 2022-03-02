@@ -22,13 +22,13 @@
                     android:icon="@drawable/feedback_28px"
                     android:title="Feedback" />
                 <item
-                    android:id="@+id/nav_share"
+                    android:id="@+id/nav_about"
                     android:icon="@drawable/about_28px"
                     android:title="About Us" />
                 <item
-                    android:id="@+id/nav_rate"
+                    android:id="@+id/nav_logout"
                     android:icon="@drawable/logout_28px"
-                    android:title="Log out" />
+                    android:title="Log out"/>
             </menu>
 
         </item>

@@ -5,7 +5,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.ShopyyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.ShopyyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Theme.ShopyyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
