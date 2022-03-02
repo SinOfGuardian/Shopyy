@@ -26,7 +26,7 @@
                     android:icon="@drawable/about_28px"
                     android:title="About Us" />
                 <item
-                    android:id="@+id/nav_logout"
+                    android:id="@+id/logoutClass"
                     android:icon="@drawable/logout_28px"
                     android:title="Log out"/>
             </menu>

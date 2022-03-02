@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.example.aredoweknow.databinding.FragmentFeedbackBinding;
 public class FeedbackFragment extends Fragment {
 
     private FragmentFeedbackBinding binding;
+    Button btn;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class FeedbackFragment extends Fragment {
 
         final TextView textView = binding.textSlideshow;
 //        feedbackViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         return root;
     }
 
