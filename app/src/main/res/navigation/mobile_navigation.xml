@@ -7,28 +7,28 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.aredoweknow.ui.home.HomeFragment"
+        android:name="com.example.aredoweknow.fragments_folder.Home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_list"
-        android:name="com.example.aredoweknow.ui.lists.ListsFragment"
-        tools:layout="@layout/fragment_lists" />
+        android:name="com.example.aredoweknow.fragments_folder.List"
+        tools:layout="@layout/fragment_list" />
 
     <fragment
         android:id="@+id/nav_feedback"
-        android:name="com.example.aredoweknow.ui.feedback.FeedbackFragment"
+        android:name="com.example.aredoweknow.fragments_folder.Feedback"
         tools:layout="@layout/fragment_feedback" />
 <!--    android:label="@string/menu_slideshow"-->
 
     <fragment
         android:id="@+id/nav_about"
-        android:name="com.example.aredoweknow.ui.about.AboutFragment"
+        android:name="com.example.aredoweknow.fragments_folder.About"
         tools:layout="@layout/fragment_about" />
-    <fragment
-        android:id="@+id/logoutClass"
-        android:name="com.example.aredoweknow.fragments_folder.LogoutClass"
-        android:label="logout_fragment"
-        tools:layout="@layout/logout_fragment" />
+<!--    <fragment-->
+<!--        android:id="@+id/logoutClass"-->
+<!--        android:name="com.example.aredoweknow.fragments_folder.LogoutClass"-->
+<!--        android:label="logout_fragment"-->
+<!--        tools:layout="@layout/logout_fragment" />-->
 
 </navigation>
