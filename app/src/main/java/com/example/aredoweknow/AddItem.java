@@ -3,8 +3,10 @@ package com.example.aredoweknow;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 
 import android.Manifest;
 import android.content.Intent;
@@ -12,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -28,16 +31,24 @@ public class AddItem extends AppCompatActivity {
         Button cameraBTN, GalleryBTN;
         ImageButton scanBTN;
         public static EditText resulttextview;
-
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-
+      
         ADDBTN = findViewById(R.id.add_back_btn);
-
         resulttextview = findViewById(R.id.barcode_val);
-
+        
+      
+       backbtn = findViewById(R.id.add_back_btn);
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+      
         ADDBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +56,8 @@ public class AddItem extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    //--------------CAMERA CODE
+      
+        //--------------CAMERA CODE
         imageView = findViewById(R.id.image_val);
         cameraBTN = findViewById(R.id.camera_btn);
 
@@ -99,5 +111,6 @@ public class AddItem extends AppCompatActivity {
             ImageView imageView = findViewById(R.id.image_val);
             imageView.setImageURI(selectedImage);
         }
+
     }
 }

@@ -6,31 +6,123 @@
     android:layout_height="match_parent"
     tools:context=".fragments_folder.Feedback">
 
-    <Button
-        android:id="@+id/feedbackBTN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="FEEDBACK US"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.821"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:cardCornerRadius="28dp"
+        android:elevation="28dp">
 
-    <EditText
-        android:id="@+id/TextTEXT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Text"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.281" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/gr1_end" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:paddingStart="20dp"
+                    android:paddingBottom="20dp"
+                    android:text="Your Feedback Matters"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:ignore="RtlSymmetry" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/subject_val"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edittext_round"
+                android:hint="Subject"
+                android:importantForAutofill="no"
+                android:inputType="text|textNoSuggestions"
+                android:lineHeight="5dp"
+                android:maxWidth="@dimen/maxwidth_edittext"
+                android:maxLines="1"
+
+                android:paddingStart="25dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="25dp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/text_col"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:targetApi="p" />
+
+            <EditText
+                android:id="@+id/feedback_val"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edittext_round"
+                android:gravity="start"
+                android:hint="Your Feedback"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+
+                android:paddingStart="25dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="25dp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/text_col"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:targetApi="p" />
+
+
+            <Button
+                android:id="@+id/feedback_btn"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="180dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="126dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/login_button"
+                android:drawableEnd="@drawable/next_page_36px"
+                android:onClick="loginBtn_clicked"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:text="Next"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:ignore="UsingOnClickInXml" />
+
+            <EditText
+                android:id="@+id/editTextTextMultiLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

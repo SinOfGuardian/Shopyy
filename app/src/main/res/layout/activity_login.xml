@@ -68,6 +68,7 @@
 
             <EditText
                 android:id="@+id/username"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
@@ -120,12 +121,12 @@
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/eyeButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="29dp"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="14dp"
-                    android:background="@android:color/transparent"
                     android:onClick="eye_clicked"
                     android:padding="5dp"
 
