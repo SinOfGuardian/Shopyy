@@ -28,7 +28,7 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
     //--> RESULT
     @Override
     public void handleResult(Result result) {
-        DashboardNew.resulttextview.setText(result.getText());
+        AddItem.resulttextview.setText(result.getText());
         onBackPressed();
     }
 

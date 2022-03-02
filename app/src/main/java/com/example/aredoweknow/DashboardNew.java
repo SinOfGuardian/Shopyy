@@ -23,14 +23,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.aredoweknow.databinding.ActivityDashboardNewBinding;
-import com.google.android.material.snackbar.Snackbar;
 
 public class DashboardNew extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityDashboardNewBinding binding;
 
     FloatingActionButton browser_btn, scan_btn, add_btn;
-    public static TextView resulttextview;
+
     NavigationView logout_btn;
 
     @Override
@@ -41,7 +40,7 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarDashboardNew.toolbar);
 
-        resulttextview = findViewById(R.id.ResultScan);
+
 
 //        binding.appBarDashboardNew.fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -85,7 +84,8 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(DashboardNew.this, AddItem.class);
+                startActivity(intent);
             }
         });
 
