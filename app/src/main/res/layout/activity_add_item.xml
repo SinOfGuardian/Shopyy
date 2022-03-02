@@ -78,8 +78,8 @@
                     android:id="@+id/image_panel"
                     android:layout_width="114dp"
                     android:layout_height="114dp"
-                    android:layout_centerInParent="true"
-                    android:backgroundTint="@color/gray1">
+                    app:cardBackgroundColor="@color/gray1"
+                    android:layout_centerInParent="true">
 
                     <ImageView
                         android:id="@+id/image_val"
@@ -87,7 +87,7 @@
                         android:layout_height="110dp"
                         android:layout_gravity="center"
                         android:background="@color/white"
-                        android:scaleType="center"
+                        android:scaleType="fitCenter"
                         app:srcCompat="@drawable/image_100px" />
                 </androidx.cardview.widget.CardView>
 

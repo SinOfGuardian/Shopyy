@@ -12,7 +12,6 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.aredoweknow.DashboardNew;
 import com.example.aredoweknow.R;
 import com.example.aredoweknow.dialogClass;
 
@@ -37,7 +36,7 @@ public class Feedback extends Fragment {
 
                 if (!isFeedbackEmpty(body_text)) {
                     Intent mainIntent = new Intent(Intent.ACTION_VIEW);
-                    Uri data = Uri.parse("mailto:?subject=" + subj_text + "&body=" + body_text + "&to=" +  dev_emailAdd);
+                    Uri data = Uri.parse("mailto:?subject=" + subj_text + "&body=" + body_text + "&to=" + dev_emailAdd);
                     mainIntent.setData(data);
                     startActivity(Intent.createChooser(mainIntent, "Send Feedback"));
 
