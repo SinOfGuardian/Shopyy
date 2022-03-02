@@ -87,7 +87,7 @@
                         android:layout_height="110dp"
                         android:layout_gravity="center"
                         android:background="@color/white"
-                        android:scaleType="center"
+                        android:scaleType="fitCenter"
                         app:srcCompat="@drawable/image_100px" />
                 </androidx.cardview.widget.CardView>
 

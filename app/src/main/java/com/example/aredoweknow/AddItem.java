@@ -28,7 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class AddItem extends AppCompatActivity {
     AppCompatImageButton ADDBTN;
         ImageView imageView;
-        Button cameraBTN, GalleryBTN;
+        Button cameraBTN, GalleryBTN, backbtn;
         ImageButton scanBTN;
         public static EditText resulttextview;
   
