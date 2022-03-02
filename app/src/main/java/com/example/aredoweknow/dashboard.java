@@ -18,6 +18,8 @@ public class dashboard extends AppCompatActivity {
     FloatingActionButton scan_btn;
     FloatingActionButton add_btn;
 
+    public static TextView resulttextview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
