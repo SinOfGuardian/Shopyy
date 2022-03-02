@@ -70,7 +70,7 @@ public class Login extends AppCompatActivity {
         if (!isFieldsEmpty()) {
           if (usernameLogIn(userNMLOGIN) && passwordLogIn(passLOGIN)) {
             if (db.ifStoreExist(userNMLOGIN)) {
-                startActivity(new Intent(this, dashboard.class));
+                startActivity(new Intent(this, DashboardNew.class));
             }else{
                 Intent intent = new Intent(getApplicationContext(),StoreName.class);
                 intent.putExtra("username", userNMLOGIN);

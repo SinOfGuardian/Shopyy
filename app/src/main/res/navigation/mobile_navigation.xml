@@ -8,18 +8,21 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.aredoweknow.ui.home.HomeFragment"
-        android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_list"
-        android:name="com.example.aredoweknow.ui.gallery.ListsFragment"
-        android:label="@string/menu_gallery"
+        android:name="com.example.aredoweknow.ui.lists.ListsFragment"
         tools:layout="@layout/fragment_lists" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.aredoweknow.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_feedback"
+        android:name="com.example.aredoweknow.ui.feedback.FeedbackFragment"
+        tools:layout="@layout/fragment_feedback" />
+<!--    android:label="@string/menu_slideshow"-->
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.example.aredoweknow.ui.about.AboutFragment"
+        tools:layout="@layout/fragment_about" />
 </navigation>

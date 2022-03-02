@@ -25,11 +25,10 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
         setContentView(scannerView);
     }
 
+    //--> RESULT
     @Override
     public void handleResult(Result result) {
-
-        dashboard.resulttextview.setText(result.getText());
-
+        DashboardNew.resulttextview.setText(result.getText());
         onBackPressed();
     }
 

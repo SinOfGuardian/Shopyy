@@ -1,4 +1,4 @@
-package com.example.aredoweknow.ui.slideshow;
+package com.example.aredoweknow.ui.lists;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.aredoweknow.databinding.FragmentSlideshowBinding;
+import com.example.aredoweknow.databinding.FragmentListsBinding;
 
-public class SlideshowFragment extends Fragment {
+public class ListsFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentListsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        ListsViewModel listsViewModel =
+                new ViewModelProvider(this).get(ListsViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentListsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textGallery;
+//        listsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

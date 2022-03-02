@@ -1,4 +1,4 @@
-package com.example.aredoweknow.ui.gallery;
+package com.example.aredoweknow.ui.lists;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

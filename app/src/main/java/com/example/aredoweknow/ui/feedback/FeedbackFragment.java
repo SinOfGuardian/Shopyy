@@ -1,4 +1,4 @@
-package com.example.aredoweknow.ui.gallery;
+package com.example.aredoweknow.ui.feedback;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.aredoweknow.databinding.FragmentListsBinding;
+import com.example.aredoweknow.databinding.FragmentFeedbackBinding;
 
-public class ListsFragment extends Fragment {
+public class FeedbackFragment extends Fragment {
 
-    private FragmentListsBinding binding;
+    private FragmentFeedbackBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ListsViewModel listsViewModel =
-                new ViewModelProvider(this).get(ListsViewModel.class);
+        FeedbackViewModel feedbackViewModel =
+                new ViewModelProvider(this).get(FeedbackViewModel.class);
 
-        binding = FragmentListsBinding.inflate(inflater, container, false);
+        binding = FragmentFeedbackBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
-        listsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textSlideshow;
+//        feedbackViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

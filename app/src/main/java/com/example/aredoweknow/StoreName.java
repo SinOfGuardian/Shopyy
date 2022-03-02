@@ -43,7 +43,7 @@ public class StoreName extends AppCompatActivity {
             db.updateStore(username, textField.getText().toString());
 
             finish();
-            startActivity(new Intent(this, dashboard.class));
+            startActivity(new Intent(this, DashboardNew.class));
         }else {
             Dialog dialog1 = new Dialog(this);
             dialogClass dialog = new dialogClass();
