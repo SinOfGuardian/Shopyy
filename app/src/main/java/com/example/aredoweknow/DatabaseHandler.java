@@ -2,13 +2,11 @@ package com.example.aredoweknow;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
-import android.widget.ImageView;
-
-import java.io.FileInputStream;
-import java.io.IOException;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -35,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_NAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_ITEM + " TEXT,"
-                + KEY_IMAGE + " BLOB NOT NULL ,"
+                + KEY_IMAGE + " BLOB NOT NULL,"
                 + KEY_BARCODE + " TEXT,"
                 + KEY_DESCRIPTION + " TEXT,"
                 + KEY_QUANTITY + " INTEGER,"
@@ -53,48 +51,61 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertItem(String item, String barc, String desc, int quant, double price, byte[] img) {
+    public void insertItem(String item, byte[] img, String barc, String desc, int quant, double price) {
         db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_ITEM, item);                 // ITEM NAME
-        values.put(KEY_IMAGE, item);                 // ITEM IMAGE
+        values.put(KEY_IMAGE, img);                 // ITEM IMAGE
         values.put(KEY_BARCODE, barc);              // ITEM BARCODE
         values.put(KEY_DESCRIPTION, desc);          // ITEM DESCRIPTION
         values.put(KEY_QUANTITY, quant);            // ITEM QUANTITY
         values.put(KEY_PRICE, price);               // ITEM PRICE
 
         long result = db.insert(TABLE_NAME, null, values);
-        return result;
+        db.close();//closing database
+    }
+    public String itemName(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from item where id = ?", new String[]{id});
+        cursor.moveToFirst();
+        return cursor.getString(0);
+    }
+    public Bitmap getImage(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from item where id = ?", new String[]{id});
+        cursor.moveToFirst();
+        byte[] bitmap = cursor.getBlob(1);
+        Bitmap image = BitmapFactory.decodeByteArray(bitmap, 0 , bitmap.length);
+        return image;
     }
 
+    // code to update the single employee
+    public void updateAccount(long l, String uITEM, String uIMAGE, String uBARCODE, String uDESCRIPTION, String uQUANTIY, String uPRICE) {
+        db = this.getWritableDatabase();
 
-        // code to update the single employee
-        public void updateAccount ( long l, String uITEM, String uIMAGE, String uBARCODE, String
-        uDESCRIPTION, String uQUANTIY, String uPRICE) throws IOException {
-            db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_ITEM, uITEM); // ITEM NAME
+        values.put(KEY_IMAGE, uIMAGE); // ITEM IMAGE
+        values.put(KEY_BARCODE, uBARCODE); // ITEM BARCODE
+        values.put(KEY_DESCRIPTION, uDESCRIPTION); // ITEM DESCRIPTION
+        values.put(KEY_QUANTITY, uQUANTIY); // ITEM QUANTITY
+        values.put(KEY_PRICE, uPRICE); // ITEM PRICE
 
-            FileInputStream fs = new FileInputStream(uIMAGE);
-            byte[] imgbyte = new byte[fs.available()];
+        db.update(TABLE_NAME, values, KEY_ID + "='" + 1, null);
+        db.close();
 
-            ContentValues values = new ContentValues();
-            values.put(KEY_ITEM, uITEM); // ITEM NAME
-            values.put(KEY_IMAGE, imgbyte); // ITEM IMAGE
-            values.put(KEY_BARCODE, uBARCODE); // ITEM BARCODE
-            values.put(KEY_DESCRIPTION, uDESCRIPTION); // ITEM DESCRIPTION
-            values.put(KEY_QUANTITY, uQUANTIY); // ITEM QUANTITY
-            values.put(KEY_PRICE, uPRICE); // ITEM PRICE
+    }
 
-            db.update(TABLE_NAME, values, KEY_ID + "='" + 1, null);
-            db.close();
+    // Deleting single employee
+    public void deleteAccount(long l) {
+        db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, KEY_ID + " ="+l,null);
+    }
 
-        }
+}
 
-        // Deleting item
-        public void deleteitem ( long l){
-            db = this.getWritableDatabase();
-            db.delete(TABLE_NAME, KEY_ID + " =" + l, null);
-        }
+
 
 
 
@@ -118,7 +129,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //
 //        }
 //        return null;
-//    }
+   // }
 //
 //    public String getPASSword(long l1){
 //        db = this.getReadableDatabase();
@@ -149,4 +160,4 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //    }
 
 
-    }
+  //  }

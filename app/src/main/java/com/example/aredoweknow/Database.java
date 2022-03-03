@@ -120,11 +120,6 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    // Deleting single employee
-    public void deleteAccount(long l) {
-        db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, KEY_ID + " ="+l,null);
-    }
 
     public String getUSERname(long l1){
         db = this.getReadableDatabase();
