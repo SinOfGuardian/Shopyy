@@ -26,30 +26,34 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import java.io.ByteArrayOutputStream;
 
 public class AddItem extends AppCompatActivity implements View.OnFocusChangeListener {
 
     AppCompatImageButton backbtn;
-    Button cameraBTN, GalleryBTN, AddBTN, AddITEMBTN;
+    Button cameraBTN, GalleryBTN, AddBTN;
     ImageButton scanBTN;
 
     DatabaseHandler dataHandler;
-
     public static EditText resulttextview;
 
     EditText name_field, barcode_field, description_field, quantity_field, price_field;
     Bitmap captureImage;
     ImageView imageView;
     Uri selectedImage;
-    Bitmap imageDB;
+    CardView cardView;
 
-
+    @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
+        //Database
+        dataHandler = new DatabaseHandler(this);
+        //Static Barcode
         resulttextview = findViewById(R.id.barcode_val);
 
         name_field = findViewById(R.id.itemname_val);
@@ -58,17 +62,14 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         quantity_field = findViewById(R.id.quantity_val);
         price_field = findViewById(R.id.price_val);
 
-        dataHandler = new DatabaseHandler(this);
-
+        imageView = findViewById(R.id.image_val);
+        cardView = findViewById(R.id.image_panel);
 
         //--------------CAMERA CODE
-        imageView = findViewById(R.id.image_val);
-
         if (ContextCompat.checkSelfPermission(AddItem.this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(AddItem.this, new String[]{Manifest.permission.CAMERA}, 100);
         }
-
 
         //------------------Back to Dashboard
         backbtn = findViewById(R.id.add_back_btn);
@@ -120,7 +121,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                     String name = name_field.getText().toString();
                     String  barcode = barcode_field.getText().toString();
                     String description = description_field.getText().toString();
-                    Integer quantity = Integer.parseInt(quantity_field.getText().toString());
+                    int quantity = Integer.parseInt(quantity_field.getText().toString());
                     double price = Double.parseDouble(price_field.getText().toString());
 
                     Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
@@ -129,14 +130,19 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
                     byte[] img = byteArray.toByteArray();
 
-                    //------------image insert to database
-                    dataHandler.insertItem(name, img, barcode,description, quantity,price);
-//                    Toast.makeText(AddItem.this, "DATABASE SUCCESSFUL YOU FUCKER!!", Toast.LENGTH_SHORT).show();
-
+                    //----------------------image insert to database------------------------
+                    long res = dataHandler.insertItem(name, img, barcode,description, quantity,price);
+                    if (res > 0) {
+                        Toast.makeText(AddItem.this, name + " Added Recently", Toast.LENGTH_SHORT).show();
+                        display_messageDialog("Item Added Successfully.");
+                        resetFields();
+                    }else {
+                        Toast.makeText(AddItem.this, "Adding " + name + " Item Failed!", Toast.LENGTH_SHORT).show();
+                        display_messageDialog("Error Adding Item!");
+                    }
                 }
             }
         });
-
 
         name_field.setOnFocusChangeListener(this);
         barcode_field.setOnFocusChangeListener(this);
@@ -144,6 +150,10 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         quantity_field.setOnFocusChangeListener(this);
         price_field.setOnFocusChangeListener(this);
     }
+    //----------------------------------------------------------------------------------------------
+
+
+
     //--------------Removes Warning on Text Fields when received focus
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
@@ -151,7 +161,6 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             view.setSelected(false); //--> Remove Highlight red
         }
     }
-
 
     //---------------capture camera code And pick picture in Gallery
     @Override
@@ -166,11 +175,10 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             selectedImage = data.getData();
             imageView.setImageURI(selectedImage);
         }
+        cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
     }
 
-
-    //---------------------------------------------------------
-    //This checks if one or more fields are empty-
+    //---------------------------This checks if one or more fields are empty-
     private boolean isFieldsEmpty() {
         boolean isEmpty = false;
 
@@ -201,7 +209,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         return isEmpty;
     }
 
-    //Check inputed formats
+    //----------------------Check inputed formats
     private boolean wrongInputFormat() {
         boolean isWrongFormat = false;
 
@@ -211,7 +219,6 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             isWrongFormat = true;
             barcode_field.setSelected(true);
         }
-
         //check quantity
         int quantity = Integer.parseInt(quantity_field.getText().toString().trim());
         if (quantity < 1) {
@@ -232,12 +239,12 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         return isWrongFormat;
     }
 
-    //Lastly checks if images is selected
+    //---------------------Lastly this checks if images is selected
     private boolean nullImage() {
         Resources resources  = getResources();
         boolean res = false;
 
-        //check image is not empty
+        //check image if not empty
         final ImageView img  = (ImageView)findViewById(R.id.image_val);
         final Bitmap bmap = ((BitmapDrawable)img.getDrawable()).getBitmap();
 
@@ -250,15 +257,33 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             cardView.setCardBackgroundColor(resources.getColor(R.color.red_border));
             display_messageDialog("Image cannot be empty.");
         }
-
         return res;
     }
 
-    //Message Dialog that notifies user
+    //----------------This Reset the fields after successfull add
+    public void resetFields() {
+        name_field.setText("");
+        barcode_field.setText("");
+        description_field.setText("");
+        quantity_field.setText("");
+        price_field.setText("");
+        resulttextview.setText("");
+
+        cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable myDrawable = getResources().getDrawable(R.drawable.image_100px);
+        imageView.setImageBitmap(((BitmapDrawable) myDrawable).getBitmap());
+
+        cardView.setFocusableInTouchMode(true);
+        cardView.requestFocus();
+    }
+
+    //----------------------Message Dialog that notifies user
     private void display_messageDialog(String message) {
         Dialog dialog1 = new Dialog(this);
         dialogClass dialog = new dialogClass();
 
+        cardView.setFocusableInTouchMode(true);
+        cardView.requestFocus();
         dialog.simpleDialog(dialog1, message); //--> show simple dialog
     }
     //-----------------------------------------------------------

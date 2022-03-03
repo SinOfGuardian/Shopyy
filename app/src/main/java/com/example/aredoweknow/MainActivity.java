@@ -34,13 +34,10 @@ public class MainActivity extends AppCompatActivity {
         }, 100);
         //------------------------------------------------------
 
-
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
 //                Intent activity = new Intent(MainActivity.this, AddItem.class);
-//                Intent activity = new Intent(MainActivity.this, DashboardNew.class);
-//                 Intent activity = new Intent(MainActivity.this, DashboardNew.class);
 
                 String cred[] = db.getCredentials();
 
