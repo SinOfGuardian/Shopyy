@@ -12,8 +12,8 @@ import java.io.IOException;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
-    private static final String DATABASE_NAME = "shopyy_db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "Shopyy";
     private static final String TABLE_NAME = "item";
     private static final String KEY_ID = "id";
     public static final String KEY_ITEM = "itemname";
@@ -35,7 +35,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_NAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_ITEM + " TEXT,"
-                + KEY_IMAGE + " BLOB NOT NULL,"
+                + KEY_IMAGE + " BLOB NOT NULL ,"
                 + KEY_BARCODE + " TEXT,"
                 + KEY_DESCRIPTION + " TEXT,"
                 + KEY_QUANTITY + " INTEGER,"
@@ -53,76 +53,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // code to add the new item
-    public long additem(String iTEM, String bARCODE, String dESCRIPTION, int qUANTITY, double pRICE, Uri path) {
+    public long insertItem(String item, String barc, String desc, int quant, double price, byte[] img) {
         db = this.getWritableDatabase();
 
-        try {
-            System.out.println(path.toString());
-//            FileInputStream fs = new FileInputStream(path.toString());
-//            byte[] imgbyte = new byte[fs.available()];
-//            fs.read(imgbyte);
-            ContentValues values = new ContentValues();
-            values.put(KEY_ITEM, iTEM); // ITEM NAME
-            values.put(KEY_IMAGE, path); // ITEM IMAGE
-            values.put(KEY_BARCODE, bARCODE); // ITEM BARCODE
-            values.put(KEY_DESCRIPTION, dESCRIPTION); // ITEM DESCRIPTION
-            values.put(KEY_QUANTITY, qUANTITY); // ITEM QUANTITY
-            values.put(KEY_PRICE, pRICE); // ITEM PRICE
+        ContentValues values = new ContentValues();
+        values.put(KEY_ITEM, item);                 // ITEM NAME
+        values.put(KEY_IMAGE, item);                 // ITEM IMAGE
+        values.put(KEY_BARCODE, barc);              // ITEM BARCODE
+        values.put(KEY_DESCRIPTION, desc);          // ITEM DESCRIPTION
+        values.put(KEY_QUANTITY, quant);            // ITEM QUANTITY
+        values.put(KEY_PRICE, price);               // ITEM PRICE
 
-            long l1 = db.insert(TABLE_NAME, null, values);
-//            fs.close();
-            return l1;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return -1;
-        }
+        long result = db.insert(TABLE_NAME, null, values);
+        return result;
     }
-
-        //WALA ITO hayaan mo lang
-//    // code to update the item
-//    public void updateitem(String uITEM, String uIMAGE, String uBARCODE, String uDESCRIPTION, String uQUANTIY, String uPRICE) {
-//        db = this.getWritableDatabase();
-//        FileInputStream fs = new FileInputStream(uIMAGE);
-//        byte[] uimgbyte = new byte[fs.available()];
-//        ContentValues values = new ContentValues();
-//        values.put(KEY_ITEM, uITEM); // ITEM NAME
-//        values.put(KEY_IMAGE, uimgbyte); // ITEM IMAGE
-//        values.put(KEY_BARCODE, uBARCODE); // ITEM BARCODE
-//        values.put(KEY_DESCRIPTION, uDESCRIPTION); // ITEM DESCRIPTION
-//        values.put(KEY_QUANTITY, uQUANTIY); // ITEM QUANTITY
-//        values.put(KEY_PRICE, uPRICE); // ITEM PRICE
-//
-//        db.update(TABLE_NAME, values, KEY_ID + "='" + 1,null);
-//        db.close();
-//    }
-
-        // code to get the value of item please edit wisely
-//    public String getAccount() {
-//        db = this.getReadableDatabase();
-//
-//        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
-//                null, null, null, null, null);
-//
-//        int eId = cursor.getColumnIndex(KEY_ID);
-//        int usern = cursor.getColumnIndex(KEY_USERNAME);
-//        int passwd = cursor.getColumnIndex(KEY_PASSWORD);
-//        int eSN = cursor.getColumnIndex(KEY_STORE);
-//
-//        String res = "";
-//
-//        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
-//            res = res +
-//                    "Id: "+cursor.getString(eId)+"\n"+
-//                    "Username: "+cursor.getString(usern)+"\n"+
-//                    "Password: "+cursor.getString(passwd)+"\n"+
-//                    "Store name: "+cursor.getString(eSN)+"\n\n";
-//        }
-//
-//        db.close();
-//        return res;
-//    }
-//    // code to glogin
 
 
         // code to update the single employee
@@ -151,6 +95,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db = this.getWritableDatabase();
             db.delete(TABLE_NAME, KEY_ID + " =" + l, null);
         }
+
+
+
+
 
 //    public String getitem(long l1){
 //        db = this.getReadableDatabase();

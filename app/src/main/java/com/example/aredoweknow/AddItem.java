@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -29,12 +30,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 
 public class AddItem extends AppCompatActivity implements View.OnFocusChangeListener {
 
     AppCompatImageButton backbtn;
-    Button cameraBTN, GalleryBTN, AddBTN, AddITEMBTN;
+    Button cameraBTN, GalleryBTN, AddBTN;
     ImageButton scanBTN;
 
     DatabaseHandler dataHandler;
@@ -45,6 +47,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 
     ImageView imageView;
     Uri selectedImage;
+    Bitmap captureImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,22 +121,28 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                 if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
 //                    TODO Add Data to database
 
-                    String name = name_field.getText().toString();
-                    String  barcode = barcode_field.getText().toString();
-                    String description = description_field.getText().toString();
-                    Integer quantity = Integer.parseInt(quantity_field.getText().toString());
-                    Double price = Double.parseDouble(price_field.getText().toString());
+                    String name = name_field.getText().toString().trim();
+                    String  barcode = barcode_field.getText().toString().trim();
+                    String description = description_field.getText().toString().trim();
+                    Integer quantity = Integer.parseInt(quantity_field.getText().toString().trim());
+                    Double price = Double.parseDouble(price_field.getText().toString().trim());
 
-                    if (dataHandler.additem(name, barcode, description, quantity, price, selectedImage) > -1) {
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.add_28px);
+//                    Bitmap bitmap = captureImage;
+                    ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
+
+                    byte[] img = byteArray.toByteArray();
+
+                    if (dataHandler.insertItem(name, barcode, description, quantity, price, img) > -1) {
                         Toast.makeText(AddItem.this, "Added Successfully", Toast.LENGTH_LONG).show();
-                        Toast.makeText(AddItem.this, "yehey Successfully", Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(AddItem.this, "-ERRRRRRRRRRRRRRRRRRRRROR-", Toast.LENGTH_LONG).show();
                     }
 
                 }
             }
         });
-
-
 
         name_field.setOnFocusChangeListener(this);
         barcode_field.setOnFocusChangeListener(this);
@@ -141,6 +150,8 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         quantity_field.setOnFocusChangeListener(this);
         price_field.setOnFocusChangeListener(this);
     }
+
+
     //--------------Removes Warning on Text Fields when received focus
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
@@ -155,13 +166,19 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100) {
+
             //Capture Image
-            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+            captureImage = (Bitmap) data.getExtras().get("data");  //----> Bitmap
             //set capture image to image view
             imageView.setImageBitmap(captureImage);
         }
+
+        //Choose Image
         if(resultCode == RESULT_OK && data != null){
-            selectedImage = data.getData();
+
+            //choose image
+            selectedImage = data.getData();                         //---> Uri
+            //set selected image to image view
             imageView.setImageURI(selectedImage);
         }
     }
