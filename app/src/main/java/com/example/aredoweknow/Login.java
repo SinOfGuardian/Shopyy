@@ -136,7 +136,6 @@ public class Login extends AppCompatActivity {
         boolean isExist = true;
         isExist = db.ifUsernameExist(username);
 
-
         if(!isExist) {
             user_field.setSelected(true);
             pass_field.setSelected(true);
@@ -147,7 +146,6 @@ public class Login extends AppCompatActivity {
     private boolean passwordLogIn(String password) {
         boolean isExist = true;
         isExist =db.ifPasswordExist(password) ;
-
 
         if(!isExist) {
             pass_field.setSelected(true);

@@ -11,7 +11,7 @@ import android.graphics.BitmapFactory;
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "Shopyy";
+    private static final String DATABASE_NAME = "Shopyy_Items";
     private static final String TABLE_NAME = "item";
     private static final String KEY_ID = "id";
     public static final String KEY_ITEM = "itemname";
@@ -51,7 +51,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertItem(String item, byte[] img, String barc, String desc, int quant, double price) {
+    public long insertItem(String item, byte[] img, String barc, String desc, int quant, double price) {
         db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -64,6 +64,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         long result = db.insert(TABLE_NAME, null, values);
         db.close();//closing database
+        return result;
     }
     public String itemName(String id){
         SQLiteDatabase db = this.getWritableDatabase();

@@ -24,7 +24,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.aredoweknow.databinding.ActivityDashboardNewBinding;
-import com.google.android.material.snackbar.Snackbar;
 
 public class DashboardNew extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private AppBarConfiguration mAppBarConfiguration;
@@ -65,7 +64,6 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
             db.updateCred(user_name, store_name, reset);
         }
 
-
 //        binding.appBarDashboardNew.fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -77,7 +75,7 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = binding.navView;
 
         // Passing each menu ID as a set of Ids because each menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_list, R.id.nav_feedback, R.id.nav_about, R.id.logoutClass).setOpenableLayout(drawer).build();
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_list, R.id.nav_feedback, R.id.nav_about).setOpenableLayout(drawer).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_dashboard_new);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -138,20 +136,22 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        new AlertDialog.Builder(this)
-                .setIcon(getDrawable(R.drawable.shopyy_icon))
-                .setTitle("Shopyy")
-                .setMessage("Do you want to Logout?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        db.updateCred("","",user_name);
-                        finish();
-                        Intent login = new Intent(DashboardNew.this, Login.class);
-                        startActivity((Intent) login);              // --> Start Login Activity
-                    }
+        if (item.getItemId() == R.id.action_settings) {
+            new AlertDialog.Builder(this)
+                    .setIcon(getDrawable(R.drawable.shopyy_icon))
+                    .setTitle("Shopyy")
+                    .setMessage("Do you want to Logout?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            db.updateCred("","",user_name);
+                            finish();
+                            Intent login = new Intent(DashboardNew.this, Login.class);
+                            startActivity((Intent) login);              // --> Start Login Activity
+                        }
 
-                }).setNegativeButton("No", null).show();
+                    }).setNegativeButton("No", null).show();
+        }
         return super.onOptionsItemSelected(item);
     }
 
