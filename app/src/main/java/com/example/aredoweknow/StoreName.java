@@ -16,7 +16,8 @@ import android.widget.TextView;
 public class StoreName extends AppCompatActivity {
     EditText textField;
 
-    public String username = "";
+    private String username = "";
+    private String store = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class StoreName extends AppCompatActivity {
         textField = findViewById(R.id.storeNameField);
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
+
         textField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -38,12 +40,18 @@ public class StoreName extends AppCompatActivity {
 
     //------------------Finish Function & Prompt Dialog for empty input-------------------
     public void finistBtn_clicked(View view) {
-        if (!textField.getText().toString().trim().equals("")) {
+        store = textField.getText().toString().trim();
+
+        if (!store.equals("")) {
             Database db = new Database(this);
             db.updateStore(username, textField.getText().toString());
 
             finish();
-            startActivity(new Intent(this, DashboardNew.class));
+
+            Intent intent = new Intent(this, DashboardNew.class);
+            intent.putExtra("username", username);
+            intent.putExtra("store", store);
+            startActivity(intent);
         }else {
             Dialog dialog1 = new Dialog(this);
             dialogClass dialog = new dialogClass();
