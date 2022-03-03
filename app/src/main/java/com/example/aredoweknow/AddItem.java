@@ -8,7 +8,6 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -16,7 +15,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -28,15 +26,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
-
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 
 public class AddItem extends AppCompatActivity implements View.OnFocusChangeListener {
 
     AppCompatImageButton backbtn;
-    Button cameraBTN, GalleryBTN, AddBTN;
+    Button cameraBTN, GalleryBTN, AddBTN, AddITEMBTN;
     ImageButton scanBTN;
 
     DatabaseHandler dataHandler;
@@ -44,10 +39,11 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
     public static EditText resulttextview;
 
     EditText name_field, barcode_field, description_field, quantity_field, price_field;
-
+    Bitmap captureImage;
     ImageView imageView;
     Uri selectedImage;
-    Bitmap captureImage;
+    Bitmap imageDB;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +60,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 
         dataHandler = new DatabaseHandler(this);
 
-      
+
         //--------------CAMERA CODE
         imageView = findViewById(R.id.image_val);
 
@@ -121,28 +117,26 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                 if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
 //                    TODO Add Data to database
 
-                    String name = name_field.getText().toString().trim();
-                    String  barcode = barcode_field.getText().toString().trim();
-                    String description = description_field.getText().toString().trim();
-                    Integer quantity = Integer.parseInt(quantity_field.getText().toString().trim());
-                    Double price = Double.parseDouble(price_field.getText().toString().trim());
+                    String name = name_field.getText().toString();
+                    String  barcode = barcode_field.getText().toString();
+                    String description = description_field.getText().toString();
+                    Integer quantity = Integer.parseInt(quantity_field.getText().toString());
+                    double price = Double.parseDouble(price_field.getText().toString());
 
-                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.add_28px);
-//                    Bitmap bitmap = captureImage;
+                    Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+//                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.image_val);
                     ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
-
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
                     byte[] img = byteArray.toByteArray();
 
-                    if (dataHandler.insertItem(name, barcode, description, quantity, price, img) > -1) {
-                        Toast.makeText(AddItem.this, "Added Successfully", Toast.LENGTH_LONG).show();
-                    }else {
-                        Toast.makeText(AddItem.this, "-ERRRRRRRRRRRRRRRRRRRRROR-", Toast.LENGTH_LONG).show();
-                    }
+                    //------------image insert to database
+                    dataHandler.insertItem(name, img, barcode,description, quantity,price);
+//                    Toast.makeText(AddItem.this, "DATABASE SUCCESSFUL YOU FUCKER!!", Toast.LENGTH_SHORT).show();
 
                 }
             }
         });
+
 
         name_field.setOnFocusChangeListener(this);
         barcode_field.setOnFocusChangeListener(this);
@@ -150,8 +144,6 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         quantity_field.setOnFocusChangeListener(this);
         price_field.setOnFocusChangeListener(this);
     }
-
-
     //--------------Removes Warning on Text Fields when received focus
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
@@ -166,19 +158,12 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100) {
-
             //Capture Image
-            captureImage = (Bitmap) data.getExtras().get("data");  //----> Bitmap
-            //set capture image to image view
+            captureImage = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(captureImage);
         }
-
-        //Choose Image
         if(resultCode == RESULT_OK && data != null){
-
-            //choose image
-            selectedImage = data.getData();                         //---> Uri
-            //set selected image to image view
+            selectedImage = data.getData();
             imageView.setImageURI(selectedImage);
         }
     }
@@ -252,9 +237,10 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         Resources resources  = getResources();
         boolean res = false;
 
-//        //check image if not empty
+        //check image is not empty
         final ImageView img  = (ImageView)findViewById(R.id.image_val);
         final Bitmap bmap = ((BitmapDrawable)img.getDrawable()).getBitmap();
+
         @SuppressLint("UseCompatLoadingForDrawables") Drawable myDrawable = getResources().getDrawable(R.drawable.image_100px);
         final Bitmap myLogo = ((BitmapDrawable) myDrawable).getBitmap();
 
