@@ -29,16 +29,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+
 public class AddItem extends AppCompatActivity implements View.OnFocusChangeListener {
 
     AppCompatImageButton backbtn;
-    Button cameraBTN, GalleryBTN, AddBTN;
+    Button cameraBTN, GalleryBTN, AddBTN, AddITEMBTN;
     ImageButton scanBTN;
+
+    DatabaseHandler dataHandler;
 
     public static EditText resulttextview;
 
     EditText name_field, barcode_field, description_field, quantity_field, price_field;
+
     ImageView imageView;
+    Uri selectedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,8 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         description_field = findViewById(R.id.description_val);
         quantity_field = findViewById(R.id.quantity_val);
         price_field = findViewById(R.id.price_val);
+
+        dataHandler = new DatabaseHandler(this);
 
       
         //--------------CAMERA CODE
@@ -109,10 +117,23 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             public void onClick(View v) {
                 if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
 //                    TODO Add Data to database
-                    Toast.makeText(AddItem.this, "Added Successfully", Toast.LENGTH_LONG).show();
+
+                    String name = name_field.getText().toString();
+                    String  barcode = barcode_field.getText().toString();
+                    String description = description_field.getText().toString();
+                    Integer quantity = Integer.parseInt(quantity_field.getText().toString());
+                    Double price = Double.parseDouble(price_field.getText().toString());
+
+                    if (dataHandler.additem(name, barcode, description, quantity, price, selectedImage) > -1) {
+                        Toast.makeText(AddItem.this, "Added Successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddItem.this, "yehey Successfully", Toast.LENGTH_LONG).show();
+                    }
+
                 }
             }
         });
+
+
 
         name_field.setOnFocusChangeListener(this);
         barcode_field.setOnFocusChangeListener(this);
@@ -140,8 +161,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             imageView.setImageBitmap(captureImage);
         }
         if(resultCode == RESULT_OK && data != null){
-            Uri selectedImage = data.getData();
-            ImageView imageView = findViewById(R.id.image_val);
+            selectedImage = data.getData();
             imageView.setImageURI(selectedImage);
         }
     }
