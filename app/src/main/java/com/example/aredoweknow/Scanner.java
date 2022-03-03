@@ -1,6 +1,7 @@
 package com.example.aredoweknow;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.util.Log;
 import android.os.Bundle;
@@ -13,9 +14,9 @@ import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class Scanner extends AppCompatActivity implements ZXingScannerView.ResultHandler{
+    boolean shouldISearch;
 
     int MY_PERMISSIONS_REQUEST_CAMERA=0;
-
     ZXingScannerView scannerView;
 
     @Override
@@ -23,14 +24,26 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
         super.onCreate(savedInstanceState);
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
+
+        Intent intent = getIntent();
+        shouldISearch = intent.getBooleanExtra("Search", false);
     }
 
     //--> RESULT
     @Override
     public void handleResult(Result result) {
-        AddItem.resulttextview.setText(result.getText());
-        onBackPressed();
-    }
+//        onBackPressed();
+
+        if(shouldISearch) {
+            Intent intent = new Intent(this, Web.class);
+            intent.putExtra("ToSearch", result.getText());
+            startActivity(intent);
+        }else {
+            AddItem.resulttextview.setText(result.getText());
+        }
+
+        finish();
+     }
 
     @Override
     protected void onPause() {

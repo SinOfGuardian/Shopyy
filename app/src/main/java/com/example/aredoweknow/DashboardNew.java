@@ -1,5 +1,6 @@
 package com.example.aredoweknow;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuInflater;
@@ -67,6 +68,7 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DashboardNew.this, Web.class);
+                intent.putExtra("ToSearch", "");
                 startActivity(intent);
             }
         });
@@ -77,6 +79,7 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DashboardNew.this, Scanner.class);
+                intent.putExtra("Search", true);
                 startActivity(intent);
             }
         });

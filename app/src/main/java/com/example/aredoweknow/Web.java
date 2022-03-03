@@ -14,6 +14,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class Web extends AppCompatActivity {
+    String customSearch;
 
     private WebView webview;
     private AppCompatImageButton back_btn;
@@ -24,14 +25,24 @@ public class Web extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
 
+        customSearch = getIntent().getStringExtra("ToSearch");
+
         webview = findViewById(R.id.webview1);
         back_btn = findViewById(R.id.web_back_btn);
 
-        webview.setWebViewClient(new WebViewClient());
-        webview.loadUrl("http://www.google.com");
 
+        webview.setWebViewClient(new WebViewClient());
+//        webview.loadUrl("https://www.google.com/");
+
+        webview.getSettings().setLoadsImagesAutomatically(true);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
+
+        if(!customSearch.equals("")) {
+            webview.loadUrl("https://www.google.com/search?q="+customSearch);
+        }else {
+            webview.loadUrl("https://www.google.com/");
+        }
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,11 +61,12 @@ public class Web extends AppCompatActivity {
         }, 100);
     }
 
+
     @Override
     public void onBackPressed() {
         if (webview.canGoBack()) {
             webview.goBack();
-        }else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -69,7 +81,7 @@ public class Web extends AppCompatActivity {
         if (wifiManager != null) {
             if (state && !wifiManager.isWifiEnabled()) {
                 wifiManager.setWifiEnabled(state);
-            }else if (!state && wifiManager.isWifiEnabled()) {
+            } else if (!state && wifiManager.isWifiEnabled()) {
                 wifiManager.setWifiEnabled(state);
             }
         }
