@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Database extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "shopyy_db";
     private static final String TABLE_NAME = "account";
     private static final String KEY_ID = "id";
@@ -16,6 +16,8 @@ public class Database extends SQLiteOpenHelper {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_STORE = "storename";
 
+
+    private static final String TABLE2_CRED = "user_credential";
 
     SQLiteDatabase db;
     public Database(Context context) {
@@ -25,11 +27,17 @@ public class Database extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // -->Table 1
         String query = "CREATE TABLE " + TABLE_NAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_USERNAME + " TEXT,"
                 + KEY_PASSWORD + " TEXT,"
                 + KEY_STORE + " TEXT " + ")";
         db.execSQL(query);
+
+//         -->Table 2
+        String query2 = "CREATE TABLE " + TABLE2_CRED + "("
+                + KEY_USERNAME + " TEXT," +  KEY_STORE + " TEXT " + ")";
+        db.execSQL(query2);
     }
 
     // Upgrading database
@@ -37,11 +45,10 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE2_CRED);
         // Create tables again
         onCreate(db);
     }
-
 
     // code to add the new employee
     public long addaccount(String userNM, String passWD, String storeNM) {
@@ -64,6 +71,13 @@ public class Database extends SQLiteOpenHelper {
         db.update(TABLE_NAME, values, KEY_USERNAME + "='" + username + "'",null);
         db.close();
     }
+
+
+
+
+
+
+
 
     // code to get the single employee
     public String getAccount() {
@@ -90,11 +104,7 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return res;
     }
-    // code to glogin
-
-
-
-
+    // code to login
 
     // code to update the single employee
     public void updateAccount(long l, String name, String age, String city) {
@@ -153,6 +163,9 @@ public class Database extends SQLiteOpenHelper {
         return null;
     }
 
+
+
+    //------------------------------IMPORTANT (IN USE)---------------------------------------------
     public boolean ifUsernameExist(String username) {
         db = this.getReadableDatabase();
         boolean result = false;
@@ -182,22 +195,64 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public boolean ifStoreExist(String username) {
+    public String ifStoreExist(String username) {
         db = this.getReadableDatabase();
         boolean result = false;
 
         Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
                 KEY_USERNAME + "='" + username + "'", null, null, null, null, null);
 
+        String storename = "";
         if (cursor.moveToFirst()) {
-            String storename = "";
             storename = cursor.getString(3);
 
-            if(!storename.equals("")) {
-                result = true;
-            }
+//            if(!storename.equals("")) {
+//                result = true;
+//            }
         }
-        return result;
+        return storename;
     }
 
+
+
+    //------------------------------IMPORTANT (IN USE)---------------------------------------------
+    public String[] getCredentials() {
+        db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE2_CRED, new String[] {KEY_USERNAME,KEY_STORE},
+                null, null, null, null, null);
+
+        String storename[] = {"",""};
+        if (cursor.moveToFirst()) {
+            storename[0] = cursor.getString(0);
+            storename[1] = cursor.getString(1);
+            return storename;
+        }
+
+        return null;
+    }
+
+    // code to add to Credentials
+    public long addToCred(String username, String store) {
+        db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_USERNAME, username); // userName
+        values.put(KEY_STORE, store); // Store Name
+
+        return db.insert(TABLE2_CRED, null, values);
+    }
+
+    // code to update the single employee
+    public void updateCred(String name, String store, String ref) {
+        db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_USERNAME, name); // Employee Name
+        values.put(KEY_STORE, store); // Employee City
+
+        db.update(TABLE2_CRED, values,KEY_USERNAME + "='" + ref + "'", null);
+        db.close();
+    }
+    //------------------------------IMPORTANT (IN USE)---------------------------------------------
 }

@@ -16,7 +16,7 @@
 
         <item android:title="Others">
 
-            <menu>
+<!--            <menu>-->
                 <item
                     android:id="@+id/nav_feedback"
                     android:icon="@drawable/feedback_28px"
@@ -25,11 +25,11 @@
                     android:id="@+id/nav_about"
                     android:icon="@drawable/about_28px"
                     android:title="About Us" />
-                <item
-                    android:id="@+id/logoutClass"
-                    android:icon="@drawable/logout_28px"
-                    android:title="Log out"/>
-            </menu>
+<!--                <item-->
+<!--                    android:id="@+id/logoutClass"-->
+<!--                    android:icon="@drawable/logout_28px"-->
+<!--                    android:title="Log out"/>-->
+<!--            </menu>-->
 
         </item>
 

@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private Animation bounce;
     private AppCompatImageView logo;
 
+    private Database db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
         logo = findViewById(R.id.logo);
         bounce = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bounce_anim);
+
+        db = new Database(this);
 
         //-------------This is the Bounce Animation------------
         Handler handler = new Handler();
@@ -31,19 +34,27 @@ public class MainActivity extends AppCompatActivity {
         }, 100);
         //------------------------------------------------------
 
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-//                Intent activity = new Intent(MainActivity.this, Login.class);
-
-                Intent activity = new Intent(MainActivity.this, DashboardNew.class);
 //                Intent activity = new Intent(MainActivity.this, AddItem.class);
-
 //                Intent activity = new Intent(MainActivity.this, DashboardNew.class);
 //                 Intent activity = new Intent(MainActivity.this, DashboardNew.class);
 
-                startActivity((Intent) activity); // --> Start Login Activity
-                finish(); // --> prevent user from coming back to this activity
+                String cred[] = db.getCredentials();
+
+                if (cred == null || cred[0].equals("") || cred[1].equals("")) {
+                    Intent login = new Intent(MainActivity.this, Login.class);
+                    startActivity((Intent) login);              // --> Start Login Activity
+                }else {
+                    Intent dashboard = new Intent(MainActivity.this, DashboardNew.class);
+                    dashboard.putExtra("username", cred[0]);
+                    dashboard.putExtra("store", cred[1]);
+                    startActivity((Intent) dashboard);       // --> Start Dashboard Activity
+                }
+
+                finish();                                   // --> prevent user from coming back to this activity
             }
         }, 2000);
 

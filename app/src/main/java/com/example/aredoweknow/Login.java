@@ -69,8 +69,13 @@ public class Login extends AppCompatActivity {
         //Login SQL Function Starts Here
         if (!isFieldsEmpty()) {
           if (usernameLogIn(userNMLOGIN) && passwordLogIn(passLOGIN)) {
-            if (db.ifStoreExist(userNMLOGIN)) {
-                startActivity(new Intent(this, DashboardNew.class));
+              String storeCred = db.ifStoreExist(userNMLOGIN);
+
+            if (!storeCred.equals("")) {
+                Intent intent = new Intent(this, DashboardNew.class);
+                intent.putExtra("username", userNMLOGIN);
+                intent.putExtra("store", storeCred);
+                startActivity(intent);
             }else{
                 Intent intent = new Intent(getApplicationContext(),StoreName.class);
                 intent.putExtra("username", userNMLOGIN);
