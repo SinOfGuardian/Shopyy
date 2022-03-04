@@ -16,13 +16,7 @@ public class About extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_about, container, false);
-        button = (Button) view.findViewById(R.id.aboutBTN);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "ABOUT US", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         return view;
     }
 }
