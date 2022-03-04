@@ -19,10 +19,12 @@
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_scanner.xml" value="0.2" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_store_name.xml" value="0.22" />
-        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/app_bar_dashboard_new.xml" value="0.22" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_web.xml" value="0.5" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/app_bar_dashboard_new.xml" value="0.25" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/content_dashboard_new.xml" value="0.33" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/dialog_alert.xml" value="0.33" />
-        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/fragment_feedback.xml" value="0.2" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/fragment_about.xml" value="0.25" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/fragment_feedback.xml" value="0.25" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/nav_header_dashboard_new.xml" value="0.2" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/menu/activity_main_drawer.xml" value="0.2" />
@@ -36,7 +38,7 @@
         <entry key="..\:/Users/natha/AndroidStudioProjects/AreDoWeKnow/app/src/main/res/layout/dashboard.xml" value="0.25" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/AreDoWeKnow/app/src/main/res/layout/register.xml" value="0.264" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/layout-v23/nav_header.xml" value="0.1" />
-        <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/layout/activity_add_item.xml" value="0.264" />
+        <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/layout/activity_add_item.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/layout/activity_dashboard.xml" value="0.22777777777777777" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/layout/activity_dashboard_new.xml" value="0.25" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/layout/activity_login.xml" value="0.25" />
@@ -58,7 +60,7 @@
         <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/layout/nav_header_dashboard_new.xml" value="0.25" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/layout/nav_items.xml" value="0.2359375" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/menu/activity_main_drawer.xml" value="0.1703125" />
-        <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/menu/dashboard_new.xml" value="0.4" />
+        <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/menu/dashboard_new.xml" value="0.1703125" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/menu/nav_items.xml" value="0.25" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/menu/navigation_menu.xml" value="0.25" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.242" />
