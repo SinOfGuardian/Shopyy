@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,8 +44,9 @@ public class Home extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         rv = view.findViewById(R.id.recycleViewLinear);
         rv.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        rv.setLayoutManager(layoutManager);
+        RecyclerView.LayoutManager gridLayoutManager = new LinearLayoutManager(getContext());
+        //gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        rv.setLayoutManager(gridLayoutManager);
 
         //---Show Items
         displayITEMS();
@@ -84,7 +86,7 @@ public class Home extends Fragment {
         }
 
         adapter my = new adapter(getContext(),al);
-        
+
         rv.setAdapter(my);
     }
 
