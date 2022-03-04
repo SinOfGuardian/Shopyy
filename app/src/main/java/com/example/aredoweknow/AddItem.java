@@ -28,6 +28,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.aredoweknow.fragments_folder.Home;
+
 import java.io.ByteArrayOutputStream;
 
 public class AddItem extends AppCompatActivity implements View.OnFocusChangeListener {
@@ -125,6 +127,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                     double price = Double.parseDouble(price_field.getText().toString());
 
                     Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                    Bitmap.createScaledBitmap(bitmap,100,100,false);
 //                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.image_val);
                     ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
@@ -135,6 +138,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                     if (res > 0) {
                         Toast.makeText(AddItem.this, name + " Added Recently", Toast.LENGTH_SHORT).show();
                         display_messageDialog("Item Added Successfully.");
+                        Intent i = new Intent(AddItem.this, Home.class);
                         resetFields();
                     }else {
                         Toast.makeText(AddItem.this, "Adding " + name + " Item Failed!", Toast.LENGTH_SHORT).show();
@@ -166,16 +170,26 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-            //Capture Image
-            captureImage = (Bitmap) data.getExtras().get("data");
+        try {
+            if (requestCode == 100) {
+                //Capture Image
+                assert data != null;
+                captureImage = (Bitmap) data.getExtras().get("data");
+//                Bitmap.createScaledBitmap(captureImage,100,100,false);
+                imageView.setImageBitmap(captureImage);
+            }
+            if(resultCode == RESULT_OK && data != null){
+                selectedImage = data.getData();
+                captureImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(),selectedImage);
+//                imageView.setImageURI(selectedImage);
+            }
+
+            Bitmap.createScaledBitmap(captureImage,100,100,false);
             imageView.setImageBitmap(captureImage);
+            cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
+        }catch (Exception e) {
+            e.printStackTrace();
         }
-        if(resultCode == RESULT_OK && data != null){
-            selectedImage = data.getData();
-            imageView.setImageURI(selectedImage);
-        }
-        cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
     }
 
     //---------------------------This checks if one or more fields are empty-

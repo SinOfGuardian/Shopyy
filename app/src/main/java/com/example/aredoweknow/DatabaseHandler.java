@@ -104,6 +104,134 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.delete(TABLE_NAME, KEY_ID + " ="+l,null);
     }
 
+    // code to get the single employee
+       public String getEmployee() {
+                   db = this.getReadableDatabase();
+
+                   Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_ITEM,KEY_IMAGE,KEY_BARCODE,KEY_DESCRIPTION,KEY_QUANTITY,KEY_PRICE},
+                                   null, null, null, null, null, null);
+
+                    int eId = cursor.getColumnIndex(KEY_ID);
+                    int eItem = cursor.getColumnIndex(KEY_ITEM);
+                    int eImage = cursor.getColumnIndex(KEY_IMAGE);
+                    int eBarcode = cursor.getColumnIndex(KEY_BARCODE);
+                    int eDescription = cursor.getColumnIndex(KEY_DESCRIPTION);
+                    int eQuantiy = cursor.getColumnIndex(KEY_QUANTITY);
+                    int ePrice = cursor.getColumnIndex(KEY_PRICE);
+
+                   String res = "";
+
+                   for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
+                           res = res +
+                                            "Image:: "+cursor.getString(eImage)+"\n"+
+                                           "Name: "+cursor.getString(eItem)+"\n"+
+                                            "Price: "+cursor.getString(ePrice)+"\n\n";
+
+
+                       }
+
+                   db.close();
+                   return res;
+               }
+
+//-------------------GET DATA------------
+    public Cursor getData(){
+        db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("select * from item", null);
+        return c;
+    }
+
+
+               //getITEMMMMM
+    public String getItem(long l1){
+        db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_ITEM,KEY_IMAGE,KEY_BARCODE,KEY_DESCRIPTION,KEY_QUANTITY,KEY_PRICE},
+                KEY_ID+"="+l1, null, null, null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            String item = cursor.getString(1);
+            return  item;
+        }
+        return null;
+    }
+//--------------GET IMAGE
+    public Bitmap getImage(long l1){
+    db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_ITEM,KEY_IMAGE,KEY_BARCODE,KEY_DESCRIPTION,KEY_QUANTITY,KEY_PRICE},
+            KEY_ID+"="+l1, null, null, null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+
+            byte[] bitmap = cursor.getBlob(2);
+            Bitmap image = BitmapFactory.decodeByteArray(bitmap, 0 , bitmap.length);
+            return image;
+     }
+        return null;
+    }
+
+    //-------------------GET BARCODE
+    public String getbarcode(long l1){
+        db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_ITEM,KEY_IMAGE,KEY_BARCODE,KEY_DESCRIPTION,KEY_QUANTITY,KEY_PRICE},
+                KEY_ID+"="+l1, null, null, null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            String barcode = cursor.getString(3);
+            return  barcode;
+        }
+        return null;
+    }
+
+    //-------------GET DESCRIPTION
+    public String getdescription(long l1){
+        db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_ITEM,KEY_IMAGE,KEY_BARCODE,KEY_DESCRIPTION,KEY_QUANTITY,KEY_PRICE},
+                KEY_ID+"="+l1, null, null, null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            String description = cursor.getString(4);
+            return  description;
+        }
+        return null;
+    }
+//------------------GET QUANTITY
+
+    public String getquantity(long l1){
+        db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_ITEM,KEY_IMAGE,KEY_BARCODE,KEY_DESCRIPTION,KEY_QUANTITY,KEY_PRICE},
+                KEY_ID+"="+l1, null, null, null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            String quantity = cursor.getString(5);
+            return  quantity;
+        }
+        return null;
+    }
+    //----------------------------GET PRICE
+    public String getprice(long l1){
+        db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_ITEM,KEY_IMAGE,KEY_BARCODE,KEY_DESCRIPTION,KEY_QUANTITY,KEY_PRICE},
+                KEY_ID+"="+l1, null, null, null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            String price = cursor.getString(5);
+            return  price;
+        }
+        return null;
+    }
+
 }
 
 
@@ -112,53 +240,3 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 
-//    public String getitem(long l1){
-//        db = this.getReadableDatabase();
-//         try {
-//        Cursor cursor = db.query(TABLE_NAME, new String[]{KEY_ID, KEY_ITEM, KEY_IMAGE, KEY_BARCODE, KEY_DESCRIPTION, KEY_QUANTITY, KEY_PRICE},
-//                KEY_ID + "=" + l1, null, null, null, null, null, null, null);
-//
-//        if (cursor != null) {
-//            cursor.moveToFirst();
-//            byte[] imgbyte = cursor.getBlob(0);
-//
-//            String gitem = cursor.getString(1);
-//            return gitem;
-//             }
-//          }catch (IOException e) {
-//         e.printStackTrace();
-//
-//        }
-//        return null;
-   // }
-//
-//    public String getPASSword(long l1){
-//        db = this.getReadableDatabase();
-//
-//        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
-//                KEY_ID+"="+l1, null, null, null, null);
-//
-//        if (cursor != null) {
-//            cursor.moveToFirst();
-//            String age = cursor.getString(2);
-//            return  age;
-//        }
-//        return null;
-//    }
-//
-//    public String getstoreNAME(long l1){
-//        db = this.getReadableDatabase();
-//
-//        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_STORE},
-//                KEY_ID+"="+l1, null, null, null, null);
-//
-//        if (cursor != null) {
-//            cursor.moveToFirst();
-//            String store = cursor.getString(3);
-//            return  store;
-//        }
-//        return null;
-//    }
-
-
-  //  }
