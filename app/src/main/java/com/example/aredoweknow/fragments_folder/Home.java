@@ -1,15 +1,19 @@
 package com.example.aredoweknow.fragments_folder;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.CursorWindow;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -33,9 +37,8 @@ public class Home extends Fragment {
     byte[] imagebyte;
 
     Cursor c;
-    DatabaseHandler datahandle;
 
-    ArrayList<GetterSetter> al = new ArrayList<>();
+//    ArrayList<GetterSetter> al = new ArrayList<>();
     DatabaseHandler mydb;
 
     Button click;
@@ -48,14 +51,25 @@ public class Home extends Fragment {
         //gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         rv.setLayoutManager(gridLayoutManager);
 
-        //---Show Items
-        displayITEMS();
 
+        //---Show Items
+        Handler handler = new Handler();
+        handler.postAtTime(new Runnable() {
+            @Override
+            public void run() {
+                displayITEMS();
+            }
+        }, 1);
+
+
+//        Toast.makeText(getContext(), "Welcome to Home", Toast.LENGTH_SHORT).show();
     return view;
 }
 
     private void displayITEMS() {
+        ArrayList<GetterSetter> al = new ArrayList<>();
         mydb = new DatabaseHandler(getContext());
+
         try {
             @SuppressLint("DiscouragedPrivateApi") Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
             field.setAccessible(true);
@@ -66,13 +80,12 @@ public class Home extends Fragment {
 
         c=mydb.getData();
         if(c.getCount()>0){
-
             if(c.moveToFirst()){
                 do {
                     id=c.getString(0);
                     name=c.getString(1);
-                    price=c.getString(5);
-                    quantity=c.getString(4);
+                    price=c.getString(6);
+                    quantity=c.getString(5);
                     imagebyte=c.getBlob(2);
 
                     Bitmap image = BitmapFactory.decodeByteArray(imagebyte, 0 , imagebyte.length);
@@ -86,7 +99,6 @@ public class Home extends Fragment {
         }
 
         adapter my = new adapter(getContext(),al);
-
         rv.setAdapter(my);
     }
 

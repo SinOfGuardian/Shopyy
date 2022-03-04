@@ -66,7 +66,10 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="0dp"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -90,7 +93,7 @@
                         android:scaleType="centerCrop"
                         app:srcCompat="@drawable/image_100px" />
                 </androidx.cardview.widget.CardView>
-<!--                android:scaleType="fitCenter"-->
+                <!--                android:scaleType="fitCenter"-->
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
@@ -150,6 +153,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
+                        android:maxLength="25"
                         android:layout_marginEnd="40dp"
                         android:layout_marginBottom="10dp"
                         android:autofillHints="name"
@@ -276,6 +280,7 @@
                         android:inputType="text|textNoSuggestions"
                         android:lineHeight="5dp"
                         android:maxWidth="@dimen/maxwidth_edittext"
+                        android:maxLength="80"
                         android:maxLines="1"
 
                         android:paddingStart="25dp"
@@ -323,6 +328,7 @@
                             android:inputType="numberSigned"
                             android:lineHeight="5dp"
                             android:maxWidth="@dimen/maxwidth_edittext"
+                            android:maxLength="5"
                             android:maxLines="1"
 
                             android:paddingStart="25dp"
@@ -362,9 +368,10 @@
                             android:background="@drawable/edittext_round"
                             android:hint="Price"
                             android:importantForAutofill="no"
-                            android:inputType="numberSigned"
+                            android:inputType="numberDecimal"
                             android:lineHeight="5dp"
                             android:maxWidth="@dimen/maxwidth_edittext"
+                            android:maxLength="9"
                             android:maxLines="1"
 
                             android:paddingStart="25dp"

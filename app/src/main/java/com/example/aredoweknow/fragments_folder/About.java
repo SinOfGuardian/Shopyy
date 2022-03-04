@@ -1,5 +1,7 @@
 package com.example.aredoweknow.fragments_folder;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

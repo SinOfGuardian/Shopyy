@@ -3,7 +3,9 @@ package com.example.aredoweknow;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
@@ -30,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 logo.startAnimation(bounce);
+//                SharedPreferences sf = getSharedPreferences("Shopyy SF", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sf.edit();
+//                editor.putBoolean("needRefresh", true);
+//                editor.apply();
             }
         }, 100);
         //------------------------------------------------------

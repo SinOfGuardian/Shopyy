@@ -28,6 +28,22 @@
             android:orientation="vertical"
             android:padding="8dp">
 
+            <TextView
+                android:id="@+id/quantItem2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="end"
+                android:padding="3dp"
+                android:text="Quantity:"
+                android:textSize="10sp"
+                android:textColor="@color/gray1"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/quantItem"
+                app:layout_constraintEnd_toStartOf="@+id/quantItem"
+                app:layout_constraintTop_toTopOf="@+id/quantItem"
+                app:layout_constraintVertical_bias="1.0" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/panel1"
                 android:layout_width="wrap_content"

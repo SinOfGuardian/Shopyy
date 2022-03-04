@@ -32,8 +32,9 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/fab_col3" />
-
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/bg_1" />
+<!--                android:background="@color/fab_col3"-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -41,7 +42,7 @@
                     android:paddingStart="20dp"
                     android:paddingBottom="1dp"
                     android:text="WRITE A FEEDBACK"
-                    android:textColor="@color/white"
+                    android:textColor="@color/fab_col3"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     tools:ignore="RtlSymmetry" />
