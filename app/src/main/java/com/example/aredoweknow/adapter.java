@@ -48,6 +48,7 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
         holder.panel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Toast.makeText(v.getContext(), "Clicked me", Toast.LENGTH_SHORT).show();
             }
         });
