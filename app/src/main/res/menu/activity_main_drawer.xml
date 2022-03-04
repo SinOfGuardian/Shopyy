@@ -12,7 +12,8 @@
         <item
             android:id="@+id/nav_list"
             android:icon="@drawable/cheque_28px"
-            android:title="Items Lists" />
+            android:title="Items Lists"
+            android:visible="false"/>
 
         <item android:title="Others">
 

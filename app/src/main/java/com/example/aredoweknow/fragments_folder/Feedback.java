@@ -1,7 +1,9 @@
 package com.example.aredoweknow.fragments_folder;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,7 +28,6 @@ public class Feedback extends Fragment {
         button = (Button) view.findViewById(R.id.feedback_btn);
         subject = (EditText) view.findViewById(R.id.subject_val);
         body = (EditText) view.findViewById(R.id.feedback_val);
-
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

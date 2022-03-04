@@ -11,7 +11,9 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -123,7 +125,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 //                    TODO Add Data to database
 
                     String name = name_field.getText().toString();
-                    String  barcode = barcode_field.getText().toString();
+                    String  barcode = "" + barcode_field.getText().toString();
                     String description = description_field.getText().toString();
                     int quantity = Integer.parseInt(quantity_field.getText().toString());
                     double price = Double.parseDouble(price_field.getText().toString());
@@ -151,7 +153,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         });
 
         name_field.setOnFocusChangeListener(this);
-        barcode_field.setOnFocusChangeListener(this);
+//        barcode_field.setOnFocusChangeListener(this);
         description_field.setOnFocusChangeListener(this);
         quantity_field.setOnFocusChangeListener(this);
         price_field.setOnFocusChangeListener(this);
@@ -202,10 +204,10 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             isEmpty = true;
             name_field.setSelected(true); //--> Highlight red
         }
-        if (barcode_field.getText().toString().trim().equals("")) {
-            isEmpty = true;
-            barcode_field.setSelected(true); //--> Highlight red
-        }
+//        if (barcode_field.getText().toString().trim().equals("")) {
+//            isEmpty = true;
+//            barcode_field.setSelected(true); //--> Highlight red
+//        }
         if (description_field.getText().toString().trim().equals("")) {
             isEmpty = true;
             description_field.setSelected(true); //--> Highlight red
@@ -230,11 +232,11 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         boolean isWrongFormat = false;
 
         //Check barcode
-        int length = barcode_field.getText().toString().trim().length();
-        if (length > 128 || length < 3) {
-            isWrongFormat = true;
-            barcode_field.setSelected(true);
-        }
+//        int length = barcode_field.getText().toString().trim().length();
+//        if (length > 128 || length < 3) {
+//            isWrongFormat = true;
+//            barcode_field.setSelected(true);
+//        }
         //check quantity
         int quantity = Integer.parseInt(quantity_field.getText().toString().trim());
         if (quantity < 1) {

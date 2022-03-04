@@ -1,5 +1,7 @@
 package com.example.aredoweknow.fragments_folder;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +22,12 @@ public class List extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "LIST US", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "LIST US", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
         return view;
     }
 }
