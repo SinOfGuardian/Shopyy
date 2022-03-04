@@ -89,7 +89,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             public void onClick(View v) {
                 Intent intent =  new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 100);
-                startActivity(intent);
+
             }
         });
 
@@ -100,7 +100,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 3);
-                startActivity(intent);
+
             }
         });
 
