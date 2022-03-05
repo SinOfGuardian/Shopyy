@@ -58,8 +58,14 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-              Intent intent = new Intent(context, VieweditActivity.class);
-              intent.putExtra("name",al.get(position).getName());
+                Intent intent = new Intent(context, VieweditActivity.class);
+                    intent.putExtra("name",al.get(position).getName());
+                    intent.putExtra("price",al.get(position).getPrice());
+                //intent.putExtra("image",g1.getImage());
+                    intent.putExtra("quan",al.get(position).getQuantity());
+//                intent.putExtra("description", g1.getDescription());
+//                intent.putExtra("barcode", g1.getBarcode());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                Toast.makeText(v.getContext(), "Clicked me"+position, Toast.LENGTH_SHORT).show();
             }

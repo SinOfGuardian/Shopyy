@@ -2,6 +2,7 @@ package com.example.aredoweknow.fragments_folder;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.CursorWindow;
@@ -37,6 +38,8 @@ public class Home extends Fragment {
     String price;
     String quantity;
     byte[] imagebyte;
+    String description;
+    String barcode;
 
     Cursor c;
 
@@ -44,6 +47,8 @@ public class Home extends Fragment {
     DatabaseHandler mydb;
 
     Button click;
+    private Intent intent;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -92,13 +97,15 @@ public class Home extends Fragment {
                     price=c.getString(6);
                     quantity=c.getString(5);
                     imagebyte=c.getBlob(2);
-
+//                    description =c.getString(4);
+//                    barcode=c.getString(3);
                     Bitmap image = BitmapFactory.decodeByteArray(imagebyte, 0 , imagebyte.length);
 
                     GetterSetter g1=new GetterSetter(id,name,price,image,quantity);
                     al.add(g1);
 
-                    System.out.println(c.getCount() + "---> " + id + " " + name + " " + price + " " + quantity);
+                    System.out.println(c.getCount() + "---> " + id + " " + name + " " + price + " " + quantity  );
+
                 }while (c.moveToNext());
             }
         }

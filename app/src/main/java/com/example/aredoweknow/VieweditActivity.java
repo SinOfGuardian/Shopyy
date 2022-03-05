@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -26,16 +27,23 @@ public class VieweditActivity extends AppCompatActivity {
     EditText name_field, barcode_field, description_field, quantity_field, price_field;
     Bitmap captureImage;
     ImageView imageView;
-    Uri selectedImage;
     CardView cardView;
     Toolbar toolbar;
+
+    Intent intent = getIntent();
+     String name = intent.getStringExtra("name");
+    String price = intent.getStringExtra("price");
+//    String barcode = intent.getStringExtra("barcode");
+   // String description = intent.getStringExtra("description");
+    String quantity = intent.getStringExtra("quan");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewedit);
 
-        final Object object = getIntent().getSerializableExtra("");
+
 
         AddBTN = findViewById(R.id.edit_btn);
         name_field = findViewById(R.id.itemname_val);
@@ -46,6 +54,13 @@ public class VieweditActivity extends AppCompatActivity {
         imageView = findViewById(R.id.image_val);
 
 
+        name_field.setText(name);
+        //barcode_field.setText(barcode);
+//        description_field.setText(description);
+        quantity_field.setText(quantity);
+        price_field.setText(getText(price));
+
+
 //--------------------BACK TO DASHBOARD----------------------------
         backbtn = findViewById(R.id.add_back_btn);
         backbtn.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +69,7 @@ public class VieweditActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
 
