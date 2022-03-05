@@ -28,7 +28,8 @@
             android:layout_alignParentStart="true"
             android:padding="10dp"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/left_48px" />
+            app:srcCompat="@drawable/left_48px"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -241,7 +242,8 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="6"
                             android:scaleType="centerInside"
-                            app:srcCompat="@drawable/barcode_32px" />
+                            app:srcCompat="@drawable/barcode_32px"
+                            tools:ignore="SpeakableTextPresentCheck" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>

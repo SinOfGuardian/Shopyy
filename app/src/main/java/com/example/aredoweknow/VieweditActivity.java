@@ -65,7 +65,6 @@ public class VieweditActivity extends AppCompatActivity {
             quantity_field.setShowSoftInputOnFocus(false);
             price_field.setShowSoftInputOnFocus(false);
 
-
             editw = false;
         } else { // --> CAN NOT TYPE
             name_field.setShowSoftInputOnFocus(true);

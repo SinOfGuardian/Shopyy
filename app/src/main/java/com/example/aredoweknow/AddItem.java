@@ -3,9 +3,7 @@ package com.example.aredoweknow;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
-
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -13,9 +11,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -31,10 +27,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.example.aredoweknow.fragments_folder.Home;
-
 import java.io.ByteArrayOutputStream;
+
 
 public class AddItem extends AppCompatActivity implements View.OnFocusChangeListener {
 
@@ -46,9 +41,10 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
     public static EditText resulttextview;
 
     EditText name_field, barcode_field, description_field, quantity_field, price_field;
-    Bitmap captureImage;
+    Bitmap image_Bitmap;
+    Uri image_Uri;
+
     ImageView imageView;
-    Uri selectedImage;
     CardView cardView;
 
     @SuppressLint("CutPasteId")
@@ -86,16 +82,6 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             }
         });
 
-        //-------------------Open Camera for Image
-        cameraBTN = findViewById(R.id.camera_btn);
-        cameraBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =  new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 100);
-            }
-        });
-
         //--------------------Open gallery
         GalleryBTN = findViewById(R.id.gallery_btn);
         GalleryBTN.setOnClickListener(new View.OnClickListener() {
@@ -103,9 +89,37 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 3);
-
             }
         });
+
+        //-------------------Open Camera for Image
+        cameraBTN = findViewById(R.id.camera_btn);
+        cameraBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                File storageDir = getBaseContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//                @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//                File image = null;
+//                try {
+//                    image = File.createTempFile(timeStamp, ".jpg", storageDir);
+////                    image_Uri = Uri.fromFile(image);
+//                    image_Uri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName(), image);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                takePhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri);
+//                startActivityForResult(takePhotoIntent, 100);
+
+                Intent intent =  new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 100);
+            }
+        });
+
+
 
         //-------------------Open Scanner
         scanBTN = findViewById(R.id.barscan_btn);
@@ -174,68 +188,60 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        tryCropper(requestCode, resultCode, data);
+//        Toast.makeText(this, requestCode + " | " + resultCode, Toast.LENGTH_SHORT).show();
+//        System.out.println(requestCode + " | " + resultCode);
 
-        try {
-            if (requestCode == 100) {
-                //Capture Image
-                assert data != null;
-                captureImage = (Bitmap) data.getExtras().get("data");
-//                Bitmap.createScaledBitmap(captureImage,100,100,false);
-//                imageView.setImageBitmap(captureImage);
-            }
-            //------------!!!!!!!!!!--------
-            else if(requestCode == PIC_CROP){
-                Bundle extras = data.getExtras();
-                selectedImage = extras.getParcelable("data");
-            }
-
-            if (resultCode == RESULT_OK && data != null) {
-                //Choose from gallery
-                selectedImage = data.getData();
-                captureImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+        if (data != null && resultCode == RESULT_OK) {
+            System.out.println(requestCode + " | " + resultCode);
+            try {
+                if (requestCode == 3) {  //--> Choose from gallery
+                    image_Uri = data.getData();
+//                image_Bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_Uri);
 //                imageView.setImageURI(selectedImage);
+                    performCrop(); //--> Requires Cropping the image
+                }
 
-                //-----------------!!!!!!!!!-------------
-                imageView.setImageURI(selectedImage);
-                performCrop();
+                if (requestCode == PIC_CROP || requestCode == 100) { //3
+                    image_Bitmap = data.getExtras().getParcelable("data");
+//                image_Bitmap = Bitmap.createScaledBitmap(image_Bitmap, 100, 100, false);
+
+                    imageView.setImageBitmap(image_Bitmap);
+                    cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-//            Bitmap.createScaledBitmap(captureImage, 100, 100, false);
-            imageView.setImageBitmap(captureImage);
-            cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     //keep track of cropping intent
     final int PIC_CROP = 2;
 
-
     public void performCrop() {
         try {
             //call the standard crop action intent (the user device may not support it)
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
             //indicate image type and Uri
-            cropIntent.setDataAndType(selectedImage, "image/*");
+            cropIntent.setDataAndType(image_Uri, "image/*");
             //set crop properties
             cropIntent.putExtra("crop", "true");
             //indicate aspect of desired crop
             cropIntent.putExtra("aspectX", 1);
             cropIntent.putExtra("aspectY", 1);
             //indicate output X and Y
-            cropIntent.putExtra("outputX", 256);
-            cropIntent.putExtra("outputY", 256);
+            cropIntent.putExtra("outputX", 420); //256
+            cropIntent.putExtra("outputY", 420);
             //retrieve data on return
             cropIntent.putExtra("return-data", true);
-            //start the activity - we handle returning in onActivityResult
+
+            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri);
             startActivityForResult(cropIntent, PIC_CROP);
         }
         catch(ActivityNotFoundException anfe){
             //display an error message
             String errorMessage = "Whoops - your device doesn't support the crop action!";
-            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
         }
     }
 

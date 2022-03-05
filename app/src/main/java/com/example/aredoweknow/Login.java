@@ -58,6 +58,11 @@ public class Login extends AppCompatActivity {
 
     public void signupBtn_clicked(View view) {
         startActivity(new Intent(this, Register.class));
+
+        user_field.setText("");
+        pass_field.setText("");
+        user_field.setSelected(false);
+        pass_field.setSelected(false);
     }
 
     public void loginBtn_clicked(View view) {

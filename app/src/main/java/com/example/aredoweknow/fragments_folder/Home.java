@@ -54,6 +54,9 @@ public class Home extends Fragment {
         rv.setLayoutManager(gridLayoutManager);
 
 
+//        SharedPreferences sf = getContext().getSharedPreferences("Shopyy",  Context.MODE_PRIVATE);
+
+
         //---Show Items
         Handler handler = new Handler();
         handler.postAtTime(new Runnable() {
@@ -64,7 +67,7 @@ public class Home extends Fragment {
         }, 1);
 
 
-//        Toast.makeText(getContext(), "Welcome to Home", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Welcome to Home", Toast.LENGTH_SHORT).show();
     return view;
 }
 
