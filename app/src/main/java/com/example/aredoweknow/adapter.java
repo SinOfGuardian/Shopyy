@@ -51,6 +51,8 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
                 Toast.makeText(v.getContext(), "Clicked me", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     @Override
