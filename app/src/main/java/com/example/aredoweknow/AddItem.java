@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -72,7 +73,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 
         //--------------CAMERA CODE
         if (ContextCompat.checkSelfPermission(AddItem.this,
-                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(AddItem.this, new String[]{Manifest.permission.CAMERA}, 100);
         }
 
@@ -92,7 +93,6 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             public void onClick(View v) {
                 Intent intent =  new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 100);
-
             }
         });
 
@@ -126,26 +126,26 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 //                    TODO Add Data to database
 
                     String name = name_field.getText().toString();
-                    String  barcode = "" + barcode_field.getText().toString();
+                    String barcode = "" + barcode_field.getText().toString();
                     String description = description_field.getText().toString();
                     int quantity = Integer.parseInt(quantity_field.getText().toString());
                     double price = Double.parseDouble(price_field.getText().toString());
 
-                    Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-                    Bitmap.createScaledBitmap(bitmap,100,100,false);
+                    Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                    Bitmap.createScaledBitmap(bitmap, 100, 100, false);
 //                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.image_val);
                     ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
                     byte[] img = byteArray.toByteArray();
 
                     //----------------------image insert to database------------------------
-                    long res = dataHandler.insertItem(name, img, barcode,description, quantity,price);
+                    long res = dataHandler.insertItem(name, img, barcode, description, quantity, price);
                     if (res > 0) {
                         Toast.makeText(AddItem.this, name + " Added Recently", Toast.LENGTH_SHORT).show();
                         display_messageDialog("Item Added Successfully.");
                         Intent i = new Intent(AddItem.this, Home.class);
                         resetFields();
-                    }else {
+                    } else {
                         Toast.makeText(AddItem.this, "Adding " + name + " Item Failed!", Toast.LENGTH_SHORT).show();
                         display_messageDialog("Error Adding Item!");
                     }
@@ -162,7 +162,6 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
     //----------------------------------------------------------------------------------------------
 
 
-
     //--------------Removes Warning on Text Fields when received focus
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
@@ -175,25 +174,68 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+//        tryCropper(requestCode, resultCode, data);
+
         try {
             if (requestCode == 100) {
                 //Capture Image
                 assert data != null;
                 captureImage = (Bitmap) data.getExtras().get("data");
 //                Bitmap.createScaledBitmap(captureImage,100,100,false);
-                imageView.setImageBitmap(captureImage);
+//                imageView.setImageBitmap(captureImage);
             }
-            if(resultCode == RESULT_OK && data != null){
-                selectedImage = data.getData();
-                captureImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(),selectedImage);
-//                imageView.setImageURI(selectedImage);
+            //------------!!!!!!!!!!--------
+            else if(requestCode == PIC_CROP){
+                Bundle extras = data.getExtras();
+                selectedImage = extras.getParcelable("data");
             }
 
-            Bitmap.createScaledBitmap(captureImage,100,100,false);
+            if (resultCode == RESULT_OK && data != null) {
+                //Choose from gallery
+                selectedImage = data.getData();
+                captureImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+//                imageView.setImageURI(selectedImage);
+
+                //-----------------!!!!!!!!!-------------
+                imageView.setImageURI(selectedImage);
+                performCrop();
+            }
+
+//            Bitmap.createScaledBitmap(captureImage, 100, 100, false);
             imageView.setImageBitmap(captureImage);
             cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    //keep track of cropping intent
+    final int PIC_CROP = 2;
+
+
+    public void performCrop() {
+        try {
+            //call the standard crop action intent (the user device may not support it)
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            //indicate image type and Uri
+            cropIntent.setDataAndType(selectedImage, "image/*");
+            //set crop properties
+            cropIntent.putExtra("crop", "true");
+            //indicate aspect of desired crop
+            cropIntent.putExtra("aspectX", 1);
+            cropIntent.putExtra("aspectY", 1);
+            //indicate output X and Y
+            cropIntent.putExtra("outputX", 256);
+            cropIntent.putExtra("outputY", 256);
+            //retrieve data on return
+            cropIntent.putExtra("return-data", true);
+            //start the activity - we handle returning in onActivityResult
+            startActivityForResult(cropIntent, PIC_CROP);
+        }
+        catch(ActivityNotFoundException anfe){
+            //display an error message
+            String errorMessage = "Whoops - your device doesn't support the crop action!";
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -260,12 +302,12 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 
     //---------------------Lastly this checks if images is selected
     private boolean nullImage() {
-        Resources resources  = getResources();
+        Resources resources = getResources();
         boolean res = false;
 
         //check image if not empty
-        final ImageView img  = (ImageView)findViewById(R.id.image_val);
-        final Bitmap bmap = ((BitmapDrawable)img.getDrawable()).getBitmap();
+        final ImageView img = (ImageView) findViewById(R.id.image_val);
+        final Bitmap bmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
 
         @SuppressLint("UseCompatLoadingForDrawables") Drawable myDrawable = getResources().getDrawable(R.drawable.image_100px);
         final Bitmap myLogo = ((BitmapDrawable) myDrawable).getBitmap();
