@@ -73,7 +73,6 @@ public class Home extends Fragment {
                     editor.putBoolean("refresh", false);
                     editor.apply();
                     updateArrayList();
-//                    displayITEMS();
                 }
             }, 1);
         }else {
@@ -106,14 +105,16 @@ public class Home extends Fragment {
                 do {
                     id=c.getString(0);
                     name=c.getString(1);
-                    price=c.getString(6);
-                    quantity=c.getString(5);
                     imagebyte=c.getBlob(2);
-//                    description =c.getString(4);
-//                    barcode=c.getString(3);
+
+                    barcode=c.getString(3);
+                    description =c.getString(4);
+                    quantity=c.getString(5);
+                    price=c.getString(6);
+
                     Bitmap image = BitmapFactory.decodeByteArray(imagebyte, 0 , imagebyte.length);
 
-                    GetterSetter g1=new GetterSetter(id,name,price,image,quantity);
+                    GetterSetter g1=new GetterSetter(id,name,price,image,quantity,description,barcode);
                     al.add(g1);
 
                     System.out.println(c.getCount() + "---> " + id + " " + name + " " + price + " " + quantity  );
