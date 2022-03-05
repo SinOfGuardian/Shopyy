@@ -11,7 +11,9 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -155,6 +157,14 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                     //----------------------image insert to database------------------------
                     long res = dataHandler.insertItem(name, img, barcode, description, quantity, price);
                     if (res > 0) {
+                        //TODO: first item to add in database, not refreshing the HOME
+                        SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sf.edit();
+                        editor.putBoolean("refresh", true);
+                        editor.apply();
+
+
+
                         Toast.makeText(AddItem.this, name + " Added Recently", Toast.LENGTH_SHORT).show();
                         display_messageDialog("Item Added Successfully.");
                         Intent i = new Intent(AddItem.this, Home.class);

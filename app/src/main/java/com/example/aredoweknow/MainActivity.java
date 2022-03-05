@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 logo.startAnimation(bounce);
-//                SharedPreferences sf = getSharedPreferences("Shopyy SF", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sf.edit();
-//                editor.putBoolean("needRefresh", true);
-//                editor.apply();
+                SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sf.edit();
+                editor.putBoolean("refresh", true);
+                editor.apply();
             }
         }, 100);
         //------------------------------------------------------

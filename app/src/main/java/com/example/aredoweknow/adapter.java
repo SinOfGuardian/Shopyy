@@ -36,7 +36,7 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
 
     @Override
     public void onBindViewHolder(@NonNull Myclass holder, int position) {
-
+//        holder.setIsRecyclable(false); //Disable recycling
         System.out.println("Position ------------------------[ "+position+" ]");
         GetterSetter g1 = al.get(position);
 
@@ -45,10 +45,14 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
         holder.tvQuantity.setText(g1.getQuantity());
         holder.im.setImageBitmap(g1.getImage());
 
+        holder.panel.setTag(String.valueOf(g1.getId()));
+
+
         holder.panel.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(context, "HOLD ME DEAR!", Toast.LENGTH_SHORT).show();
+                String temp = String.valueOf(v.getTag());
+                Toast.makeText(context, "TAG-------------- "+temp, Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
