@@ -3,11 +3,7 @@ package com.example.aredoweknow;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.util.Log;
 import android.os.Bundle;
-import android.support.v4.app.*;
-import android.widget.EditText;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -37,14 +33,18 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
     public void handleResult(Result result) {
 //        onBackPressed();
 
-        if(whom_toUpdate.equals("searching_item")) {
-            Intent intent = new Intent(this, Web.class);
-            intent.putExtra("ToSearch", result.getText());
-            startActivity(intent);
-        }else if(whom_toUpdate.equals("adding_item")){
-            AddItem.resulttextview.setText(result.getText());
-        }else if(whom_toUpdate.equals("viewing_item")){
-            VieweditActivity.static_namefield.setText(result.getText());
+        switch (whom_toUpdate) {
+            case "searching_item":
+                Intent intent = new Intent(this, Web.class);
+                intent.putExtra("ToSearch", result.getText());
+                startActivity(intent);
+                break;
+            case "adding_item":
+                AddItem.resulttextview.setText(result.getText());
+                break;
+            case "viewing_item":
+                VieweditActivity.static_namefield.setText(result.getText());
+                break;
         }
 
         finish();

@@ -1,8 +1,10 @@
 package com.example.aredoweknow;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +17,10 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -27,24 +32,20 @@ import com.example.aredoweknow.databinding.ActivityDashboardNewBinding;
 
 public class DashboardNew extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityDashboardNewBinding binding;
-
     FloatingActionButton browser_btn, scan_btn, add_btn;
-    NavigationView logout_btn;
 
     private String user_name = "";
     private String store_name = "";
+    final String reset = "";
 
     private Toolbar tool_bar;
     private Database db;
-
-    final String reset = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityDashboardNewBinding.inflate(getLayoutInflater());
+        ActivityDashboardNewBinding binding = ActivityDashboardNewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarDashboardNew.toolbar);
 
@@ -57,7 +58,7 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
         tool_bar.setSubtitle(user_name);
 
         db = new Database(this);
-        String res[] = db.getCredentials();
+        String[] res = db.getCredentials();
         if (res == null) {
             db.addToCred(user_name, store_name);
         } else {
@@ -83,32 +84,26 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
 
         //--------------------------------Open Web View
         browser_btn = findViewById(R.id.fab1);
-        browser_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardNew.this, Web.class);
-                intent.putExtra("ToSearch", "");
-                startActivity(intent);
-            }
+        browser_btn.setOnClickListener(v -> {
+            Intent intent1 = new Intent(DashboardNew.this, Web.class);
+            intent1.putExtra("ToSearch", "");
+            startActivity(intent1);
         });
 
         //---------------------------------Open camera for scan
         scan_btn = findViewById(R.id.fab2);
-        scan_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardNew.this, Scanner.class);
-                intent.putExtra("update", "searching_item");
-                startActivity(intent);
+        scan_btn.setOnClickListener(v -> {
+            if (CamPermissionGranted()) {
+                Intent intent12 = new Intent(DashboardNew.this, Scanner.class);
+                intent12.putExtra("update", "searching_item");
+                startActivity(intent12);
             }
         });
+
         add_btn = findViewById(R.id.fab3);
-        add_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardNew.this, AddItem.class);
-                startActivity(intent);
-            }
+        add_btn.setOnClickListener(v -> {
+            Intent intent13 = new Intent(DashboardNew.this, AddItem.class);
+            startActivity(intent13);
         });
 
 
@@ -141,15 +136,11 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
                     .setIcon(getDrawable(R.drawable.shopyy_icon))
                     .setTitle("Shopyy")
                     .setMessage("Do you want to Logout?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            db.updateCred("","",user_name);
-                            finish();
-                            Intent login = new Intent(DashboardNew.this, Login.class);
-                            startActivity((Intent) login);              // --> Start Login Activity
-                        }
-
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        db.updateCred("","",user_name);
+                        finish();
+                        Intent login = new Intent(DashboardNew.this, Login.class);
+                        startActivity((Intent) login);              // --> Start Login Activity
                     }).setNegativeButton("No", null).show();
         }
         return super.onOptionsItemSelected(item);
@@ -162,12 +153,18 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
                 .setIcon(getDrawable(R.drawable.shopyy_icon))
                 .setTitle("Shopyy")
                 .setMessage("Are you sure do you want to exit?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
+                .setPositiveButton("Yes", (dialog, which) -> finish()).setNegativeButton("No", null).show();
+    }
 
-                }).setNegativeButton("No", null).show();
+    //--------- Check Camera Permission
+    private boolean CamPermissionGranted() {
+        //--------------CAMERA CODE
+        if (ContextCompat.checkSelfPermission(DashboardNew.this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(DashboardNew.this, new String[]{Manifest.permission.CAMERA}, 100);
+            return false;
+        }else {
+            return true;
+        }
     }
 }

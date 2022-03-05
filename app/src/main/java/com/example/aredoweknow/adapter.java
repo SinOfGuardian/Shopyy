@@ -1,5 +1,6 @@
 package com.example.aredoweknow;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -16,28 +17,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
-        Context context;
-        ArrayList<GetterSetter>al;
+    Context context;
+    ArrayList<GetterSetter> al;
 
 
-        public adapter(Context context, ArrayList<GetterSetter> al){
-         this.context = context;
-            this.al = al;
-          //  this.listener = listener;
-        }
+    public adapter(Context context, ArrayList<GetterSetter> al) {
+        this.context = context;
+        this.al = al;
+        //  this.listener = listener;
+    }
 
     @NonNull
     @Override
     public adapter.Myclass onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_recycler_grid,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_recycler_grid, parent, false);
         return new Myclass(v);
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull Myclass holder, int position) {
 //        holder.setIsRecyclable(false); //Disable recycling
-        System.out.println("Position ------------------------[ "+position+" ]");
+        System.out.println("Position ------------------------[ " + position + " ]");
         GetterSetter g1 = al.get(position);
 
         holder.tvName.setText(g1.getName());
@@ -47,68 +49,51 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
 
         holder.panel.setTag(String.valueOf(g1.getId()));
 
-        holder.panel.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                String temp = String.valueOf(v.getTag());
-                Toast.makeText(context, "TAG ------ "+temp, Toast.LENGTH_SHORT).show();
-                return false;
-            }
+        holder.panel.setOnLongClickListener(v -> {
+            String temp = String.valueOf(v.getTag());
+            Toast.makeText(context, "TAG ------ " + temp, Toast.LENGTH_SHORT).show();
+            return false;
         });
 
 
-        holder.panel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                Intent intent = new Intent(context, VieweditActivity.class);
-                intent.putExtra("id",al.get(position).getId());
-                intent.putExtra("name",al.get(position).getName());
-                intent.putExtra("price",al.get(position).getPrice());
-                intent.putExtra("quant",al.get(position).getQuantity());
+        holder.panel.setOnClickListener(v -> {
+            int position1 = holder.getAdapterPosition();
+            Intent intent = new Intent(context, VieweditActivity.class);
+            intent.putExtra("id", al.get(position1).getId());
+            intent.putExtra("name", al.get(position1).getName());
+            intent.putExtra("price", al.get(position1).getPrice());
+            intent.putExtra("quant", al.get(position1).getQuantity());
 
-                intent.putExtra("image",al.get(position).getImage());
-                intent.putExtra("descr", al.get(position).getDescription());
-                intent.putExtra("barcode", al.get(position).getBarcode());
+            intent.putExtra("image", al.get(position1).getImage());
+            intent.putExtra("descr", al.get(position1).getDescription());
+            intent.putExtra("barcode", al.get(position1).getBarcode());
 
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-                Toast.makeText(v.getContext(), v.getTag().toString() + position, Toast.LENGTH_SHORT).show();
-            }
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+            Toast.makeText(v.getContext(), v.getTag().toString() + position1, Toast.LENGTH_SHORT).show();
         });
-
-
     }
-
-
 
     @Override
     public int getItemCount() {
         return al.size();
     }
 
+    public static class Myclass extends RecyclerView.ViewHolder {
+        ImageView im;
+        TextView tvName, tvprice, tvQuantity;
+        ConstraintLayout panel;
 
-
-    public class Myclass extends RecyclerView.ViewHolder {
-            ImageView im;
-            TextView tvName, tvprice, tvQuantity;
-            ConstraintLayout panel;
-
-            public Myclass(@NonNull View view) {
-                super(view);
-                tvName = view.findViewById(R.id.nameITEM);
-                tvprice = view.findViewById(R.id.priceItem);
-                im = view.findViewById(R.id.imageITEM);
-                tvQuantity = view.findViewById(R.id.quantItem);
-                panel = view.findViewById(R.id.theItem);
-
-            }
-
+        public Myclass(@NonNull View view) {
+            super(view);
+            tvName = view.findViewById(R.id.nameITEM);
+            tvprice = view.findViewById(R.id.priceItem);
+            im = view.findViewById(R.id.imageITEM);
+            tvQuantity = view.findViewById(R.id.quantItem);
+            panel = view.findViewById(R.id.theItem);
 
         }
-
-
-
+    }
 }
 
 
