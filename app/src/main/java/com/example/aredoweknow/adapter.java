@@ -1,6 +1,7 @@
 package com.example.aredoweknow;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,11 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
         Context context;
         ArrayList<GetterSetter>al;
 
+
         public adapter(Context context, ArrayList<GetterSetter> al){
          this.context = context;
             this.al = al;
+          //  this.listener = listener;
         }
 
     @NonNull
@@ -54,7 +57,8 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
         holder.panel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+              Intent intent = new Intent(context, VieweditActivity.class);
+                context.startActivity(intent);
                Toast.makeText(v.getContext(), "Clicked me", Toast.LENGTH_SHORT).show();
             }
         });
