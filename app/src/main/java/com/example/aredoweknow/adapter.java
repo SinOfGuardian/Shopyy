@@ -1,17 +1,15 @@
 package com.example.aredoweknow;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,9 +19,11 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
         Context context;
         ArrayList<GetterSetter>al;
 
+
         public adapter(Context context, ArrayList<GetterSetter> al){
          this.context = context;
             this.al = al;
+          //  this.listener = listener;
         }
 
     @NonNull
@@ -45,15 +45,30 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
         holder.tvQuantity.setText(g1.getQuantity());
         holder.im.setImageBitmap(g1.getImage());
 
+        holder.panel.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(context, "HOLD ME DEAR!", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+
         holder.panel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Clicked me", Toast.LENGTH_SHORT).show();
+                int position = holder.getAdapterPosition();
+              Intent intent = new Intent(context, VieweditActivity.class);
+              intent.putExtra("name",al.get(position).getName());
+                context.startActivity(intent);
+               Toast.makeText(v.getContext(), "Clicked me"+position, Toast.LENGTH_SHORT).show();
             }
         });
 
 
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -62,7 +77,7 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
 
 
 
-    public class Myclass extends RecyclerView.ViewHolder{
+    public class Myclass extends RecyclerView.ViewHolder {
             ImageView im;
             TextView tvName, tvprice, tvQuantity;
             ConstraintLayout panel;
@@ -74,8 +89,12 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
                 im = view.findViewById(R.id.imageITEM);
                 tvQuantity = view.findViewById(R.id.quantItem);
                 panel = view.findViewById(R.id.theItem);
+
             }
+
+
         }
+
 
 
 }
