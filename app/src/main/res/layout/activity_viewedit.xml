@@ -21,7 +21,7 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
 
-            android:id="@+id/add_back_btn"
+            android:id="@+id/view_back_btn"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="60dp"
             android:layout_height="match_parent"
@@ -34,7 +34,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@+id/add_back_btn"
+            android:layout_toEndOf="@+id/view_back_btn"
             android:gravity="center"
             android:text="back"
             android:textColor="@color/white"
@@ -64,13 +64,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="13dp"
             android:layout_marginEnd="0dp"
 
             android:orientation="vertical">
@@ -79,10 +78,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="1dp">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/image_panel"
+                    android:id="@+id/image_panel2"
                     android:layout_width="114dp"
                     android:layout_height="114dp"
                     android:layout_centerInParent="true"
@@ -90,7 +89,7 @@
 
 
                     <ImageView
-                        android:id="@+id/image_val"
+                        android:id="@+id/image_val2"
                         android:layout_width="110dp"
                         android:layout_height="110dp"
                         android:layout_gravity="center"
@@ -105,11 +104,11 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@+id/image_panel"
+                    android:layout_toEndOf="@+id/image_panel2"
                     android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/gallery_btn"
+                        android:id="@+id/gallery_btn2"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
@@ -119,7 +118,7 @@
                         android:textSize="25sp" />
 
                     <Button
-                        android:id="@+id/camera_btn"
+                        android:id="@+id/camera_btn2"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
@@ -154,7 +153,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/itemname_val"
+                        android:id="@+id/itemname_val2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
@@ -211,7 +210,7 @@
                         android:weightSum="8">
 
                         <EditText
-                            android:id="@+id/barcode_val"
+                            android:id="@+id/barcode_val2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="40dp"
@@ -236,7 +235,7 @@
                             tools:targetApi="p" />
 
                         <ImageButton
-                            android:id="@+id/barscan_btn"
+                            android:id="@+id/barscan_btn2"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -253,14 +252,64 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <!--            <androidx.appcompat.widget.LinearLayoutCompat-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="vertical">-->
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="55dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Description:"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/description_val2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edittext_round"
+                    android:hint="Description"
+
+                    android:importantForAutofill="no"
+                    android:inputType="text|textNoSuggestions"
+                    android:lineHeight="5dp"
+                    android:maxWidth="@dimen/maxwidth_edittext"
+                    android:maxLength="80"
+                    android:maxLines="1"
+
+                    android:paddingStart="25dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="25dp"
+                    android:paddingBottom="15dp"
+                    android:textColor="@color/text_col"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:targetApi="p" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
@@ -270,24 +319,23 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="60dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Description:"
+                        android:text="Quantity:"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/description_val"
+                        android:id="@+id/quantity_val2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
+                        android:layout_marginEnd="20dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/edittext_round"
-                        android:hint="Description"
-                        android:importantForAutofill="no"
-                        android:inputType="text|textNoSuggestions"
+                        android:hint="Quantity"
+                        android:inputType="numberSigned"
                         android:lineHeight="5dp"
                         android:maxWidth="@dimen/maxwidth_edittext"
-                        android:maxLength="80"
+                        android:maxLength="5"
                         android:maxLines="1"
 
                         android:paddingStart="25dp"
@@ -302,99 +350,74 @@
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_marginStart="35dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="60dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Price:"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="55dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="60dp"
-                            android:layout_marginBottom="10dp"
-                            android:text="Quantity:"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/quantity_val"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="40dp"
-                            android:layout_marginEnd="20dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/edittext_round"
-                            android:hint="Quantity"
-                            android:inputType="numberSigned"
-                            android:lineHeight="5dp"
-                            android:maxWidth="@dimen/maxwidth_edittext"
-                            android:maxLength="5"
-                            android:maxLines="1"
-
-                            android:paddingStart="25dp"
-                            android:paddingTop="15dp"
-                            android:paddingEnd="25dp"
-                            android:paddingBottom="15dp"
-                            android:textColor="@color/text_col"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            tools:targetApi="p" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
+                    <EditText
+                        android:id="@+id/price_val2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/edittext_round"
+                        android:hint="Price"
+                        android:importantForAutofill="no"
+                        android:inputType="numberDecimal"
+                        android:lineHeight="5dp"
+                        android:maxWidth="@dimen/maxwidth_edittext"
+                        android:maxLength="9"
+                        android:maxLines="1"
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="35dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="60dp"
-                            android:layout_marginBottom="10dp"
-                            android:text="Price:"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/price_val"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="40dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/edittext_round"
-                            android:hint="Price"
-                            android:importantForAutofill="no"
-                            android:inputType="numberDecimal"
-                            android:lineHeight="5dp"
-                            android:maxWidth="@dimen/maxwidth_edittext"
-                            android:maxLength="9"
-                            android:maxLines="1"
-
-                            android:paddingStart="25dp"
-                            android:paddingTop="15dp"
-                            android:paddingEnd="25dp"
-                            android:paddingBottom="15dp"
-                            android:textColor="@color/text_col"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            tools:targetApi="p" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                        android:paddingStart="25dp"
+                        android:paddingTop="15dp"
+                        android:paddingEnd="25dp"
+                        android:paddingBottom="15dp"
+                        android:textColor="@color/text_col"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:targetApi="p" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <Button
+                android:id="@+id/save_btn"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+
+                android:layout_below="@+id/storeNameField"
+                android:layout_alignEnd="@+id/storeNameField"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/login_button"
+                android:drawableRight="@drawable/enter_28px"
+                android:drawablePadding="10dp"
+                android:gravity="right|center"
+                android:paddingStart="40dp"
+                android:paddingEnd="32dp"
+                android:text="@string/finish"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:ignore="RtlHardcoded,RtlSymmetry,UsingOnClickInXml" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </RelativeLayout>
 

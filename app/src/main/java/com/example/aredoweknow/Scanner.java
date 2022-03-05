@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 import android.os.Bundle;
 import android.support.v4.app.*;
+import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -14,7 +16,8 @@ import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class Scanner extends AppCompatActivity implements ZXingScannerView.ResultHandler{
-    boolean shouldISearch;
+    String whom_toUpdate;
+
 
     int MY_PERMISSIONS_REQUEST_CAMERA=0;
     ZXingScannerView scannerView;
@@ -26,7 +29,7 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
         setContentView(scannerView);
 
         Intent intent = getIntent();
-        shouldISearch = intent.getBooleanExtra("Search", false);
+        whom_toUpdate = intent.getStringExtra("update");
     }
 
     //--> RESULT
@@ -34,12 +37,14 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
     public void handleResult(Result result) {
 //        onBackPressed();
 
-        if(shouldISearch) {
+        if(whom_toUpdate.equals("searching_item")) {
             Intent intent = new Intent(this, Web.class);
             intent.putExtra("ToSearch", result.getText());
             startActivity(intent);
-        }else {
+        }else if(whom_toUpdate.equals("adding_item")){
             AddItem.resulttextview.setText(result.getText());
+        }else if(whom_toUpdate.equals("viewing_item")){
+            VieweditActivity.static_namefield.setText(result.getText());
         }
 
         finish();

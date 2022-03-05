@@ -15,12 +15,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.InputType;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,8 +42,11 @@ public class VieweditActivity extends AppCompatActivity {
     public static EditText resulttextview;
     DatabaseHandler db;
     AppCompatImageButton backbtn;
-    Button cameraBTN, GalleryBTN, editdBTN;
+
+    Button cameraBTN, galleryBTN, editBTN, saveBTN;
+
     ImageButton scanBTN;
+
     DatabaseHandler dataHandler;
     EditText name_field, barcode_field, description_field, quantity_field, price_field;
     Bitmap captureImage;
@@ -50,18 +55,31 @@ public class VieweditActivity extends AppCompatActivity {
     CardView cardView;
     Toolbar toolbar;
 
+
 //    Intent intent = getIntent();
 //     String name = intent.getStringExtra("name");
 //    String price = intent.getStringExtra("price");
 ////    String barcode = intent.getStringExtra("barcode");
 //   // String description = intent.getStringExtra("description");
 //    String quantity = intent.getStringExtra("quan");
+  
 
 
+    Intent intent;
+    String name;
+    String price;
+    String barcode;
+    String description;
+    String quantity;
+    Bitmap image;
+
+
+    public static EditText static_namefield;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewedit);
+
 
 
         //Database
@@ -75,6 +93,8 @@ public class VieweditActivity extends AppCompatActivity {
         quantity_field = findViewById(R.id.quantity_val);
         price_field = findViewById(R.id.price_val);
         imageView = findViewById(R.id.image_val);
+        
+        static_namefield = barcode_field;
 
         name_field.setShowSoftInputOnFocus(false);
         barcode_field.setShowSoftInputOnFocus(false);
@@ -91,9 +111,27 @@ public class VieweditActivity extends AppCompatActivity {
 //        quantity_field.setText(getIntent().getStringExtra("quan"));
 //        price_field.setText(getIntent().getStringExtra("price"));
 
+        intent = getIntent();
+        name = intent.getStringExtra("name");
+        price = intent.getStringExtra("price");
+        barcode = intent.getStringExtra("barcode");
+        description = intent.getStringExtra("descr");
+        quantity = intent.getStringExtra("quant");
+        image = intent.getParcelableExtra("image");
 
-//--------------------BACK TO DASHBOARD----------------------------
-        backbtn = findViewById(R.id.add_back_btn);
+     
+
+        imageView.setImageBitmap(image);
+        name_field.setText(name);
+        barcode_field.setText(barcode);
+        description_field.setText(description);
+        quantity_field.setText(quantity);
+        price_field.setText(price);
+
+
+
+        //--------------BACK TO DASHBOARD--------------
+        backbtn = findViewById(R.id.view_back_btn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,15 +139,7 @@ public class VieweditActivity extends AppCompatActivity {
             }
         });
 
-//----------------------EDIT DATABASE-------------------------
-        editdBTN = findViewById(R.id.edit_btn);
-        editdBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-
-            }
-        });
 
 
 //--------------CAMERA CODE
@@ -152,12 +182,29 @@ public class VieweditActivity extends AppCompatActivity {
 
     }
 
+        editBTN = findViewById(R.id.edit_btn);
+        editBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editBTN_clicked(v);
+            }
+        });
+
+
+        cameraBTN = findViewById(R.id.camera_btn2);
+        cameraBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO 1 wait ako na dito - ji
+            }
+        });
+
 
 
 }
 
 
-    //---------------capture camera code And pick picture in Gallery
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -215,5 +262,50 @@ public class VieweditActivity extends AppCompatActivity {
             //display an error message
             String errorMessage = "Whoops - your device doesn't support the crop action!";
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+
+        galleryBTN = findViewById(R.id.gallery_btn2);
+        galleryBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO 2 wait ako na dito - ji
+            }
+        });
+
+        scanBTN = findViewById(R.id.barscan_btn2);
+        scanBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VieweditActivity.this, Scanner.class);
+                intent.putExtra("update", "viewing_item");
+                startActivity(intent);
+            }
+        });
+
+        saveBTN = findViewById(R.id.save_btn);
+        saveBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO save function here
+            }
+        });
+    }
+
+    public void editBTN_clicked(View view) {
+        if (editw) { // --> cen type
+            name_field.setEnabled(false);
+            barcode_field.setEnabled(false);
+            description_field.setEnabled(false);
+            quantity_field.setEnabled(false);
+            price_field.setEnabled(false);
+            editw = false;
+
+        } else { // --> CAN NOT TYPE
+            name_field.setEnabled(true);
+            barcode_field.setEnabled(true);
+            description_field.setEnabled(true);
+            quantity_field.setEnabled(true);
+            price_field.setEnabled(true);
+            editw = true;
+
         }
     }

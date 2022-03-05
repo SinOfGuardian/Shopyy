@@ -98,7 +98,7 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DashboardNew.this, Scanner.class);
-                intent.putExtra("Search", true);
+                intent.putExtra("update", "searching_item");
                 startActivity(intent);
             }
         });
