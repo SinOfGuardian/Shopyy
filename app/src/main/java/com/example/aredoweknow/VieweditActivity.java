@@ -32,7 +32,7 @@ public class VieweditActivity extends AppCompatActivity {
     DatabaseHandler db;
     AppCompatImageButton backbtn;
 
-    Button cameraBTN, galleryBTN, editBTN, saveBTN;
+    Button cameraBTN, galleryBTN, editBTN, saveBTN, image_Uri;
 
     ImageButton scanBTN;
 
@@ -75,6 +75,7 @@ public class VieweditActivity extends AppCompatActivity {
         price_field = findViewById(R.id.price_val2);
         imageView = findViewById(R.id.image_val2);
 
+
         name_field.setShowSoftInputOnFocus(false);
         barcode_field.setShowSoftInputOnFocus(false);
         description_field.setShowSoftInputOnFocus(false);
@@ -96,7 +97,6 @@ public class VieweditActivity extends AppCompatActivity {
         quantity_field.setText(quantity);
         price_field.setText(price);
 
-
         //--------------BACK TO DASHBOARD--------------
         backbtn = findViewById(R.id.view_back_btn);
         backbtn.setOnClickListener(new View.OnClickListener() {
@@ -105,13 +105,6 @@ public class VieweditActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-        //--------------CAMERA CODE
-//        if (ContextCompat.checkSelfPermission(VieweditActivity.this,
-//                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(VieweditActivity.this, new String[]{Manifest.permission.CAMERA}, 100);
-//        }
 
         //--------------------Open gallery
         galleryBTN = findViewById(R.id.gallery_btn2);
@@ -132,7 +125,6 @@ public class VieweditActivity extends AppCompatActivity {
             startActivityForResult(intent, 100);
         });
 
-
         //-------------------Open Scanner
         scanBTN = findViewById(R.id.barscan_btn2);
         scanBTN.setOnClickListener(v -> {
@@ -144,8 +136,6 @@ public class VieweditActivity extends AppCompatActivity {
             }
         });
 
-
-
         editBTN = findViewById(R.id.edit_btn);
         editBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,7 +144,6 @@ public class VieweditActivity extends AppCompatActivity {
             }
         });
 
-
         cameraBTN = findViewById(R.id.camera_btn2);
         cameraBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,9 +151,6 @@ public class VieweditActivity extends AppCompatActivity {
                 //TODO 1 wait ako na dito - ji
             }
         });
-
-
-
 }
 
     private boolean CamPermissionGranted() {
@@ -177,7 +163,6 @@ public class VieweditActivity extends AppCompatActivity {
             return true;
         }
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -262,25 +247,26 @@ public class VieweditActivity extends AppCompatActivity {
                 }
             });
         }
+
     }
+    public void editBTN_clicked (View view){
+            if (editw) { // --> cen type
+                name_field.setEnabled(false);
+                barcode_field.setEnabled(false);
+                description_field.setEnabled(false);
+                quantity_field.setEnabled(false);
+                price_field.setEnabled(false);
+                editw = false;
 
-    public void editBTN_clicked(View view) {
-        if (editw) { // --> cen type
-            name_field.setEnabled(false);
-            barcode_field.setEnabled(false);
-            description_field.setEnabled(false);
-            quantity_field.setEnabled(false);
-            price_field.setEnabled(false);
-            editw = false;
+            } else { // --> CAN NOT TYPE
+                name_field.setEnabled(true);
+                barcode_field.setEnabled(true);
+                description_field.setEnabled(true);
+                quantity_field.setEnabled(true);
+                price_field.setEnabled(true);
+                editw = true;
 
-        } else { // --> CAN NOT TYPE
-            name_field.setEnabled(true);
-            barcode_field.setEnabled(true);
-            description_field.setEnabled(true);
-            quantity_field.setEnabled(true);
-            price_field.setEnabled(true);
-            editw = true;
-
+            }
         }
     }
 }
