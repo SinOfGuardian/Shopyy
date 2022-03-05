@@ -54,25 +54,37 @@ public class Home extends Fragment {
         rv.setLayoutManager(gridLayoutManager);
 
 
-//        SharedPreferences sf = getContext().getSharedPreferences("Shopyy",  Context.MODE_PRIVATE);
+        SharedPreferences sf = getContext().getSharedPreferences("Shopyy",  Context.MODE_PRIVATE);
+        boolean needRefresh = sf.getBoolean("refresh", false);
+        Toast.makeText(getContext(), String.valueOf(needRefresh), Toast.LENGTH_SHORT).show();
+
+        if (needRefresh) {
+            //---Show Items
+            Handler handler = new Handler();
+            handler.postAtTime(new Runnable() {
+                @Override
+                public void run() {
+                    SharedPreferences.Editor editor = sf.edit();
+                    editor.putBoolean("refresh", false);
+                    editor.apply();
+                    updateArrayList();
+//                    displayITEMS();
+                }
+            }, 1);
+        }else {
+            displayITEMS();
+        }
 
 
-        //---Show Items
-        Handler handler = new Handler();
-        handler.postAtTime(new Runnable() {
-            @Override
-            public void run() {
-                displayITEMS();
-            }
-        }, 1);
 
-
-        Toast.makeText(getContext(), "Welcome to Home", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "Welcome to Home", Toast.LENGTH_SHORT).show();
     return view;
-}
+    }
 
-    private void displayITEMS() {
-        ArrayList<GetterSetter> al = new ArrayList<>();
+    ArrayList<GetterSetter> al = new ArrayList<>();
+
+    private void updateArrayList() {
+        al = new ArrayList<>();
         mydb = new DatabaseHandler(getContext());
 
         try {
@@ -103,6 +115,11 @@ public class Home extends Fragment {
             }
         }
 
+        displayITEMS();
+    }
+
+
+    public void displayITEMS() {
         adapter my = new adapter(getContext(),al);
         rv.setAdapter(my);
     }

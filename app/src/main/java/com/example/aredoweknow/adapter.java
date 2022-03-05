@@ -36,7 +36,7 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
 
     @Override
     public void onBindViewHolder(@NonNull Myclass holder, int position) {
-
+//        holder.setIsRecyclable(false); //Disable recycling
         System.out.println("Position ------------------------[ "+position+" ]");
         GetterSetter g1 = al.get(position);
 
