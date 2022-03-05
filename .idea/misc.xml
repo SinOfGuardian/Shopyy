@@ -11,17 +11,15 @@
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/drawable/login_button.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/drawable/login_edittext.xml" value="0.21" />
-        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_add_item.xml" value="0.25" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_add_item.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_dashboard.xml" value="0.2" />
-        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_dashboard_new.xml" value="0.2" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_dashboard_new.xml" value="0.1" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_scanner.xml" value="0.2" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_store_name.xml" value="0.22" />
-
-        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_viewedit.xml" value="0.2" />
-
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_viewedit.xml" value="0.25" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/activity_web.xml" value="0.5" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/app_bar_dashboard_new.xml" value="0.25" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/layout/content_dashboard_new.xml" value="0.33" />
@@ -84,7 +82,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.22" />
+        <option name="scale" value="0.1" />
       </ProjectState>
     </option>
   </component>

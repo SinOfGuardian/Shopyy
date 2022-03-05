@@ -47,14 +47,13 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
         holder.tvQuantity.setText(g1.getQuantity());
         holder.im.setImageBitmap(g1.getImage());
 
-        holder.panel.setTag(String.valueOf(g1.getId()));
+        holder.panel.setTag(g1.getId());
 
         holder.panel.setOnLongClickListener(v -> {
             String temp = String.valueOf(v.getTag());
-            Toast.makeText(context, "TAG ------ " + temp, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "LONG CLICKED ID: " + temp, Toast.LENGTH_SHORT).show();
             return false;
         });
-
 
         holder.panel.setOnClickListener(v -> {
             int position1 = holder.getAdapterPosition();
@@ -70,7 +69,8 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
 
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-            Toast.makeText(v.getContext(), v.getTag().toString() + position1, Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(v.getContext(), v.getTag().toString(), Toast.LENGTH_SHORT).show();
         });
     }
 

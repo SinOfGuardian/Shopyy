@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import java.io.ByteArrayOutputStream;
 
 
@@ -84,7 +85,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         cameraBTN = findViewById(R.id.camera_btn);
         cameraBTN.setOnClickListener(v -> {
             if (CamPermissionGranted()) {
-                Intent intent =  new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 100);
 
                 SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
@@ -207,8 +208,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 
             cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri);
             startActivityForResult(cropIntent, PIC_CROP);
-        }
-        catch(ActivityNotFoundException anfe){
+        } catch (ActivityNotFoundException anfe) {
             String errorMessage = "Whoops - your device doesn't support the crop action!";
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
         }
@@ -331,7 +331,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(AddItem.this, new String[]{Manifest.permission.CAMERA}, 100);
             return false;
-        }else {
+        } else {
             return true;
         }
     }

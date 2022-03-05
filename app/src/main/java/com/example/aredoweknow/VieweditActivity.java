@@ -32,14 +32,13 @@ public class VieweditActivity extends AppCompatActivity {
     DatabaseHandler db;
     AppCompatImageButton backbtn;
 
-    Button cameraBTN, galleryBTN, editBTN, saveBTN, image_Uri;
-
+    Button cameraBTN, galleryBTN, editBTN, saveBTN;
+    Uri image_Uri;
     ImageButton scanBTN;
 
     DatabaseHandler dataHandler;
     EditText name_field, barcode_field, description_field, quantity_field, price_field;
     Bitmap captureImage;
-    Uri galler;
     ImageView imageView;
     CardView cardView;
     Toolbar toolbar;
@@ -52,11 +51,9 @@ public class VieweditActivity extends AppCompatActivity {
     String quantity;
     Bitmap image;
 
-    Uri image_Uri;
-
-
     @SuppressLint("StaticFieldLeak")
     public static EditText static_namefield;
+
     @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +62,6 @@ public class VieweditActivity extends AppCompatActivity {
 
         //Database
         dataHandler = new DatabaseHandler(this);
-
 
         name_field = findViewById(R.id.itemname_val2);
         barcode_field = findViewById(R.id.barcode_val2);
@@ -99,30 +95,22 @@ public class VieweditActivity extends AppCompatActivity {
 
         //--------------BACK TO DASHBOARD--------------
         backbtn = findViewById(R.id.view_back_btn);
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        backbtn.setOnClickListener(v -> finish());
 
         //--------------------Open gallery
         galleryBTN = findViewById(R.id.gallery_btn2);
-        galleryBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 3);
-            }
+        galleryBTN.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, 3);
         });
 
         //-------------------Open Camera for Image
         cameraBTN = findViewById(R.id.camera_btn2);
         cameraBTN.setOnClickListener(v -> {
             if (CamPermissionGranted()) {
-                Intent intent =  new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 100);
             }
-            startActivityForResult(intent, 100);
         });
 
         //-------------------Open Scanner
@@ -137,12 +125,7 @@ public class VieweditActivity extends AppCompatActivity {
         });
 
         editBTN = findViewById(R.id.edit_btn);
-        editBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editBTN_clicked(v);
-            }
-        });
+        editBTN.setOnClickListener(v -> editBTN_clicked(v));
 
         cameraBTN = findViewById(R.id.camera_btn2);
         cameraBTN.setOnClickListener(new View.OnClickListener() {
@@ -151,15 +134,39 @@ public class VieweditActivity extends AppCompatActivity {
                 //TODO 1 wait ako na dito - ji
             }
         });
-}
 
+        galleryBTN = findViewById(R.id.gallery_btn2);
+        galleryBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO 2 wait ako na dito - ji
+            }
+        });
+
+        scanBTN = findViewById(R.id.barscan_btn2);
+        scanBTN.setOnClickListener(v -> {  //--> This is Lambda Format, this is just the same with regular runnable void onClick()
+            Intent intent = new Intent(VieweditActivity.this, Scanner.class);
+            intent.putExtra("update", "viewing_item");
+            startActivity(intent);
+        });
+
+        saveBTN = findViewById(R.id.save_btn);
+        saveBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO save function here
+            }
+        });
+    }
+
+
+    //------------------------------------------------CAMERA CODE
     private boolean CamPermissionGranted() {
-        //--------------CAMERA CODE
         if (ContextCompat.checkSelfPermission(VieweditActivity.this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(VieweditActivity.this, new String[]{Manifest.permission.CAMERA}, 100);
             return false;
-        }else {
+        } else {
             return true;
         }
     }
@@ -174,7 +181,7 @@ public class VieweditActivity extends AppCompatActivity {
             System.out.println(requestCode + " | " + resultCode);
             try {
                 if (requestCode == 3) {  //--> Choose from gallery
-                    galler = data.getData();
+                    image_Uri = data.getData();
 //                image_Bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_Uri);
 //                imageView.setImageURI(selectedImage);
                     performCrop(); //--> Requires Cropping the image
@@ -196,77 +203,44 @@ public class VieweditActivity extends AppCompatActivity {
 
     //keep track of cropping intent
     final int PIC_CROP = 2;
-
     public void performCrop() {
         try {
-            //call the standard crop action intent (the user device may not support it)
-            Intent cropIntent = new Intent("com.android.camera.action.CROP");
-            //indicate image type and Uri
-            cropIntent.setDataAndType(image_Uri, "image/*");
-            //set crop properties
-            cropIntent.putExtra("crop", "true");
-            //indicate aspect of desired crop
-            cropIntent.putExtra("aspectX", 1);
-            cropIntent.putExtra("aspectY", 1);
-            //indicate output X and Y
-            cropIntent.putExtra("outputX", 420); //256
-            cropIntent.putExtra("outputY", 420);
-            //retrieve data on return
-            cropIntent.putExtra("return-data", true);
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");   //call the standard crop action intent (the user device may not support it)
 
-            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, galler);
+            cropIntent.setDataAndType(image_Uri, "image/*");    //indicate image type and Uri
+            cropIntent.putExtra("crop", "true");    //set crop properties
+            cropIntent.putExtra("aspectX", 1);  //indicate aspect of desired crop
+            cropIntent.putExtra("aspectY", 1);
+            cropIntent.putExtra("outputX", 420);    //indicate output X and Y
+            cropIntent.putExtra("outputY", 420);
+            cropIntent.putExtra("return-data", true);   //retrieve data on return
+
+            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri);
             startActivityForResult(cropIntent, PIC_CROP);
         } catch (ActivityNotFoundException anfe) {
-            //display an error message
             String errorMessage = "Whoops - your device doesn't support the crop action!";
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
-
-            galleryBTN = findViewById(R.id.gallery_btn2);
-            galleryBTN.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO 2 wait ako na dito - ji
-                }
-            });
-
-            scanBTN = findViewById(R.id.barscan_btn2);
-            scanBTN.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(VieweditActivity.this, Scanner.class);
-                    intent.putExtra("update", "viewing_item");
-                    startActivity(intent);
-                }
-            });
-
-            saveBTN = findViewById(R.id.save_btn);
-            saveBTN.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO save function here
-                }
-            });
         }
-
     }
-    public void editBTN_clicked (View view){
-            if (editw) { // --> cen type
-                name_field.setEnabled(false);
-                barcode_field.setEnabled(false);
-                description_field.setEnabled(false);
-                quantity_field.setEnabled(false);
-                price_field.setEnabled(false);
-                editw = false;
 
-            } else { // --> CAN NOT TYPE
-                name_field.setEnabled(true);
-                barcode_field.setEnabled(true);
-                description_field.setEnabled(true);
-                quantity_field.setEnabled(true);
-                price_field.setEnabled(true);
-                editw = true;
 
-            }
+    public void editBTN_clicked(View view) {
+        if (editw) { // --> cen type
+            name_field.setEnabled(false);
+            barcode_field.setEnabled(false);
+            description_field.setEnabled(false);
+            quantity_field.setEnabled(false);
+            price_field.setEnabled(false);
+            editw = false;
+
+        } else { // --> CAN NOT TYPE
+            name_field.setEnabled(true);
+            barcode_field.setEnabled(true);
+            description_field.setEnabled(true);
+            quantity_field.setEnabled(true);
+            price_field.setEnabled(true);
+            editw = true;
+
         }
     }
 }
