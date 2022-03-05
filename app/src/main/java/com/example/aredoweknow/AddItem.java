@@ -66,7 +66,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         quantity_field = findViewById(R.id.quantity_val);
         price_field = findViewById(R.id.price_val);
 
-        imageView = findViewById(R.id.image_val);
+        imageView = findViewById(R.id.image_val2);
         cardView = findViewById(R.id.image_panel);
 
         //--------------CAMERA CODE
@@ -76,7 +76,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         }
 
         //------------------Back to Dashboard
-        backbtn = findViewById(R.id.add_back_btn);
+        backbtn = findViewById(R.id.back_btn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,6 +129,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddItem.this, Scanner.class);
+                intent.putExtra("update", "adding_item");
                 startActivity(intent);
             }
         });
@@ -162,8 +163,6 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                         SharedPreferences.Editor editor = sf.edit();
                         editor.putBoolean("refresh", true);
                         editor.apply();
-
-
 
                         Toast.makeText(AddItem.this, name + " Added Recently", Toast.LENGTH_SHORT).show();
                         display_messageDialog("Item Added Successfully.");
@@ -322,7 +321,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         boolean res = false;
 
         //check image if not empty
-        final ImageView img = (ImageView) findViewById(R.id.image_val);
+        final ImageView img = (ImageView) findViewById(R.id.image_val2);
         final Bitmap bmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
 
         @SuppressLint("UseCompatLoadingForDrawables") Drawable myDrawable = getResources().getDrawable(R.drawable.image_100px);
