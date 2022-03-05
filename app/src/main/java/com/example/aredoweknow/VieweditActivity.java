@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toolbar;
 
 public class VieweditActivity extends AppCompatActivity {
     private boolean editw = true;
@@ -27,11 +28,14 @@ public class VieweditActivity extends AppCompatActivity {
     ImageView imageView;
     Uri selectedImage;
     CardView cardView;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewedit);
+
+        final Object object = getIntent().getSerializableExtra("");
 
         AddBTN = findViewById(R.id.edit_btn);
         name_field = findViewById(R.id.itemname_val);
