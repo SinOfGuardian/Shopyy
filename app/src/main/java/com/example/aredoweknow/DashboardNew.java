@@ -99,7 +99,7 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
                 startActivity(intent12);
             }
         });
-
+//------------------Open Add
         add_btn = findViewById(R.id.fab3);
         add_btn.setOnClickListener(v -> {
             Intent intent13 = new Intent(DashboardNew.this, AddItem.class);

@@ -79,6 +79,11 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         GalleryBTN.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, 3);
+
+            //--------------------------RREFrESH
+            REFRESH r = new REFRESH();
+            r.updateArrayList2(this);
+
             SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sf.edit();
             editor.putBoolean("refresh", true);
@@ -91,6 +96,10 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             if (CamPermissionGranted()) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 100);
+
+                //--------------------------RREFrESH
+                REFRESH r = new REFRESH();
+                r.updateArrayList2(this);
 
                 SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sf.edit();
@@ -137,6 +146,10 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 
                     Toast.makeText(AddItem.this, name + " Added Recently", Toast.LENGTH_SHORT).show();
                     display_messageDialog("Item Added Successfully.");
+                    //----------REFRESH
+                    REFRESH r = new REFRESH();
+                    r.updateArrayList2(this);
+                    //--------------------
                     resetFields();
                 } else {
                     Toast.makeText(AddItem.this, "Adding " + name + " Item Failed!", Toast.LENGTH_SHORT).show();
@@ -179,7 +192,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                     performCrop(); //--> Requires Cropping the image
                 }
 
-                if (requestCode == PIC_CROP || requestCode == 100) { //3
+                if (requestCode == PIC_CROP || requestCode == 100) { //100
                     image_Bitmap = data.getExtras().getParcelable("data");
 //                image_Bitmap = Bitmap.createScaledBitmap(image_Bitmap, 100, 100, false);
 

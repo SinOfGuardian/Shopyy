@@ -48,36 +48,39 @@ public class Home extends Fragment {
 
     Button click;
     private Intent intent;
+    public static RecyclerView rv_static;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        rv_static = rv;
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         rv = view.findViewById(R.id.recycleViewLinear);
+        rv_static = rv;
         rv.setHasFixedSize(true);
         RecyclerView.LayoutManager gridLayoutManager = new LinearLayoutManager(getContext());
         //gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         rv.setLayoutManager(gridLayoutManager);
 
 
-        SharedPreferences sf = getContext().getSharedPreferences("Shopyy",  Context.MODE_PRIVATE);
-        boolean needRefresh = sf.getBoolean("refresh", false);
-        Toast.makeText(getContext(), String.valueOf(needRefresh), Toast.LENGTH_SHORT).show();
+//        SharedPreferences sf = getContext().getSharedPreferences("Shopyy",  Context.MODE_PRIVATE);
+//        boolean needRefresh = sf.getBoolean("refresh", false);
+//        Toast.makeText(getContext(), String.valueOf(needRefresh), Toast.LENGTH_SHORT).show();
 
-        if (needRefresh) {
+     //   if (needRefresh) {
             //---Show Items
             Handler handler = new Handler();
             handler.postAtTime(new Runnable() {
                 @Override
                 public void run() {
-                    SharedPreferences.Editor editor = sf.edit();
-                    editor.putBoolean("refresh", false);
-                    editor.apply();
+//                    SharedPreferences.Editor editor = sf.edit();
+//                    editor.putBoolean("refresh", false);
+//                    editor.apply();
                     updateArrayList();
+                    displayITEMS();
                 }
             }, 1);
-        }else {
-            displayITEMS();
-        }
+       // }else {
+
+        //}
 
 
 

@@ -51,7 +51,7 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
 
         holder.panel.setOnLongClickListener(v -> {
             String temp = String.valueOf(v.getTag());
-            Toast.makeText(context, "LONG CLICKED ID: " + temp, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(context, "LONG CLICKED ID: " + temp, Toast.LENGTH_SHORT).show();
             return false;
         });
 

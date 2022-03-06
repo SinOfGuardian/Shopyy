@@ -32,6 +32,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class VieweditActivity extends AppCompatActivity {
     private boolean editw = true;
@@ -114,6 +115,11 @@ public class VieweditActivity extends AppCompatActivity {
         galleryBTN.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, 3);
+
+            //--------------------------RREFrESH
+            REFRESH r = new REFRESH();
+            r.updateArrayList2(this);
+
             SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sf.edit();
             editor.putBoolean("refresh", true);
@@ -126,6 +132,10 @@ public class VieweditActivity extends AppCompatActivity {
             if (CamPermissionGranted()) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 100);
+
+                //--------------------------RREFrESH
+                REFRESH r = new REFRESH();
+                r.updateArrayList2(this);
 
                 SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sf.edit();
@@ -150,32 +160,39 @@ public class VieweditActivity extends AppCompatActivity {
 
             if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
                 Toast.makeText(VieweditActivity.this, "SAVE SAVE", Toast.LENGTH_SHORT).show();
-            
 
 
-                    String id = intent.getStringExtra("id");
-                    String name = name_field.getText().toString();
-                    String barcode = "" + barcode_field.getText().toString();
-                    String description = description_field.getText().toString();
-                    int quantity = Integer.parseInt(quantity_field.getText().toString());
-                    double price = Double.parseDouble(price_field.getText().toString());
+                String id = intent.getStringExtra("id");
+                String name = name_field.getText().toString();
+                String barcode = "" + barcode_field.getText().toString();
+                String description = description_field.getText().toString();
+                int quantity = Integer.parseInt(quantity_field.getText().toString());
+                double price = Double.parseDouble(price_field.getText().toString());
 
-                    Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-                    Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+                Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                Bitmap.createScaledBitmap(bitmap, 100, 100, false);
 //                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.image_val);
-                    ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
-                    byte[] img = byteArray.toByteArray();
-                    long res = Long.parseLong(id);
-                    db.updateAccount(res, name, img, barcode, description, quantity, price);
+                ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
+                byte[] img = byteArray.toByteArray();
+                int res = Integer.parseInt(id);
 
-                    SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sf.edit();
-                    editor.putBoolean("refresh", true);
-                    editor.apply();
+                db.updateAccount(res, name, img, barcode, description, quantity, price);
 
-                    Toast.makeText(VieweditActivity.this, name + " Update Recently", Toast.LENGTH_SHORT).show();
-                    display_messageDialog("Item Updated Successfully.");
+                //--------------------------RREFrESH
+                REFRESH r = new REFRESH();
+                r.updateArrayList2(this);
+
+//                SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sf.edit();
+//                editor.putBoolean("refresh", true);
+//                editor.apply();
+
+                Toast.makeText(VieweditActivity.this, name + " Update Recently", Toast.LENGTH_SHORT).show();
+                display_messageDialog("Item Updated Successfully.");
+
+                Toast.makeText(VieweditActivity.this, " Data Did Not Change", Toast.LENGTH_SHORT).show();
+
 
             }
 
@@ -185,17 +202,26 @@ public class VieweditActivity extends AppCompatActivity {
         delBTN.setOnClickListener(v -> {
             //TODO delete function here
             String id = intent.getStringExtra("id");
-            if(id.equals("")){
+            if (id.equals("")) {
                 Toast.makeText(VieweditActivity.this, "Please fill the ITEM    ", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 long l = Long.parseLong(id);
                 db.deleteAccount(l);
                 Toast.makeText(VieweditActivity.this, " Successful Remove Item ", Toast.LENGTH_SHORT).show();
+
+
+                //REFRESH
+                REFRESH r = new REFRESH();
+                r.updateArrayList2(this);
+                ///////////////////////////////
                 SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sf.edit();
                 editor.putBoolean("refresh", true);
                 editor.apply();
                 delBTN.refreshDrawableState();
+                ArrayList<GetterSetter> al = new ArrayList<>();
+
+
                 finish();
 
             }
@@ -203,7 +229,10 @@ public class VieweditActivity extends AppCompatActivity {
         });
 
         editBTN_clicked(false);
+
     }
+//----------------ewan
+
 
     //----------------This Reset the fields after successful add
     public void resetFields() {
@@ -220,6 +249,7 @@ public class VieweditActivity extends AppCompatActivity {
         cardView.setFocusableInTouchMode(true);
         cardView.requestFocus();
     }
+
     //----------------------Message Dialog that notifies user
     private void display_messageDialog(String message) {
         Dialog dialog1 = new Dialog(this);
@@ -230,6 +260,7 @@ public class VieweditActivity extends AppCompatActivity {
         cardView.requestFocus();
         dialog.simpleDialog(dialog1, message); //--> show simple dialog
     }
+
     //------------------------------------------------CAMERA CODE
     private boolean CamPermissionGranted() {
         if (ContextCompat.checkSelfPermission(VieweditActivity.this,
@@ -271,6 +302,7 @@ public class VieweditActivity extends AppCompatActivity {
             }
         }
     }
+
     //keep track of cropping intent
     final int PIC_CROP = 2;
 
@@ -296,6 +328,7 @@ public class VieweditActivity extends AppCompatActivity {
         }
 
     }
+
     public void editBTN_clicked(boolean state) {
         if (!state) { // --> CAN NOT TYPE/EDIT
             name_field.setEnabled(false);
@@ -413,7 +446,6 @@ public class VieweditActivity extends AppCompatActivity {
         }
         return res;
     }
-
 
 
 }

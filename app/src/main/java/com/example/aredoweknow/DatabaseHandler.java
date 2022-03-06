@@ -66,7 +66,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();//closing database
         return result;
     }
-    public long updateAccount(long l, String uITEM, byte[] uIMAGE, String uBARCODE, String uDESCRIPTION, int uQUANTIY, double uPRICE) {
+    public void updateAccount(int l, String uITEM, byte[] uIMAGE, String uBARCODE, String uDESCRIPTION, int uQUANTIY, double uPRICE) {
         db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -77,9 +77,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_QUANTITY, uQUANTIY); // ITEM QUANTITY
         values.put(KEY_PRICE, uPRICE); // ITEM PRICE
 
-        long res = db.update(TABLE_NAME, values, KEY_ID + "='" + 1, null);
+         db.update(TABLE_NAME, values, KEY_ID + "=" + l, null);
         db.close();
-        return res;
+
     }
 
     public String itemName(String id){
