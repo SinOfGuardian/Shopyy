@@ -1,13 +1,6 @@
 package com.example.aredoweknow;
 
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -17,13 +10,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -38,8 +29,6 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import java.io.ByteArrayOutputStream;
 
 public class VieweditActivity extends AppCompatActivity {
     private boolean editw = true;
@@ -141,7 +130,7 @@ public class VieweditActivity extends AppCompatActivity {
                 editor.apply();
             }
         });
-        
+
         //----------------> Toggles Edit
         editBTN = findViewById(R.id.edit_btn);
         editBTN.setOnClickListener(v -> {
@@ -205,148 +194,140 @@ public class VieweditActivity extends AppCompatActivity {
 //        });
 
 
-
-    //----------------This Reset the fields after successfull add
-    public void resetFields () {
+    //----------------This Reset the fields after successful add
+    public void resetFields() {
         name_field.setText("");
         barcode_field.setText("");
         description_field.setText("");
         quantity_field.setText("");
         price_field.setText("");
 
+        cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable myDrawable = getResources().getDrawable(R.drawable.image_100px);
+        imageView.setImageBitmap(((BitmapDrawable) myDrawable).getBitmap());
 
-        //----------------This Reset the fields after successful add
-        public void resetFields () {
-            name_field.setText("");
-            barcode_field.setText("");
-            description_field.setText("");
-            quantity_field.setText("");
-            price_field.setText("");
+        cardView.setFocusableInTouchMode(true);
+        cardView.requestFocus();
+    }
 
-            cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
-            @SuppressLint("UseCompatLoadingForDrawables") Drawable myDrawable = getResources().getDrawable(R.drawable.image_100px);
-            imageView.setImageBitmap(((BitmapDrawable) myDrawable).getBitmap());
+    //----------------------Message Dialog that notifies user
+    private void display_messageDialog(String message) {
+        Dialog dialog1 = new Dialog(this);
+        dialogClass dialog = new dialogClass();
 
-            cardView.setFocusableInTouchMode(true);
-            cardView.requestFocus();
+
+        cardView.setFocusableInTouchMode(true);
+        cardView.requestFocus();
+        dialog.simpleDialog(dialog1, message); //--> show simple dialog
+
+    }
+
+
+    //------------------------------------------------CAMERA CODE
+    private boolean CamPermissionGranted() {
+        if (ContextCompat.checkSelfPermission(VieweditActivity.this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(VieweditActivity.this, new String[]{Manifest.permission.CAMERA}, 100);
+            return false;
+        } else {
+            return true;
         }
+    }
 
-        //----------------------Message Dialog that notifies user
-        private void display_messageDialog (String message){
-            Dialog dialog1 = new Dialog(this);
-            dialogClass dialog = new dialogClass();
-
-
-            cardView.setFocusableInTouchMode(true);
-            cardView.requestFocus();
-            dialog.simpleDialog(dialog1, message); //--> show simple dialog
-
-        }
-
-
-        //------------------------------------------------CAMERA CODE
-        private boolean CamPermissionGranted () {
-            if (ContextCompat.checkSelfPermission(VieweditActivity.this,
-                    Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(VieweditActivity.this, new String[]{Manifest.permission.CAMERA}, 100);
-                return false;
-            } else {
-                return true;
-            }
-
-
-
-        @Override
-        protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
-            super.onActivityResult(requestCode, resultCode, data);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
 //        Toast.makeText(this, requestCode + " | " + resultCode, Toast.LENGTH_SHORT).show();
 //        System.out.println(requestCode + " | " + resultCode);
 
-            if (data != null && resultCode == RESULT_OK) {
-                System.out.println(requestCode + " | " + resultCode);
-                try {
-                    if (requestCode == 3) {  //--> Choose from gallery
-                        image_Uri = data.getData();
+        if (data != null && resultCode == RESULT_OK) {
+            System.out.println(requestCode + " | " + resultCode);
+            try {
+                if (requestCode == 3) {  //--> Choose from gallery
+                    image_Uri = data.getData();
 //                image_Bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_Uri);
 //                imageView.setImageURI(selectedImage);
-                        performCrop(); //--> Requires Cropping the image
-                    }
+                    performCrop(); //--> Requires Cropping the image
+                }
 
-                    if (requestCode == PIC_CROP || requestCode == 100) { //3
-                        captureImage = data.getExtras().getParcelable("data");
+                if (requestCode == PIC_CROP || requestCode == 100) { //3
+                    captureImage = data.getExtras().getParcelable("data");
 //                image_Bitmap = Bitmap.createScaledBitmap(image_Bitmap, 100, 100, false);
 
-                        imageView.setImageBitmap(captureImage);
-                        cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    imageView.setImageBitmap(captureImage);
+                    cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
                 }
-            }
-        }
 
-
-        //keep track of cropping intent
-        final int PIC_CROP = 2;
-        public void performCrop () {
-            try {
-                Intent cropIntent = new Intent("com.android.camera.action.CROP");   //call the standard crop action intent (the user device may not support it)
-
-                cropIntent.setDataAndType(image_Uri, "image/*");    //indicate image type and Uri
-                cropIntent.putExtra("crop", "true");    //set crop properties
-                cropIntent.putExtra("aspectX", 1);  //indicate aspect of desired crop
-                cropIntent.putExtra("aspectY", 1);
-                cropIntent.putExtra("outputX", 420);    //indicate output X and Y
-                cropIntent.putExtra("outputY", 420);
-                cropIntent.putExtra("return-data", true);   //retrieve data on return
-
-                cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri);
-                startActivityForResult(cropIntent, PIC_CROP);
-
-            } catch (ActivityNotFoundException e) {
-                //display an error message
-                String errorMessage = "Whoops - your device doesn't support the crop action!";
-                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
-            }
-
-
-
-
-        public void editBTN_clicked ( boolean state){
-            if (!state) { // --> CAN NOT TYPE/EDIT
-                name_field.setEnabled(false);
-                barcode_field.setEnabled(false);
-                description_field.setEnabled(false);
-                quantity_field.setEnabled(false);
-                price_field.setEnabled(false);
-
-
-                galleryBTN.setEnabled(false);
-                cameraBTN.setEnabled(false);
-                scanBTN.setEnabled(false);
-
-                saveBTN.setEnabled(false);
-                delBTN.setEnabled(false);
-                editw = false;
-
-            } else { // --> CAN TYPE/EDIT
-                name_field.setEnabled(true);
-                barcode_field.setEnabled(true);
-                description_field.setEnabled(true);
-                quantity_field.setEnabled(true);
-                price_field.setEnabled(true);
-
-                galleryBTN.setEnabled(true);
-                cameraBTN.setEnabled(true);
-                scanBTN.setEnabled(true);
-
-                saveBTN.setEnabled(true);
-                delBTN.setEnabled(true);
-                editw = true;
-
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
+
+
+    //keep track of cropping intent
+    final int PIC_CROP = 2;
+
+    public void performCrop() {
+        try {
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");   //call the standard crop action intent (the user device may not support it)
+
+            cropIntent.setDataAndType(image_Uri, "image/*");    //indicate image type and Uri
+            cropIntent.putExtra("crop", "true");    //set crop properties
+            cropIntent.putExtra("aspectX", 1);  //indicate aspect of desired crop
+            cropIntent.putExtra("aspectY", 1);
+            cropIntent.putExtra("outputX", 420);    //indicate output X and Y
+            cropIntent.putExtra("outputY", 420);
+            cropIntent.putExtra("return-data", true);   //retrieve data on return
+
+            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri);
+            startActivityForResult(cropIntent, PIC_CROP);
+
+        } catch (ActivityNotFoundException e) {
+            //display an error message
+            String errorMessage = "Whoops - your device doesn't support the crop action!";
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
         }
+
+    }
+
+    public void editBTN_clicked(boolean state) {
+        if (!state) { // --> CAN NOT TYPE/EDIT
+            name_field.setEnabled(false);
+            barcode_field.setEnabled(false);
+            description_field.setEnabled(false);
+            quantity_field.setEnabled(false);
+            price_field.setEnabled(false);
+
+
+            galleryBTN.setEnabled(false);
+            cameraBTN.setEnabled(false);
+            scanBTN.setEnabled(false);
+
+            saveBTN.setEnabled(false);
+            delBTN.setEnabled(false);
+            editw = false;
+
+        } else { // --> CAN TYPE/EDIT
+            name_field.setEnabled(true);
+            barcode_field.setEnabled(true);
+            description_field.setEnabled(true);
+            quantity_field.setEnabled(true);
+            price_field.setEnabled(true);
+
+            galleryBTN.setEnabled(true);
+            cameraBTN.setEnabled(true);
+            scanBTN.setEnabled(true);
+
+            saveBTN.setEnabled(true);
+            delBTN.setEnabled(true);
+            editw = true;
+
+        }
+    }
+
+
+}
+
+
