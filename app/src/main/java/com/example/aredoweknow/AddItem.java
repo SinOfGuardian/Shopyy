@@ -77,17 +77,19 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         //--------------------Open gallery
         GalleryBTN = findViewById(R.id.gallery_btn);
         GalleryBTN.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, 3);
+            if (CamPermissionGranted()) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 3);
 
-            //--------------------------RREFrESH
-            REFRESH r = new REFRESH();
-            r.updateArrayList2(this);
+                //--------------------------RREFrESH
+                REFRESH r = new REFRESH();
+                r.updateArrayList2(this);
 
-            SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sf.edit();
-            editor.putBoolean("refresh", true);
-            editor.apply();
+                SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sf.edit();
+                editor.putBoolean("refresh", true);
+                editor.apply();
+            }
         });
 
         //-------------------Open Camera for Image
