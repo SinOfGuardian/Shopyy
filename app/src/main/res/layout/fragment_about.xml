@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments_folder.About">
@@ -9,12 +9,12 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        app:cardCornerRadius="28dp"
-        android:elevation="28dp">
+        android:layout_marginBottom="20dp"
+        android:elevation="28dp"
+        app:cardCornerRadius="28dp">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -73,30 +73,251 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:gravity="center"
                         android:paddingStart="60dp"
                         android:paddingEnd="60dp"
-                        android:gravity="center"
                         android:text="     Shopyy is an offline app that are designed to managed stocks and items. It is developed to manage goods in a small shop or home inventory storage. Shopyy helps to keep track of your stock of any kind of items."
                         android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="22dp"
+                        android:text="Developer Contact"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:paddingStart="20dp">
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/jayvie_balili" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="12dp"
+                                    android:paddingStart="14dp"
+
+                                    android:text="Jayvie M. Balili"
+                                    android:textColor="@color/fab_col1"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="15dp"
+                                    android:text="balilijayvie201@gmail.com"
+                                    android:textStyle="bold"
+                                    android:textSize="12sp"
+                                    android:drawableLeft="@drawable/gmail_12px"
+                                    android:drawablePadding="10dp"
+                                    />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layoutDirection="rtl"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:paddingStart="20dp">
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/gabriel" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="12dp"
+                                    android:paddingStart="14dp"
+
+                                    android:text="John Lloyd Gabriel"
+                                    android:textColor="@color/fab_col2"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="15dp"
+                                    android:text="asteloid15@gmail.com"
+                                    android:textStyle="bold"
+                                    android:textSize="12sp"
+                                    android:drawableLeft="@drawable/gmail_12px"
+                                    android:drawablePadding="10dp"
+                                    />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:orientation="horizontal"
+                            android:paddingStart="20dp">
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/boco" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="12dp"
+                                    android:paddingStart="14dp"
+
+                                    android:text="Leo Marc Boco"
+                                    android:textColor="@color/fab_col3"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="15dp"
+                                    android:text="marbok839@gmail.com"
+                                    android:textStyle="bold"
+                                    android:textSize="12sp"
+                                    android:drawableLeft="@drawable/gmail_12px"
+                                    android:drawablePadding="10dp"
+                                    />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:orientation="horizontal"
+                            android:layoutDirection="rtl"
+                            android:paddingStart="20dp">
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/nathaniel_valenzuela" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="12dp"
+                                    android:paddingStart="14dp"
+
+                                    android:text="Valenzuela, Nathaniel Rosell."
+                                    android:textColor="@color/fab_col1"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="15dp"
+                                    android:text="kienielvalenzuela05@gmail.com"
+                                    android:textStyle="bold"
+                                    android:textSize="12sp"
+                                    android:drawableLeft="@drawable/gmail_12px"
+                                    android:drawablePadding="10dp"
+                                    />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:orientation="horizontal"
+                            android:paddingStart="20dp">
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/jerreme_profile" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="12dp"
+                                    android:paddingStart="14dp"
+
+                                    android:text="Jerreme B. De Torres"
+                                    android:textColor="@color/fab_col2"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="15dp"
+                                    android:text="jerremedetorres029@gmail.com"
+                                    android:textStyle="bold"
+                                    android:textSize="12sp"
+                                    android:drawableLeft="@drawable/gmail_12px"
+                                    android:drawablePadding="10dp"
+                                    />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="150dp"
+                        android:layout_marginTop="70dp"
                         android:gravity="center"
                         android:text="@string/linklabel" />
 
                     <TextView
                         android:id="@+id/source_code"
                         android:layout_width="wrap_content"
-                        android:textStyle="bold|italic"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginBottom="40dp"
                         android:gravity="center"
                         android:text="@string/hyper"
                         android:textColor="@color/primary_col"
+                        android:textStyle="bold|italic"
 
                         />
                 </androidx.appcompat.widget.LinearLayoutCompat>
