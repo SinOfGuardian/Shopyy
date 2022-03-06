@@ -1,5 +1,6 @@
 package com.example.aredoweknow;
 
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -17,7 +18,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +26,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Toolbar;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class VieweditActivity extends AppCompatActivity {
     private boolean editw = true;
@@ -66,6 +73,7 @@ public class VieweditActivity extends AppCompatActivity {
 
         name_field = findViewById(R.id.itemname_val2);
         barcode_field = findViewById(R.id.barcode_val2);
+
         static_namefield = barcode_field; //--> To update by Scanner Class
         description_field = findViewById(R.id.description_val2);
         quantity_field = findViewById(R.id.quantity_val2);
@@ -234,7 +242,9 @@ public class VieweditActivity extends AppCompatActivity {
 
             cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri);
             startActivityForResult(cropIntent, PIC_CROP);
-        } catch (ActivityNotFoundException anfe) {
+
+        } catch (ActivityNotFoundException e) {
+            //display an error message
             String errorMessage = "Whoops - your device doesn't support the crop action!";
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
         }
