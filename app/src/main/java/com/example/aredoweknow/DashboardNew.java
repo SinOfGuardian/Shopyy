@@ -125,7 +125,7 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Toast.makeText(getApplicationContext(), "Hello Javatpoint", Toast.LENGTH_LONG).show();
+     //   Toast.makeText(getApplicationContext(), "Hello Javatpoint", Toast.LENGTH_LONG).show();
         return true;
     }
 

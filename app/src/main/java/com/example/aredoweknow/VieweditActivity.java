@@ -159,7 +159,7 @@ public class VieweditActivity extends AppCompatActivity {
             //TODO save function here
 
             if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
-                Toast.makeText(VieweditActivity.this, "SAVE SAVE", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(VieweditActivity.this, "SAVE SAVE", Toast.LENGTH_SHORT).show();
 
 
                 String id = intent.getStringExtra("id");

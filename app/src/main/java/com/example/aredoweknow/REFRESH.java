@@ -63,7 +63,7 @@ public class REFRESH {
             if(rv != null){
                 adapter my = new adapter(context,al);
                 rv.setAdapter(my);
-                Toast.makeText(context, "REFRESH", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, "REFRESH", Toast.LENGTH_SHORT).show();
             }
 
         }catch (Exception e){
