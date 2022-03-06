@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -57,7 +58,7 @@ public class VieweditActivity extends AppCompatActivity {
     Bitmap image;
 
     @SuppressLint("StaticFieldLeak")
-    public static EditText static_namefield;
+    public static EditText static_barcode;
 
     @SuppressLint("CutPasteId")
     @Override
@@ -70,17 +71,12 @@ public class VieweditActivity extends AppCompatActivity {
         name_field = findViewById(R.id.itemname_val2);
         barcode_field = findViewById(R.id.barcode_val2);
 
-        static_namefield = barcode_field; //--> To update by Scanner Class
+        static_barcode = barcode_field; //--> To update by Scanner Class
         description_field = findViewById(R.id.description_val2);
         quantity_field = findViewById(R.id.quantity_val2);
         price_field = findViewById(R.id.price_val2);
         imageView = findViewById(R.id.image_val2);
 
-        name_field.setShowSoftInputOnFocus(false);
-        barcode_field.setShowSoftInputOnFocus(false);
-        description_field.setShowSoftInputOnFocus(false);
-        quantity_field.setShowSoftInputOnFocus(false);
-        price_field.setShowSoftInputOnFocus(false);
 //==============GET INTENT=====================
         intent = getIntent();
 
@@ -144,7 +140,9 @@ public class VieweditActivity extends AppCompatActivity {
         saveBTN = findViewById(R.id.save_btn);
         saveBTN.setOnClickListener(v -> {
             //TODO save function here
-            Toast.makeText(VieweditActivity.this, "SAVE SAVE", Toast.LENGTH_SHORT).show();
+            if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
+                Toast.makeText(VieweditActivity.this, "SAVE SAVE", Toast.LENGTH_SHORT).show();
+            }
         });
         //----------------> Delete Button
         delBTN = findViewById(R.id.delete_btn);
@@ -152,6 +150,7 @@ public class VieweditActivity extends AppCompatActivity {
             //TODO delete function here
             Toast.makeText(VieweditActivity.this, "delete delete    ", Toast.LENGTH_SHORT).show();
         });
+
         editBTN_clicked(false);
     }
     //   if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
@@ -312,4 +311,90 @@ public class VieweditActivity extends AppCompatActivity {
 
         }
     }
+
+
+    //---------------------------This checks if one or more fields are empty-
+    private boolean isFieldsEmpty() {
+        boolean isEmpty = false;
+
+        if (name_field.getText().toString().trim().equals("")) {
+            isEmpty = true;
+            name_field.setSelected(true); //--> Highlight red
+        }
+//        if (barcode_field.getText().toString().trim().equals("")) {
+//            isEmpty = true;
+//            barcode_field.setSelected(true); //--> Highlight red
+//        }
+        if (description_field.getText().toString().trim().equals("")) {
+            isEmpty = true;
+            description_field.setSelected(true); //--> Highlight red
+        }
+        if (quantity_field.getText().toString().trim().equals("")) {
+            isEmpty = true;
+            quantity_field.setSelected(true); //--> Highlight red
+        }
+        if (price_field.getText().toString().trim().equals("")) {
+            isEmpty = true;
+            price_field.setSelected(true); //--> Highlight red
+        }
+
+        if (isEmpty) {
+            display_messageDialog("One or more field/s is Empty!");
+        }
+        return isEmpty;
+    }
+
+    //----------------------Check inputed formats
+    private boolean wrongInputFormat() {
+        boolean isWrongFormat = false;
+
+        //Check barcode
+//        int length = barcode_field.getText().toString().trim().length();
+//        if (length > 128 || length < 3) {
+//            isWrongFormat = true;
+//            barcode_field.setSelected(true);
+//        }
+        //check quantity
+        int quantity = Integer.parseInt(quantity_field.getText().toString().trim());
+        if (quantity < 1) {
+            isWrongFormat = true;
+            quantity_field.setSelected(true);
+        }
+        //check price
+        int price = Integer.parseInt(price_field.getText().toString().trim());
+        if (price < 1) {
+            isWrongFormat = true;
+            price_field.setSelected(true);
+        }
+
+        if (isWrongFormat) {
+            barcode_field.setSelected(true);
+            display_messageDialog("Invalid Format/s");
+        }
+        return isWrongFormat;
+    }
+
+    //---------------------Lastly this checks if images is selected
+    private boolean nullImage() {
+        Resources resources = getResources();
+        boolean res = false;
+
+        //check image if not empty
+        final ImageView img = (ImageView) findViewById(R.id.image_val2);
+        final Bitmap bmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
+
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable myDrawable = getResources().getDrawable(R.drawable.image_100px);
+        final Bitmap myLogo = ((BitmapDrawable) myDrawable).getBitmap();
+
+        if (bmap.sameAs(myLogo)) {
+            res = true;
+            CardView cardView = findViewById(R.id.image_panel);
+            cardView.setCardBackgroundColor(resources.getColor(R.color.red_border));
+            display_messageDialog("Image cannot be empty.");
+        }
+        return res;
+    }
+
+
+
 }

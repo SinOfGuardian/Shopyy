@@ -73,6 +73,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:paddingStart="60dp"
+                        android:paddingEnd="60dp"
                         android:gravity="center"
                         android:text="     Shopyy is an offline app that are designed to managed stocks and items. It is developed to manage goods in a small shop or home inventory storage. Shopyy helps to keep track of your stock of any kind of items."
                         android:textSize="14sp" />

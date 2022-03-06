@@ -34,4 +34,6 @@
 
     <color name="del_col">#FF3D00</color>
     <color name="temp1">#F9CE22</color>
+
+    <color name="recycleview_bg_col">#F5F5F5</color>
 </resources>

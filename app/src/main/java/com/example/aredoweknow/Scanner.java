@@ -43,7 +43,7 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
                 AddItem.resulttextview.setText(result.getText());
                 break;
             case "viewing_item":
-                VieweditActivity.static_namefield.setText(result.getText());
+                VieweditActivity.static_barcode.setText(result.getText());
                 break;
         }
 
