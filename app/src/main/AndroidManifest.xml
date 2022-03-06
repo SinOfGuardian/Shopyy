@@ -22,18 +22,26 @@
 
         <activity
             android:name=".VieweditActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".AddItem"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".DashboardNew"
             android:exported="false"
             android:label="@string/title_activity_dashboard_new"
-            android:theme="@style/Theme.ShopyyTheme.NoActionBar" />
+            android:theme="@style/Theme.ShopyyTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Scanner"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Web"
             android:exported="false"
