@@ -230,7 +230,6 @@ public class Register extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            //TODO BUTTON REGISTER
             if ( db.addaccount(user,pass,storename) > -1) {
                 return result = "Registration Successful :)";
             }else{

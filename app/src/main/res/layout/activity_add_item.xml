@@ -152,7 +152,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
-                        android:maxLength="25"
                         android:layout_marginEnd="40dp"
                         android:layout_marginBottom="10dp"
                         android:autofillHints="name"
@@ -161,6 +160,7 @@
                         android:inputType="text|textNoSuggestions"
                         android:lineHeight="5dp"
                         android:maxWidth="@dimen/maxwidth_edittext"
+                        android:maxLength="25"
                         android:maxLines="1"
 
                         android:paddingStart="25dp"

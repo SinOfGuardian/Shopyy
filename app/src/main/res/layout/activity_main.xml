@@ -30,7 +30,7 @@
         android:layout_marginBottom="5dp"
 
         android:gravity="center"
-        android:text="@string/powered_by"
+        android:text="Developed In"
         android:textColor="#B7B9BC"
         android:textSize="13sp"
         android:textStyle="bold" />

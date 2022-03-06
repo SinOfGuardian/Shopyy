@@ -3,10 +3,12 @@ package com.example.aredoweknow.fragments_folder;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -14,10 +16,13 @@ import androidx.fragment.app.Fragment;
 import com.example.aredoweknow.R;
 
 public class About extends Fragment {
-    Button button;
+    TextView hyperlink;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_about, container, false);
+
+        hyperlink = (TextView) view.findViewById(R.id.source_code);
+        hyperlink.setMovementMethod(LinkMovementMethod.getInstance());
 
         return view;
     }
