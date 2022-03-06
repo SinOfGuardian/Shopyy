@@ -170,7 +170,7 @@ public class VieweditActivity extends AppCompatActivity {
         editBTN_clicked(false);
     }
 
-        //   if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
+    //   if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
 //                    TODO Add Data to database
 //                      String id = intent.getStringExtra("name");
 //                    String name = name_field.getText().toString();
@@ -205,6 +205,16 @@ public class VieweditActivity extends AppCompatActivity {
 //        });
 
 
+
+    //----------------This Reset the fields after successfull add
+    public void resetFields () {
+        name_field.setText("");
+        barcode_field.setText("");
+        description_field.setText("");
+        quantity_field.setText("");
+        price_field.setText("");
+
+
         //----------------This Reset the fields after successful add
         public void resetFields () {
             name_field.setText("");
@@ -226,6 +236,7 @@ public class VieweditActivity extends AppCompatActivity {
             Dialog dialog1 = new Dialog(this);
             dialogClass dialog = new dialogClass();
 
+
             cardView.setFocusableInTouchMode(true);
             cardView.requestFocus();
             dialog.simpleDialog(dialog1, message); //--> show simple dialog
@@ -242,11 +253,13 @@ public class VieweditActivity extends AppCompatActivity {
             } else {
                 return true;
             }
-        }
+
+
 
         @Override
         protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
             super.onActivityResult(requestCode, resultCode, data);
+
 //        Toast.makeText(this, requestCode + " | " + resultCode, Toast.LENGTH_SHORT).show();
 //        System.out.println(requestCode + " | " + resultCode);
 
@@ -274,6 +287,7 @@ public class VieweditActivity extends AppCompatActivity {
             }
         }
 
+
         //keep track of cropping intent
         final int PIC_CROP = 2;
         public void performCrop () {
@@ -296,7 +310,8 @@ public class VieweditActivity extends AppCompatActivity {
                 String errorMessage = "Whoops - your device doesn't support the crop action!";
                 Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
             }
-        }
+
+
 
 
         public void editBTN_clicked ( boolean state){
@@ -306,6 +321,7 @@ public class VieweditActivity extends AppCompatActivity {
                 description_field.setEnabled(false);
                 quantity_field.setEnabled(false);
                 price_field.setEnabled(false);
+
 
                 galleryBTN.setEnabled(false);
                 cameraBTN.setEnabled(false);
@@ -333,4 +349,4 @@ public class VieweditActivity extends AppCompatActivity {
             }
         }
     }
-
+        }
