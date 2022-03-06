@@ -29,7 +29,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-import com.example.aredoweknow.fragments_folder.Home;
+
 import java.io.ByteArrayOutputStream;
 
 
@@ -40,6 +40,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
     ImageButton scanBTN;
 
     DatabaseHandler dataHandler;
+    @SuppressLint("StaticFieldLeak")
     public static EditText resulttextview;
 
     EditText name_field, barcode_field, description_field, quantity_field, price_field;
@@ -69,65 +70,35 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         imageView = findViewById(R.id.image_val2);
         cardView = findViewById(R.id.image_panel);
 
-        //--------------CAMERA CODE
-        if (ContextCompat.checkSelfPermission(AddItem.this,
-                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(AddItem.this, new String[]{Manifest.permission.CAMERA}, 100);
-        }
-
         //------------------Back to Dashboard
         backbtn = findViewById(R.id.back_btn);
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        backbtn.setOnClickListener(v -> finish());
 
         //--------------------Open gallery
         GalleryBTN = findViewById(R.id.gallery_btn);
-        GalleryBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 3);
-            }
+        GalleryBTN.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, 3);
         });
 
         //-------------------Open Camera for Image
         cameraBTN = findViewById(R.id.camera_btn);
-        cameraBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//                File storageDir = getBaseContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//                @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//                File image = null;
-//                try {
-//                    image = File.createTempFile(timeStamp, ".jpg", storageDir);
-////                    image_Uri = Uri.fromFile(image);
-//                    image_Uri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName(), image);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                takePhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri);
-//                startActivityForResult(takePhotoIntent, 100);
-
-                Intent intent =  new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraBTN.setOnClickListener(v -> {
+            if (CamPermissionGranted()) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 100);
+
+                SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sf.edit();
+                editor.putBoolean("refresh", true);
+                editor.apply();
             }
         });
 
-
-
         //-------------------Open Scanner
         scanBTN = findViewById(R.id.barscan_btn);
-        scanBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        scanBTN.setOnClickListener(v -> {
+            if (CamPermissionGranted()) {
                 Intent intent = new Intent(AddItem.this, Scanner.class);
                 intent.putExtra("update", "adding_item");
                 startActivity(intent);
@@ -136,42 +107,38 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 
         //-------------------Add New Item
         AddBTN = findViewById(R.id.add_btn);
-        AddBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
+        AddBTN.setOnClickListener(v -> {
+            if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
 //                    TODO Add Data to database
 
-                    String name = name_field.getText().toString();
-                    String barcode = "" + barcode_field.getText().toString();
-                    String description = description_field.getText().toString();
-                    int quantity = Integer.parseInt(quantity_field.getText().toString());
-                    double price = Double.parseDouble(price_field.getText().toString());
+                String name = name_field.getText().toString();
+                String barcode = "" + barcode_field.getText().toString();
+                String description = description_field.getText().toString();
+                int quantity = Integer.parseInt(quantity_field.getText().toString());
+                double price = Double.parseDouble(price_field.getText().toString());
 
-                    Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-                    Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+                Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                Bitmap.createScaledBitmap(bitmap, 100, 100, false);
 //                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.image_val);
-                    ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
-                    byte[] img = byteArray.toByteArray();
+                ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
+                byte[] img = byteArray.toByteArray();
 
-                    //----------------------image insert to database------------------------
-                    long res = dataHandler.insertItem(name, img, barcode, description, quantity, price);
-                    if (res > 0) {
-                        //TODO: first item to add in database, not refreshing the HOME
-                        SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sf.edit();
-                        editor.putBoolean("refresh", true);
-                        editor.apply();
+                //----------------------image insert to database------------------------
+                long res = dataHandler.insertItem(name, img, barcode, description, quantity, price);
+                if (res > 0) {
+                    //TODO: first item to add in database, not refreshing the HOME
+                    SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sf.edit();
+                    editor.putBoolean("refresh", true);
+                    editor.apply();
 
-                        Toast.makeText(AddItem.this, name + " Added Recently", Toast.LENGTH_SHORT).show();
-                        display_messageDialog("Item Added Successfully.");
-                        Intent i = new Intent(AddItem.this, Home.class);
-                        resetFields();
-                    } else {
-                        Toast.makeText(AddItem.this, "Adding " + name + " Item Failed!", Toast.LENGTH_SHORT).show();
-                        display_messageDialog("Error Adding Item!");
-                    }
+                    Toast.makeText(AddItem.this, name + " Added Recently", Toast.LENGTH_SHORT).show();
+                    display_messageDialog("Item Added Successfully.");
+                    resetFields();
+                } else {
+                    Toast.makeText(AddItem.this, "Adding " + name + " Item Failed!", Toast.LENGTH_SHORT).show();
+                    display_messageDialog("Error Adding Item!");
                 }
             }
         });
@@ -200,7 +167,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 //        Toast.makeText(this, requestCode + " | " + resultCode, Toast.LENGTH_SHORT).show();
 //        System.out.println(requestCode + " | " + resultCode);
 
-        if (data != null && resultCode == RESULT_OK) {
+        if (CamPermissionGranted() && data != null && resultCode == RESULT_OK) {
             System.out.println(requestCode + " | " + resultCode);
             try {
                 if (requestCode == 3) {  //--> Choose from gallery
@@ -229,26 +196,19 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 
     public void performCrop() {
         try {
-            //call the standard crop action intent (the user device may not support it)
-            Intent cropIntent = new Intent("com.android.camera.action.CROP");
-            //indicate image type and Uri
-            cropIntent.setDataAndType(image_Uri, "image/*");
-            //set crop properties
-            cropIntent.putExtra("crop", "true");
-            //indicate aspect of desired crop
-            cropIntent.putExtra("aspectX", 1);
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");   //call the standard crop action intent (the user device may not support it)
+
+            cropIntent.setDataAndType(image_Uri, "image/*");    //indicate image type and Uri
+            cropIntent.putExtra("crop", "true");    //set crop properties
+            cropIntent.putExtra("aspectX", 1);  //indicate aspect of desired crop
             cropIntent.putExtra("aspectY", 1);
-            //indicate output X and Y
-            cropIntent.putExtra("outputX", 420); //256
+            cropIntent.putExtra("outputX", 420);    //indicate output X and Y
             cropIntent.putExtra("outputY", 420);
-            //retrieve data on return
-            cropIntent.putExtra("return-data", true);
+            cropIntent.putExtra("return-data", true);   //retrieve data on return
 
             cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri);
             startActivityForResult(cropIntent, PIC_CROP);
-        }
-        catch(ActivityNotFoundException anfe){
-            //display an error message
+        } catch (ActivityNotFoundException anfe) {
             String errorMessage = "Whoops - your device doesn't support the crop action!";
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
         }
@@ -363,4 +323,16 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         dialog.simpleDialog(dialog1, message); //--> show simple dialog
     }
     //-----------------------------------------------------------
+
+    //--------- Check Camera Permission
+    private boolean CamPermissionGranted() {
+        //--------------CAMERA CODE
+        if (ContextCompat.checkSelfPermission(AddItem.this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(AddItem.this, new String[]{Manifest.permission.CAMERA}, 100);
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

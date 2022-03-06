@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context=".AddItem">
 
-
     <RelativeLayout
         android:id="@+id/HeadingView"
         android:layout_width="match_parent"
@@ -50,7 +49,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:drawableEnd="@drawable/edit_24px"
+            android:drawableEnd="@drawable/edit_28px"
             android:drawablePadding="15dp"
             android:text="Edit"
             android:textColor="@color/white"
@@ -67,13 +66,11 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="0dp"
-
+            android:layout_centerInParent="true"
+            android:layout_marginTop="12dp"
             android:orientation="vertical">
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -396,28 +393,62 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <Button
-                android:id="@+id/save_btn"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                android:layout_below="@+id/storeNameField"
-                android:layout_alignEnd="@+id/storeNameField"
-                android:layout_gravity="end"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="40dp"
-                android:background="@drawable/login_button"
-                android:drawableRight="@drawable/enter_28px"
-                android:drawablePadding="10dp"
-                android:gravity="right|center"
-                android:paddingStart="40dp"
-                android:paddingEnd="32dp"
-                android:text="@string/finish"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                tools:ignore="RtlHardcoded,RtlSymmetry,UsingOnClickInXml" />
+                <Button
+                    android:id="@+id/delete_btn"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+
+                    android:layout_gravity="end"
+                    android:layout_marginStart="40dp"
+                    android:background="@drawable/login_button"
+                    android:backgroundTint="@color/del_col"
+                    android:drawableRight="@drawable/save_28px"
+                    android:drawablePadding="10dp"
+                    android:gravity="right|center"
+                    android:paddingStart="40dp"
+                    android:paddingEnd="32dp"
+                    android:text="DEL"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlHardcoded,RtlSymmetry,UsingOnClickInXml" />
+
+                <Button
+                    android:id="@+id/save_btn"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/login_button"
+                    android:drawableRight="@drawable/save_28px"
+                    android:drawablePadding="10dp"
+                    android:gravity="right|center"
+                    android:paddingStart="40dp"
+                    android:paddingEnd="32dp"
+                    android:text="SAVE"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/delete_btn"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlHardcoded,RtlSymmetry,UsingOnClickInXml" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </RelativeLayout>
 

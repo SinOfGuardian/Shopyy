@@ -32,5 +32,6 @@
     <color name="fab_col2">#11c1f7</color>
     <color name="fab_col3">#ffcc54</color>
 
+    <color name="del_col">#FF3D00</color>
     <color name="temp1">#F9CE22</color>
 </resources>
