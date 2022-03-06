@@ -1,13 +1,6 @@
 package com.example.aredoweknow;
 
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -17,13 +10,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -38,8 +29,6 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import java.io.ByteArrayOutputStream;
 
 public class VieweditActivity extends AppCompatActivity {
     private boolean editw = true;
@@ -77,7 +66,7 @@ public class VieweditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_viewedit);
         //Database
         dataHandler = new DatabaseHandler(this);
-
+//==================VARIABLE XML
         name_field = findViewById(R.id.itemname_val2);
         barcode_field = findViewById(R.id.barcode_val2);
 
@@ -92,7 +81,7 @@ public class VieweditActivity extends AppCompatActivity {
         description_field.setShowSoftInputOnFocus(false);
         quantity_field.setShowSoftInputOnFocus(false);
         price_field.setShowSoftInputOnFocus(false);
-
+//==============GET INTENT=====================
         intent = getIntent();
 
         name = intent.getStringExtra("name");
@@ -151,25 +140,20 @@ public class VieweditActivity extends AppCompatActivity {
                 editBTN_clicked(true);
             }
         });
-
         //-----------------> Save Button
         saveBTN = findViewById(R.id.save_btn);
         saveBTN.setOnClickListener(v -> {
             //TODO save function here
             Toast.makeText(VieweditActivity.this, "SAVE SAVE", Toast.LENGTH_SHORT).show();
         });
-
         //----------------> Delete Button
         delBTN = findViewById(R.id.delete_btn);
         delBTN.setOnClickListener(v -> {
             //TODO delete function here
             Toast.makeText(VieweditActivity.this, "delete delete    ", Toast.LENGTH_SHORT).show();
         });
-
-
         editBTN_clicked(false);
     }
-
     //   if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
 //                    TODO Add Data to database
 //                      String id = intent.getStringExtra("name");
@@ -203,8 +187,6 @@ public class VieweditActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
-
-
     //----------------This Reset the fields after successful add
     public void resetFields() {
         name_field.setText("");
@@ -220,7 +202,6 @@ public class VieweditActivity extends AppCompatActivity {
         cardView.setFocusableInTouchMode(true);
         cardView.requestFocus();
     }
-
     //----------------------Message Dialog that notifies user
     private void display_messageDialog(String message) {
         Dialog dialog1 = new Dialog(this);
@@ -230,10 +211,7 @@ public class VieweditActivity extends AppCompatActivity {
         cardView.setFocusableInTouchMode(true);
         cardView.requestFocus();
         dialog.simpleDialog(dialog1, message); //--> show simple dialog
-
     }
-
-
     //------------------------------------------------CAMERA CODE
     private boolean CamPermissionGranted() {
         if (ContextCompat.checkSelfPermission(VieweditActivity.this,
@@ -243,7 +221,6 @@ public class VieweditActivity extends AppCompatActivity {
         } else {
             return true;
         }
-
     }
 
     @Override
@@ -276,7 +253,6 @@ public class VieweditActivity extends AppCompatActivity {
             }
         }
     }
-
     //keep track of cropping intent
     final int PIC_CROP = 2;
 
@@ -300,8 +276,8 @@ public class VieweditActivity extends AppCompatActivity {
             String errorMessage = "Whoops - your device doesn't support the crop action!";
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
         }
-    }
 
+    }
     public void editBTN_clicked(boolean state) {
         if (!state) { // --> CAN NOT TYPE/EDIT
             name_field.setEnabled(false);
