@@ -143,9 +143,9 @@ public class VieweditActivity extends AppCompatActivity {
 
         editBTN = findViewById(R.id.edit_btn);
         editBTN.setOnClickListener(v -> {
-            if(editw) {
+            if (editw) {
                 editBTN_clicked(false);
-            }else {
+            } else {
                 editBTN_clicked(true);
             }
         });
@@ -189,10 +189,11 @@ public class VieweditActivity extends AppCompatActivity {
 
             Toast.makeText(VieweditActivity.this, "delete delete    ", Toast.LENGTH_SHORT).show();
         });
-        
-        editBTN_clicked(false);
 
-             //   if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
+        editBTN_clicked(false);
+    }
+
+    //   if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
 //                    TODO Add Data to database
 //                      String id = intent.getStringExtra("name");
 //                    String name = name_field.getText().toString();
@@ -223,14 +224,12 @@ public class VieweditActivity extends AppCompatActivity {
 //                    Toast.makeText(VieweditActivity.this, "Update " + name + " Item Failed!", Toast.LENGTH_SHORT).show();
 //                    display_messageDialog("Error Updating Item!");
 //                }
-            }
-        });
-
-    }
+//            }
+//        });
 
 
     //----------------This Reset the fields after successfull add
-    public void resetFields() {
+    public void resetFields () {
         name_field.setText("");
         barcode_field.setText("");
         description_field.setText("");
@@ -247,7 +246,7 @@ public class VieweditActivity extends AppCompatActivity {
     }
 
     //----------------------Message Dialog that notifies user
-    private void display_messageDialog(String message) {
+    private void display_messageDialog (String message){
         Dialog dialog1 = new Dialog(this);
         dialogClass dialog = new dialogClass();
 
@@ -259,7 +258,7 @@ public class VieweditActivity extends AppCompatActivity {
 
 
     //------------------------------------------------CAMERA CODE
-    private boolean CamPermissionGranted() {
+    private boolean CamPermissionGranted () {
         if (ContextCompat.checkSelfPermission(VieweditActivity.this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(VieweditActivity.this, new String[]{Manifest.permission.CAMERA}, 100);
@@ -270,7 +269,7 @@ public class VieweditActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 //        Toast.makeText(this, requestCode + " | " + resultCode, Toast.LENGTH_SHORT).show();
 //        System.out.println(requestCode + " | " + resultCode);
@@ -301,7 +300,7 @@ public class VieweditActivity extends AppCompatActivity {
 
     //keep track of cropping intent
     final int PIC_CROP = 2;
-    public void performCrop() {
+    public void performCrop () {
         try {
             Intent cropIntent = new Intent("com.android.camera.action.CROP");   //call the standard crop action intent (the user device may not support it)
 
@@ -324,7 +323,7 @@ public class VieweditActivity extends AppCompatActivity {
     }
 
 
-    public void editBTN_clicked(boolean state) {
+    public void editBTN_clicked ( boolean state){
         if (!state) { // --> CAN NOT TYPE/EDIT
             name_field.setEnabled(false);
             barcode_field.setEnabled(false);
