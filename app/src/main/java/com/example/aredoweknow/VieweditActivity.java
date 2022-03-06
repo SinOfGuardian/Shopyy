@@ -1,28 +1,13 @@
 package com.example.aredoweknow;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-
-import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.InputType;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,9 +16,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
-import com.example.aredoweknow.fragments_folder.Home;
-
-import java.io.ByteArrayOutputStream;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class VieweditActivity extends AppCompatActivity {
     private boolean editw = true;
@@ -82,7 +70,7 @@ public class VieweditActivity extends AppCompatActivity {
         description_field = findViewById(R.id.description_val);
         quantity_field = findViewById(R.id.quantity_val);
         price_field = findViewById(R.id.price_val);
-        imageView = findViewById(R.id.image_val);
+        imageView = findViewById(R.id.image_val2);
 
         static_namefield = barcode_field;
 
@@ -206,7 +194,7 @@ public class VieweditActivity extends AppCompatActivity {
             //call the standard crop action intent (the user device may not support it)
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
             //indicate image type and Uri
-            cropIntent.setDataAndType(image_Uri, "image/*");
+            cropIntent.setDataAndType(galler, "image/*");
             //set crop properties
             cropIntent.putExtra("crop", "true");
             //indicate aspect of desired crop
@@ -220,7 +208,7 @@ public class VieweditActivity extends AppCompatActivity {
 
             cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, galler);
             startActivityForResult(cropIntent, PIC_CROP);
-        } catch (ActivityNotFoundException anfe) {
+        } catch (ActivityNotFoundException e) {
             //display an error message
             String errorMessage = "Whoops - your device doesn't support the crop action!";
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
