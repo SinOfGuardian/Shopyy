@@ -72,9 +72,6 @@
             android:layout_marginTop="12dp"
             android:orientation="vertical">
 
-            android:orientation="vertical">
-
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
@@ -396,28 +393,62 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <Button
-                android:id="@+id/save_btn"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                android:layout_below="@+id/storeNameField"
-                android:layout_alignEnd="@+id/storeNameField"
-                android:layout_gravity="end"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="40dp"
-                android:background="@drawable/login_button"
-                android:drawableRight="@drawable/enter_28px"
-                android:drawablePadding="10dp"
-                android:gravity="right|center"
-                android:paddingStart="40dp"
-                android:paddingEnd="32dp"
-                android:text="SAVE"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                tools:ignore="RtlHardcoded,RtlSymmetry,UsingOnClickInXml" />
+                <Button
+                    android:id="@+id/delete_btn"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+
+                    android:layout_gravity="end"
+                    android:layout_marginStart="40dp"
+                    android:background="@drawable/login_button"
+                    android:backgroundTint="@color/del_col"
+                    android:drawableRight="@drawable/save_28px"
+                    android:drawablePadding="10dp"
+                    android:gravity="right|center"
+                    android:paddingStart="40dp"
+                    android:paddingEnd="32dp"
+                    android:text="DEL"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlHardcoded,RtlSymmetry,UsingOnClickInXml" />
+
+                <Button
+                    android:id="@+id/save_btn"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/login_button"
+                    android:drawableRight="@drawable/save_28px"
+                    android:drawablePadding="10dp"
+                    android:gravity="right|center"
+                    android:paddingStart="40dp"
+                    android:paddingEnd="32dp"
+                    android:text="SAVE"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/delete_btn"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlHardcoded,RtlSymmetry,UsingOnClickInXml" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </RelativeLayout>
 
