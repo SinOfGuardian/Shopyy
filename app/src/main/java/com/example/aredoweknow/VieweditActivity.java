@@ -10,11 +10,16 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -33,6 +38,8 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import java.io.ByteArrayOutputStream;
 
 public class VieweditActivity extends AppCompatActivity {
     private boolean editw = true;
@@ -88,6 +95,7 @@ public class VieweditActivity extends AppCompatActivity {
         price_field.setShowSoftInputOnFocus(false);
 
         intent = getIntent();
+
         name = intent.getStringExtra("name");
         price = intent.getStringExtra("price");
         barcode = intent.getStringExtra("barcode");
@@ -170,6 +178,7 @@ public class VieweditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO save function here
+
                 Toast.makeText(VieweditActivity.this, "SAVE SAVE", Toast.LENGTH_SHORT).show();
             }
         });
@@ -182,6 +191,70 @@ public class VieweditActivity extends AppCompatActivity {
         });
         
         editBTN_clicked(false);
+
+             //   if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
+//                    TODO Add Data to database
+//                      String id = intent.getStringExtra("name");
+//                    String name = name_field.getText().toString();
+//                    String barcode = "" + barcode_field.getText().toString();
+//                    String description = description_field.getText().toString();
+//                    int quantity = Integer.parseInt(quantity_field.getText().toString());
+//                    double price = Double.parseDouble(price_field.getText().toString());
+//
+//                    Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+//                    Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+////                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.image_val);
+//                    ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
+//                    byte[] img = byteArray.toByteArray();
+//                    long res = Long.parseLong(id);
+//                    dataHandler.updateAccount(res, name, img, barcode, description, quantity, price);
+//                if (res > 0) {
+//                    //TODO: first item to add in database, not refreshing the HOME
+//                    SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = sf.edit();
+//                    editor.putBoolean("refresh", true);
+//                    editor.apply();
+//
+//                    Toast.makeText(VieweditActivity.this, name + " Update Recently", Toast.LENGTH_SHORT).show();
+//                    display_messageDialog("Item Updated Successfully.");
+//                    resetFields();
+//                } else {
+//                    Toast.makeText(VieweditActivity.this, "Update " + name + " Item Failed!", Toast.LENGTH_SHORT).show();
+//                    display_messageDialog("Error Updating Item!");
+//                }
+            }
+        });
+
+    }
+
+
+    //----------------This Reset the fields after successfull add
+    public void resetFields() {
+        name_field.setText("");
+        barcode_field.setText("");
+        description_field.setText("");
+        quantity_field.setText("");
+        price_field.setText("");
+
+
+        cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable myDrawable = getResources().getDrawable(R.drawable.image_100px);
+        imageView.setImageBitmap(((BitmapDrawable) myDrawable).getBitmap());
+
+        cardView.setFocusableInTouchMode(true);
+        cardView.requestFocus();
+    }
+
+    //----------------------Message Dialog that notifies user
+    private void display_messageDialog(String message) {
+        Dialog dialog1 = new Dialog(this);
+        dialogClass dialog = new dialogClass();
+
+        cardView.setFocusableInTouchMode(true);
+        cardView.requestFocus();
+        dialog.simpleDialog(dialog1, message); //--> show simple dialog
+
     }
 
 

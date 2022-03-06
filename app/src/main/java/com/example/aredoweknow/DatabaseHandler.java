@@ -82,7 +82,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // code to update the single employee
-    public void updateAccount(long l, String uITEM, String uIMAGE, String uBARCODE, String uDESCRIPTION, String uQUANTIY, String uPRICE) {
+    public void updateAccount(long l, String uITEM, byte[] uIMAGE, String uBARCODE, String uDESCRIPTION, int uQUANTIY, double uPRICE) {
         db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
