@@ -277,7 +277,6 @@ public class VieweditActivity extends AppCompatActivity {
         }
     }
 
-
     //keep track of cropping intent
     final int PIC_CROP = 2;
 
@@ -337,5 +336,4 @@ public class VieweditActivity extends AppCompatActivity {
 
         }
     }
-
 }
