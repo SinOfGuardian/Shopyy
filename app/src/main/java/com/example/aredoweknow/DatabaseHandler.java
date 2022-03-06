@@ -66,6 +66,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();//closing database
         return result;
     }
+    public long updateAccount(long l, String uITEM, byte[] uIMAGE, String uBARCODE, String uDESCRIPTION, int uQUANTIY, double uPRICE) {
+        db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ITEM, uITEM); // ITEM NAME
+        values.put(KEY_IMAGE, uIMAGE); // ITEM IMAGE
+        values.put(KEY_BARCODE, uBARCODE); // ITEM BARCODE
+        values.put(KEY_DESCRIPTION, uDESCRIPTION); // ITEM DESCRIPTION
+        values.put(KEY_QUANTITY, uQUANTIY); // ITEM QUANTITY
+        values.put(KEY_PRICE, uPRICE); // ITEM PRICE
+
+        long res = db.update(TABLE_NAME, values, KEY_ID + "='" + 1, null);
+        db.close();
+        return res;
+    }
+
     public String itemName(String id){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select * from item where id = ?", new String[]{id});
@@ -82,21 +98,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // code to update the single employee
-    public void updateAccount(long l, String uITEM, byte[] uIMAGE, String uBARCODE, String uDESCRIPTION, int uQUANTIY, double uPRICE) {
-        db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_ITEM, uITEM); // ITEM NAME
-        values.put(KEY_IMAGE, uIMAGE); // ITEM IMAGE
-        values.put(KEY_BARCODE, uBARCODE); // ITEM BARCODE
-        values.put(KEY_DESCRIPTION, uDESCRIPTION); // ITEM DESCRIPTION
-        values.put(KEY_QUANTITY, uQUANTIY); // ITEM QUANTITY
-        values.put(KEY_PRICE, uPRICE); // ITEM PRICE
-
-        db.update(TABLE_NAME, values, KEY_ID + "='" + 1, null);
-        db.close();
-
-    }
 
     // Deleting single employee
     public void deleteAccount(long l) {

@@ -31,6 +31,8 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.io.ByteArrayOutputStream;
+
 public class VieweditActivity extends AppCompatActivity {
     private boolean editw = true;
 
@@ -66,7 +68,7 @@ public class VieweditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewedit);
         //Database
-        dataHandler = new DatabaseHandler(this);
+        db = new DatabaseHandler(this);
 //==================VARIABLE XML
         name_field = findViewById(R.id.itemname_val2);
         barcode_field = findViewById(R.id.barcode_val2);
@@ -112,6 +114,11 @@ public class VieweditActivity extends AppCompatActivity {
         galleryBTN.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, 3);
+            SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sf.edit();
+            editor.putBoolean("refresh", true);
+            editor.apply();
+
         });
         //-----------------> Capture Mode
         cameraBTN = findViewById(R.id.camera_btn2);
@@ -140,52 +147,64 @@ public class VieweditActivity extends AppCompatActivity {
         saveBTN = findViewById(R.id.save_btn);
         saveBTN.setOnClickListener(v -> {
             //TODO save function here
+
             if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
                 Toast.makeText(VieweditActivity.this, "SAVE SAVE", Toast.LENGTH_SHORT).show();
+            
+
+
+                    String id = intent.getStringExtra("id");
+                    String name = name_field.getText().toString();
+                    String barcode = "" + barcode_field.getText().toString();
+                    String description = description_field.getText().toString();
+                    int quantity = Integer.parseInt(quantity_field.getText().toString());
+                    double price = Double.parseDouble(price_field.getText().toString());
+
+                    Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                    Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+//                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.image_val);
+                    ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
+                    byte[] img = byteArray.toByteArray();
+                    long res = Long.parseLong(id);
+                    db.updateAccount(res, name, img, barcode, description, quantity, price);
+
+                    SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sf.edit();
+                    editor.putBoolean("refresh", true);
+                    editor.apply();
+
+                    Toast.makeText(VieweditActivity.this, name + " Update Recently", Toast.LENGTH_SHORT).show();
+                    display_messageDialog("Item Updated Successfully.");
+
             }
+
         });
         //----------------> Delete Button
         delBTN = findViewById(R.id.delete_btn);
         delBTN.setOnClickListener(v -> {
             //TODO delete function here
-            Toast.makeText(VieweditActivity.this, "delete delete    ", Toast.LENGTH_SHORT).show();
+            String id = intent.getStringExtra("id");
+            if(id.equals("")){
+                Toast.makeText(VieweditActivity.this, "Please fill the ITEM    ", Toast.LENGTH_SHORT).show();
+            }else{
+                long l = Long.parseLong(id);
+                db.deleteAccount(l);
+                Toast.makeText(VieweditActivity.this, " Successful Remove Item ", Toast.LENGTH_SHORT).show();
+                SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sf.edit();
+                editor.putBoolean("refresh", true);
+                editor.apply();
+                delBTN.refreshDrawableState();
+                finish();
+
+            }
+
         });
 
         editBTN_clicked(false);
     }
-    //   if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
-//                    TODO Add Data to database
-//                      String id = intent.getStringExtra("name");
-//                    String name = name_field.getText().toString();
-//                    String barcode = "" + barcode_field.getText().toString();
-//                    String description = description_field.getText().toString();
-//                    int quantity = Integer.parseInt(quantity_field.getText().toString());
-//                    double price = Double.parseDouble(price_field.getText().toString());
-//
-//                    Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-//                    Bitmap.createScaledBitmap(bitmap, 100, 100, false);
-////                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.image_val);
-//                    ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
-//                    byte[] img = byteArray.toByteArray();
-//                    long res = Long.parseLong(id);
-//                    dataHandler.updateAccount(res, name, img, barcode, description, quantity, price);
-//                if (res > 0) {
-//                    //TODO: first item to add in database, not refreshing the HOME
-//                    SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
-//                    SharedPreferences.Editor editor = sf.edit();
-//                    editor.putBoolean("refresh", true);
-//                    editor.apply();
-//
-//                    Toast.makeText(VieweditActivity.this, name + " Update Recently", Toast.LENGTH_SHORT).show();
-//                    display_messageDialog("Item Updated Successfully.");
-//                    resetFields();
-//                } else {
-//                    Toast.makeText(VieweditActivity.this, "Update " + name + " Item Failed!", Toast.LENGTH_SHORT).show();
-//                    display_messageDialog("Error Updating Item!");
-//                }
-//            }
-//        });
+
     //----------------This Reset the fields after successful add
     public void resetFields() {
         name_field.setText("");
