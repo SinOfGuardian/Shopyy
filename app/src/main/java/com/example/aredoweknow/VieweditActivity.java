@@ -26,6 +26,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -46,7 +47,8 @@ public class VieweditActivity extends AppCompatActivity {
     DatabaseHandler db;
     AppCompatImageButton backbtn;
 
-    Button cameraBTN, galleryBTN, editBTN, saveBTN;
+    Button cameraBTN, galleryBTN, editBTN, delBTN;
+    FrameLayout saveBTN;
     Uri image_Uri;
     ImageButton scanBTN;
 
@@ -73,7 +75,6 @@ public class VieweditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewedit);
-
         //Database
         dataHandler = new DatabaseHandler(this);
 
@@ -141,7 +142,13 @@ public class VieweditActivity extends AppCompatActivity {
         });
 
         editBTN = findViewById(R.id.edit_btn);
-        editBTN.setOnClickListener(v -> editBTN_clicked(v));
+        editBTN.setOnClickListener(v -> {
+            if(editw) {
+                editBTN_clicked(false);
+            }else {
+                editBTN_clicked(true);
+            }
+        });
 
         cameraBTN = findViewById(R.id.camera_btn2);
         cameraBTN.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +178,20 @@ public class VieweditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO save function here
+
+                Toast.makeText(VieweditActivity.this, "SAVE SAVE", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        delBTN = findViewById(R.id.delete_btn);
+        delBTN.setOnClickListener(v -> {
+            //TODO delete function here
+
+            Toast.makeText(VieweditActivity.this, "delete delete    ", Toast.LENGTH_SHORT).show();
+        });
+        
+        editBTN_clicked(false);
+
              //   if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
 //                    TODO Add Data to database
 //                      String id = intent.getStringExtra("name");
@@ -233,6 +254,7 @@ public class VieweditActivity extends AppCompatActivity {
         cardView.setFocusableInTouchMode(true);
         cardView.requestFocus();
         dialog.simpleDialog(dialog1, message); //--> show simple dialog
+
     }
 
 
@@ -302,21 +324,35 @@ public class VieweditActivity extends AppCompatActivity {
     }
 
 
-    public void editBTN_clicked(View view) {
-        if (editw) { // --> cen type
+    public void editBTN_clicked(boolean state) {
+        if (!state) { // --> CAN NOT TYPE/EDIT
             name_field.setEnabled(false);
             barcode_field.setEnabled(false);
             description_field.setEnabled(false);
             quantity_field.setEnabled(false);
             price_field.setEnabled(false);
+
+            galleryBTN.setEnabled(false);
+            cameraBTN.setEnabled(false);
+            scanBTN.setEnabled(false);
+
+            saveBTN.setEnabled(false);
+            delBTN.setEnabled(false);
             editw = false;
 
-        } else { // --> CAN NOT TYPE
+        } else { // --> CAN TYPE/EDIT
             name_field.setEnabled(true);
             barcode_field.setEnabled(true);
             description_field.setEnabled(true);
             quantity_field.setEnabled(true);
             price_field.setEnabled(true);
+
+            galleryBTN.setEnabled(true);
+            cameraBTN.setEnabled(true);
+            scanBTN.setEnabled(true);
+
+            saveBTN.setEnabled(true);
+            delBTN.setEnabled(true);
             editw = true;
 
         }
