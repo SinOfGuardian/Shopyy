@@ -109,8 +109,6 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         AddBTN = findViewById(R.id.add_btn);
         AddBTN.setOnClickListener(v -> {
             if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
-//                    TODO Add Data to database
-
                 String name = name_field.getText().toString();
                 String barcode = "" + barcode_field.getText().toString();
                 String description = description_field.getText().toString();

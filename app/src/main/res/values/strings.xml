@@ -43,5 +43,6 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="add_item">Add Item</string>
 
-
+    <string name="linklabel">Shopyy Source Code is Open Source</string>
+    <string name="hyper">Repository: <a href="https://github.com/SinOfGuardian/Shopyy.git">Github</a> </string>
 </resources>
