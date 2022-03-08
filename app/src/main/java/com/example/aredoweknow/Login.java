@@ -1,21 +1,21 @@
 package com.example.aredoweknow;
 
-import static android.accounts.AccountManager.KEY_PASSWORD;
-
-import static com.example.aredoweknow.Database.KEY_USERNAME;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 //Jerreme Imports
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
+import com.example.aredoweknow.databases_folder.Database;
+import com.example.aredoweknow.other_class.dialogClass;
 //Jerreme Imports//
 
 
@@ -24,7 +24,8 @@ public class Login extends AppCompatActivity {
 
     Database db;
 
-    EditText user_field, pass_field; ImageButton eye_button;
+    EditText user_field, pass_field;
+    ImageButton eye_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,17 +77,23 @@ public class Login extends AppCompatActivity {
           if (usernameLogIn(userNMLOGIN) && passwordLogIn(passLOGIN)) {
               String storeCred = db.ifStoreExist(userNMLOGIN);
 
-            if (!storeCred.equals("")) {
-                Intent intent = new Intent(this, DashboardNew.class);
-                intent.putExtra("username", userNMLOGIN);
-                intent.putExtra("store", storeCred);
-                startActivity(intent);
-            }else{
-                Intent intent = new Intent(getApplicationContext(),StoreName.class);
-                intent.putExtra("username", userNMLOGIN);
-                startActivity( intent);
-            }
+              SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
+              SharedPreferences.Editor editor = sf.edit();
+              editor.putString("final_username", userNMLOGIN);
+              editor.apply();
+
+              if (!storeCred.equals("")) {
+                  Intent intent = new Intent(this, DashboardNew.class);
+                  intent.putExtra("username", userNMLOGIN);
+                  intent.putExtra("store", storeCred);
+                  startActivity(intent);
+              }else{
+                  Intent intent = new Intent(getApplicationContext(),StoreName.class);
+                  intent.putExtra("username", userNMLOGIN);
+                  startActivity( intent);
+              }
               finish();
+
           }
         }
 

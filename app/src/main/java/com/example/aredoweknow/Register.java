@@ -3,6 +3,7 @@ package com.example.aredoweknow;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.graphics.Typeface;
@@ -17,6 +18,10 @@ import android.widget.ImageButton;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.aredoweknow.databases_folder.Database;
+import com.example.aredoweknow.other_class.dialogClass;
+import com.google.android.material.snackbar.Snackbar;
 
 
 public class Register extends AppCompatActivity {
@@ -210,9 +215,11 @@ public class Register extends AppCompatActivity {
 
 
     //---------------------------------------Async Task--------------------------------------
+    @SuppressLint("StaticFieldLeak")
     @SuppressWarnings("deprecation")
     protected class RegisterACTION extends AsyncTask<String, String, String> {
-        private String user, pass, storename, result;
+        private final String user, pass, storename;
+        private String result;
         ProgressDialog progressDialog;
 
         public RegisterACTION(String un, String pwd, String store) {
@@ -224,7 +231,7 @@ public class Register extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(Register.this);
-            progressDialog.setMessage("Loading...");
+            progressDialog.setMessage("Please Wait...");
             progressDialog.show();
         }
 
@@ -240,8 +247,9 @@ public class Register extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(800);
                 progressDialog.dismiss();
+
                 finish();
                 Toast.makeText(getBaseContext(), result, Toast.LENGTH_SHORT).show();
             } catch (InterruptedException e) {

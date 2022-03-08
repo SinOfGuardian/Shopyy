@@ -1,9 +1,7 @@
 package com.example.aredoweknow.fragments_folder;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +13,7 @@ import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 
 import com.example.aredoweknow.R;
-import com.example.aredoweknow.dialogClass;
+import com.example.aredoweknow.other_class.dialogClass;
 
 public class Feedback extends Fragment {
     private Button button;

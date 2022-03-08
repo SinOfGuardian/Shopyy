@@ -2,22 +2,22 @@ package com.example.aredoweknow;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
-import android.widget.Toast;
 
+import com.example.aredoweknow.databases_folder.Database;
+import com.example.aredoweknow.features_functions.AddItem;
+import com.example.aredoweknow.features_functions.Scanner;
+import com.example.aredoweknow.features_functions.Web;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 //import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -64,13 +64,6 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
         } else {
             db.updateCred(user_name, store_name, reset);
         }
-
-//        binding.appBarDashboardNew.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;

@@ -11,6 +11,8 @@ import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.example.aredoweknow.databases_folder.Database;
+
 public class MainActivity extends AppCompatActivity {
     private Animation bounce;
     private AppCompatImageView logo;
