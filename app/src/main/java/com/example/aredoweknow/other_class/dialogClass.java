@@ -1,4 +1,4 @@
-package com.example.aredoweknow;
+package com.example.aredoweknow.other_class;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -6,6 +6,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.aredoweknow.R;
 
 public class dialogClass {
 

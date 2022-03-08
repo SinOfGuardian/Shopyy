@@ -1,4 +1,4 @@
-package com.example.aredoweknow;
+package com.example.aredoweknow.databases_folder;
 
 import android.content.ContentValues;
 import android.content.Context;

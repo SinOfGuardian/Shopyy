@@ -1,4 +1,4 @@
-package com.example.aredoweknow;
+package com.example.aredoweknow.features_functions;
 
 
 import android.Manifest;
@@ -30,6 +30,12 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.example.aredoweknow.R;
+import com.example.aredoweknow.databases_folder.DatabaseHandler;
+import com.example.aredoweknow.other_class.GetterSetter;
+import com.example.aredoweknow.other_class.REFRESH;
+import com.example.aredoweknow.other_class.dialogClass;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -68,8 +74,12 @@ public class VieweditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewedit);
+
+        SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
+        String final_un = sf.getString("final_username", "");
+
         //Database
-        db = new DatabaseHandler(this);
+        db = new DatabaseHandler(this, final_un);
 //==================VARIABLE XML
         name_field = findViewById(R.id.itemname_val2);
         barcode_field = findViewById(R.id.barcode_val2);
@@ -120,11 +130,6 @@ public class VieweditActivity extends AppCompatActivity {
             REFRESH r = new REFRESH();
             r.updateArrayList2(this);
 
-            SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sf.edit();
-            editor.putBoolean("refresh", true);
-            editor.apply();
-
         });
         //-----------------> Capture Mode
         cameraBTN = findViewById(R.id.camera_btn2);
@@ -136,11 +141,6 @@ public class VieweditActivity extends AppCompatActivity {
                 //--------------------------RREFrESH
                 REFRESH r = new REFRESH();
                 r.updateArrayList2(this);
-
-                SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sf.edit();
-                editor.putBoolean("refresh", true);
-                editor.apply();
             }
         });
 
@@ -183,11 +183,6 @@ public class VieweditActivity extends AppCompatActivity {
                 REFRESH r = new REFRESH();
                 r.updateArrayList2(this);
 
-//                SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sf.edit();
-//                editor.putBoolean("refresh", true);
-//                editor.apply();
-
                 Toast.makeText(VieweditActivity.this, name + " Update Recently", Toast.LENGTH_SHORT).show();
                 display_messageDialog("Item Updated Successfully.");
 
@@ -213,23 +208,14 @@ public class VieweditActivity extends AppCompatActivity {
                 //REFRESH
                 REFRESH r = new REFRESH();
                 r.updateArrayList2(this);
-                ///////////////////////////////
-                SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sf.edit();
-                editor.putBoolean("refresh", true);
-                editor.apply();
+
                 delBTN.refreshDrawableState();
                 ArrayList<GetterSetter> al = new ArrayList<>();
 
-
                 finish();
-
             }
-
         });
-
         editBTN_clicked(false);
-
     }
 //----------------ewan
 
@@ -413,7 +399,7 @@ public class VieweditActivity extends AppCompatActivity {
             quantity_field.setSelected(true);
         }
         //check price
-        int price = Integer.parseInt(price_field.getText().toString().trim());
+        Double price = Double.parseDouble(price_field.getText().toString().trim());
         if (price < 1) {
             isWrongFormat = true;
             price_field.setSelected(true);

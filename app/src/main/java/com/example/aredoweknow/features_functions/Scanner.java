@@ -1,4 +1,4 @@
-package com.example.aredoweknow;
+package com.example.aredoweknow.features_functions;
 
 import android.Manifest;
 import android.content.Intent;

@@ -1,15 +1,16 @@
-package com.example.aredoweknow;
+package com.example.aredoweknow.other_class;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.CursorWindow;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.aredoweknow.databases_folder.DatabaseHandler;
 import com.example.aredoweknow.fragments_folder.Home;
 
 import java.lang.reflect.Field;
@@ -19,15 +20,13 @@ public class REFRESH {
     DatabaseHandler db;
     ArrayList<GetterSetter> al = new ArrayList<>();
 
-//    public REFRESH(){
-//
-//    }
-
     public void updateArrayList2(Context context) {
+        SharedPreferences sf = context.getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
+        String final_un = sf.getString("final_username", "");
 
         Cursor c = null;
         al = new ArrayList<>();
-        db = new DatabaseHandler(context);
+        db = new DatabaseHandler(context, final_un);
 
         try {
             @SuppressLint("DiscouragedPrivateApi") Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");

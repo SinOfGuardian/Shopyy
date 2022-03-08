@@ -1,4 +1,4 @@
-package com.example.aredoweknow;
+package com.example.aredoweknow.features_functions;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.example.aredoweknow.R;
 
 public class Web extends AppCompatActivity {
     String customSearch;

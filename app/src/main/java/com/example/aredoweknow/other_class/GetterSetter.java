@@ -1,4 +1,4 @@
-package com.example.aredoweknow;
+package com.example.aredoweknow.other_class;
 
 import android.graphics.Bitmap;
 

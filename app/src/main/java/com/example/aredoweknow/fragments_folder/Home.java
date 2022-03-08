@@ -10,23 +10,19 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.aredoweknow.DatabaseHandler;
-import com.example.aredoweknow.GetterSetter;
+import com.example.aredoweknow.databases_folder.DatabaseHandler;
+import com.example.aredoweknow.other_class.GetterSetter;
 import com.example.aredoweknow.R;
-import com.example.aredoweknow.adapter;
+import com.example.aredoweknow.other_class.adapter;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -91,8 +87,11 @@ public class Home extends Fragment {
     ArrayList<GetterSetter> al = new ArrayList<>();
 
     private void updateArrayList() {
+        SharedPreferences sf = getContext().getSharedPreferences("Shopyy",  Context.MODE_PRIVATE);
+        String final_un = sf.getString("final_username", "");
+
         al = new ArrayList<>();
-        mydb = new DatabaseHandler(getContext());
+        mydb = new DatabaseHandler(getContext(), final_un);
 
         try {
             @SuppressLint("DiscouragedPrivateApi") Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");

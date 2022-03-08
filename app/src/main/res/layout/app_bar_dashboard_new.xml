@@ -21,25 +21,13 @@
             android:background="@color/white"
             app:titleTextColor="@color/primary_col"
 
-            app:title="Store Puring"
-            app:subtitle="Neneng Puring"
+            app:title="Store Name"
+            app:titleMarginStart="10dp"
+            app:subtitle="User Name"
             app:popupTheme="@style/Theme.ShopyyTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_dashboard_new" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:backgroundTint="@color/primary_col"
-        android:layout_marginBottom="200dp"
-        app:srcCompat="@drawable/plus_math_36px"
-        android:visibility="invisible"/>
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,4 +1,4 @@
-package com.example.aredoweknow;
+package com.example.aredoweknow.features_functions;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +30,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.aredoweknow.R;
+import com.example.aredoweknow.databases_folder.DatabaseHandler;
+import com.example.aredoweknow.other_class.REFRESH;
+import com.example.aredoweknow.other_class.dialogClass;
+
 import java.io.ByteArrayOutputStream;
 
 
@@ -56,8 +61,11 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
+        SharedPreferences sf = getSharedPreferences("Shopyy",  Context.MODE_PRIVATE);
+        String final_un = sf.getString("final_username", "");
+
         //Database
-        dataHandler = new DatabaseHandler(this);
+        dataHandler = new DatabaseHandler(this, final_un);
         //Static Barcode
         resulttextview = findViewById(R.id.barcode_val);
 
@@ -84,11 +92,6 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                 //--------------------------RREFrESH
                 REFRESH r = new REFRESH();
                 r.updateArrayList2(this);
-
-                SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sf.edit();
-                editor.putBoolean("refresh", true);
-                editor.apply();
             }
         });
 
@@ -102,11 +105,6 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                 //--------------------------RREFrESH
                 REFRESH r = new REFRESH();
                 r.updateArrayList2(this);
-
-                SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sf.edit();
-                editor.putBoolean("refresh", true);
-                editor.apply();
             }
         });
 
@@ -141,11 +139,6 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                 long res = dataHandler.insertItem(name, img, barcode, description, quantity, price);
                 if (res > 0) {
                     //TODO: first item to add in database, not refreshing the HOME
-                    SharedPreferences sf = getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sf.edit();
-                    editor.putBoolean("refresh", true);
-                    editor.apply();
-
                     Toast.makeText(AddItem.this, name + " Added Recently", Toast.LENGTH_SHORT).show();
                     display_messageDialog("Item Added Successfully.");
                     //----------REFRESH
@@ -279,7 +272,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             quantity_field.setSelected(true);
         }
         //check price
-        int price = Integer.parseInt(price_field.getText().toString().trim());
+        double price = Double.parseDouble(price_field.getText().toString().trim());
         if (price < 1) {
             isWrongFormat = true;
             price_field.setSelected(true);

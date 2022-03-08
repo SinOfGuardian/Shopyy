@@ -1,4 +1,4 @@
-package com.example.aredoweknow;
+package com.example.aredoweknow.other_class;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,6 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.aredoweknow.R;
+import com.example.aredoweknow.features_functions.VieweditActivity;
 
 import java.util.ArrayList;
 

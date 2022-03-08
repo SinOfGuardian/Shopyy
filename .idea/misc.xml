@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/activity_dashboard_new.xml" value="0.22" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/app_bar_dashboard_new.xml" value="0.25" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/content_dashboard_new.xml" value="0.2" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/custom_recycler_grid.xml" value="0.5" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/drawable/button_bg.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/drawable/button_effects.xml" value="0.21614583333333334" />

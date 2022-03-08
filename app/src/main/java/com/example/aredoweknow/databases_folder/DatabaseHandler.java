@@ -1,4 +1,4 @@
-package com.example.aredoweknow;
+package com.example.aredoweknow.databases_folder;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,9 +9,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "Shopyy_Items";
+    private static String DATABASE_NAME = "_Items";
     private static final String TABLE_NAME = "item";
     private static final String KEY_ID = "id";
     public static final String KEY_ITEM = "itemname";
@@ -22,8 +21,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_PRICE = "price";
     SQLiteDatabase db;
 
-    public DatabaseHandler(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    public DatabaseHandler(Context context, String username) {
+        super(context, username + DATABASE_NAME, null, DATABASE_VERSION);
         //3rd argument to be passed is CursorFactory instance
     }
 
