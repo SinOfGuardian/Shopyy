@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,14 +21,15 @@ import com.example.aredoweknow.features_functions.VieweditActivity;
 
 import java.util.ArrayList;
 
-public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
+public class adapter extends RecyclerView.Adapter<adapter.Myclass> implements Filterable {
     Context context;
     ArrayList<GetterSetter> al;
-
+    ArrayList<GetterSetter> new_list;
 
     public adapter(Context context, ArrayList<GetterSetter> al) {
         this.context = context;
         this.al = al;
+        this.new_list = al;
         //  this.listener = listener;
     }
 
@@ -52,13 +55,16 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
 
         holder.panel.setTag(g1.getId());
 
-        holder.panel.setOnLongClickListener(v -> {
-            String temp = String.valueOf(v.getTag());
-           // Toast.makeText(context, "LONG CLICKED ID: " + temp, Toast.LENGTH_SHORT).show();
-            return false;
-        });
+//        holder.panel.setOnLongClickListener(v -> {
+//            String temp = String.valueOf(v.getTag());
+//           // Toast.makeText(context, "LONG CLICKED ID: " + temp, Toast.LENGTH_SHORT).show();
+//            return true;
+//        });
 
         holder.panel.setOnClickListener(v -> {
+            holder.panel.setFocusable(true);
+            holder.panel.requestFocus();
+
             int position1 = holder.getAdapterPosition();
             Intent intent = new Intent(context, VieweditActivity.class);
             intent.putExtra("id", al.get(position1).getId());
@@ -73,13 +79,49 @@ public class adapter extends RecyclerView.Adapter<adapter.Myclass> {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
 
-            Toast.makeText(v.getContext(), v.getTag().toString(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(v.getContext(), v.getTag().toString(), Toast.LENGTH_SHORT).show();
         });
     }
 
     @Override
     public int getItemCount() {
         return al.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    al = new_list;
+                } else {
+                    ArrayList<GetterSetter> filteredList = new ArrayList<>();
+                    for (GetterSetter row : new_list) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getBarcode().contains(charSequence) || row.getPrice().contains(charSequence)) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    al = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = al;
+                return filterResults;
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                al = (ArrayList<GetterSetter>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public static class Myclass extends RecyclerView.ViewHolder {

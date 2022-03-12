@@ -7,9 +7,10 @@ import android.database.Cursor;
 import android.database.CursorWindow;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.aredoweknow.databases_folder.DatabaseHandler;
 import com.example.aredoweknow.fragments_folder.Home;
 
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class REFRESH {
     DatabaseHandler db;
     ArrayList<GetterSetter> al = new ArrayList<>();
+    SearchView sv;
 
     public void updateArrayList2(Context context) {
         SharedPreferences sf = context.getSharedPreferences("Shopyy", Context.MODE_PRIVATE);
@@ -57,16 +59,33 @@ public class REFRESH {
                 }while (c.moveToNext());
             }
         }
+
         try {
             RecyclerView rv = Home.rv_static;
-            if(rv != null){
+            SearchView sv = Home.sv_static;
+
+            if (rv != null){
                 adapter my = new adapter(context,al);
                 rv.setAdapter(my);
-               // Toast.makeText(context, "REFRESH", Toast.LENGTH_SHORT).show();
+
+                sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        my.getFilter().filter(query);
+                        return false;
+                    }
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        my.getFilter().filter(newText);
+                        return false;
+                    }
+                });
             }
 
+//            Toast.makeText(context, "REFRESH", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
             e.printStackTrace();
+            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -3,10 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/activity_dashboard_new.xml" value="0.22" />
-        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/app_bar_dashboard_new.xml" value="0.25" />
-        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/content_dashboard_new.xml" value="0.2" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/drawable/del_button_state.xml" value="0.2075" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout-v26/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/activity_add_item.xml" value="0.22" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/activity_dashboard_new.xml" value="0.16" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/activity_viewedit.xml" value="0.22" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/activity_web.xml" value="0.25" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/app_bar_dashboard_new.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/content_dashboard_new.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/custom_recycler_grid.xml" value="0.5" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/fragment_about.xml" value="0.33" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/fragment_feedback.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy - Ji/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/drawable/button_bg.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/jiide/Documents/AndroidStudio/Shopyy/app/src/main/res/drawable/button_effects.xml" value="0.21614583333333334" />
@@ -88,7 +96,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.5" />
+        <option name="scale" value="0.18" />
       </ProjectState>
     </option>
   </component>

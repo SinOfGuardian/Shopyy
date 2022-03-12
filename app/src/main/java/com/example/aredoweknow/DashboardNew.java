@@ -7,20 +7,25 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.aredoweknow.databases_folder.Database;
 import com.example.aredoweknow.features_functions.AddItem;
 import com.example.aredoweknow.features_functions.Scanner;
 import com.example.aredoweknow.features_functions.Web;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 //import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -32,7 +37,8 @@ import com.example.aredoweknow.databinding.ActivityDashboardNewBinding;
 
 public class DashboardNew extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private AppBarConfiguration mAppBarConfiguration;
-    FloatingActionButton browser_btn, scan_btn, add_btn;
+    Button browser_btn, scan_btn, add_btn;
+    AppCompatImageButton barc_search;
 
     private String user_name = "";
     private String store_name = "";
@@ -44,16 +50,15 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         ActivityDashboardNewBinding binding = ActivityDashboardNewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setSupportActionBar(binding.appBarDashboardNew.toolbar);
+        setSupportActionBar(binding.appBarDashboardNew.toolbarr);
 
         Intent intent = getIntent();
         user_name = intent.getStringExtra("username");
         store_name = intent.getStringExtra("store");
 
-        tool_bar = (Toolbar) findViewById(R.id.toolbar);
+        tool_bar = (Toolbar) findViewById(R.id.toolbarr);
         tool_bar.setTitle(store_name);
         tool_bar.setSubtitle(user_name);
 
@@ -88,19 +93,28 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
         scan_btn.setOnClickListener(v -> {
             if (CamPermissionGranted()) {
                 Intent intent12 = new Intent(DashboardNew.this, Scanner.class);
-                intent12.putExtra("update", "searching_item");
+                intent12.putExtra("update", "seraching_item_web");
                 startActivity(intent12);
             }
         });
-//------------------Open Add
+
+        //------------------Open Add
         add_btn = findViewById(R.id.fab3);
         add_btn.setOnClickListener(v -> {
             Intent intent13 = new Intent(DashboardNew.this, AddItem.class);
             startActivity(intent13);
         });
 
+        barc_search = findViewById(R.id.barc_searcher);
+        barc_search.setOnClickListener(v -> {
+            if (CamPermissionGranted()) {
+                Intent intent12 = new Intent(DashboardNew.this, Scanner.class);
+                intent12.putExtra("update", "searching_item");
+                startActivity(intent12);
+            }
+        });
 
-    }//DULO NG BUNDLE
+    }//DULO NG onCreate
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
