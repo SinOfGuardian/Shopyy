@@ -55,7 +55,7 @@
                         android:layout_below="@+id/pic1"
                         android:gravity="center"
 
-                        android:text="@string/version_1_0"
+                        android:text="@string/app_version"
                         android:textColor="@color/gray1"
                         android:textSize="14sp"
                         android:textStyle="bold" />

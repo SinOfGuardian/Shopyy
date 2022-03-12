@@ -1,6 +1,7 @@
 package com.example.aredoweknow.features_functions;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.cardview.widget.CardView;
@@ -37,6 +38,7 @@ import com.example.aredoweknow.other_class.REFRESH;
 import com.example.aredoweknow.other_class.dialogClass;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.file.Path;
 
 
 public class AddItem extends AppCompatActivity implements View.OnFocusChangeListener {
@@ -58,6 +60,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 
     //keep track of cropping intent
     final int PIC_CROP = 2, PIC_GALLERY = 3, PIC_CAMERA = 100;
+    private String data;
 
     @SuppressLint("CutPasteId")
     @Override
@@ -84,7 +87,9 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 
         //------------------Back to Dashboard
         backbtn = findViewById(R.id.back_btn);
-        backbtn.setOnClickListener(v -> finish());
+        backbtn.setOnClickListener(v -> {
+            onBackPressed();
+        });
 
         //--------------------Open gallery
         GalleryBTN = findViewById(R.id.gallery_btn);
@@ -141,14 +146,16 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
                 //----------------------image insert to database------------------------
                 long res = dataHandler.insertItem(name, img, barcode, description, quantity, price);
                 if (res > 0) {
-                    //TODO: first item to add in database, not refreshing the HOME
-                    Toast.makeText(AddItem.this, name + " Added Recently", Toast.LENGTH_SHORT).show();
-                    display_messageDialog("Item Added Successfully.");
+
                     //----------REFRESH
                     REFRESH r = new REFRESH();
                     r.updateArrayList2(this);
+
                     //--------------------
-                    resetFields();
+//                    resetFields();
+//                    display_messageDialog("Item Added Successfully.");
+                    finish();
+                    Toast.makeText(AddItem.this, name + " Added Successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(AddItem.this, "Adding " + name + " Item Failed!", Toast.LENGTH_SHORT).show();
                     display_messageDialog("Error Adding Item!");
@@ -161,10 +168,39 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 //        description_field.setOnFocusChangeListener(this);
         quantity_field.setOnFocusChangeListener(this);
         price_field.setOnFocusChangeListener(this);
+
+        data = name_field.getText().toString() +
+                barcode_field.getText().toString() +
+                description_field.getText().toString() +
+                quantity_field.getText().toString() +
+                price_field.getText().toString() +
+                imageView.getDrawable().toString();
+
     }
     //----------------------------------------------------------------------------------------------
 
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @Override
+    public void onBackPressed() {
+        String data2 = name_field.getText().toString() +
+                barcode_field.getText().toString() +
+                description_field.getText().toString() +
+                quantity_field.getText().toString() +
+                price_field.getText().toString() +
+                imageView.getDrawable().toString();
 
+        if (data2.equals(data)) {
+            super.onBackPressed();
+        }else {
+            new AlertDialog.Builder(this)
+                    .setIcon(getDrawable(R.drawable.undo_32px))
+                    .setTitle("Add Item")
+                    .setMessage("" +
+                            "Discard Adding Item?")
+                    .setPositiveButton("Yes", (dialog, which) -> finish()
+                    ).setNegativeButton("No", null).show();
+        }
+    }
 
     @Override //--------------Removes Warning on Text Fields when received focus
     public void onFocusChange(View view, boolean hasFocus) {
@@ -189,8 +225,15 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 //                imageView.setImageURI(selectedImage);
                     performCrop(); //--> Requires Cropping the image
                 }
+                if (requestCode == PIC_CAMERA) {
+                    image_Bitmap = (Bitmap) data.getExtras().get("data");
 
-                if (requestCode == PIC_CROP || requestCode == PIC_CAMERA) { //100
+                    String path = MediaStore.Images.Media.insertImage(getContentResolver(), image_Bitmap, "Shopyy_Item_Capture", null);
+                    image_Uri = Uri.parse(path.toString());
+                    performCrop(); //--> Requires Cropping the image
+                }
+
+                if (requestCode == PIC_CROP ) { //100
                     image_Bitmap = data.getExtras().getParcelable("data");
 //                image_Bitmap = Bitmap.createScaledBitmap(image_Bitmap, 100, 100, false);
 
@@ -218,7 +261,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             cropIntent.putExtra("outputY", 420);
             cropIntent.putExtra("return-data", true);   //retrieve data on return
 
-            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri);
+//            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri); //this thing writes the cropped image
             startActivityForResult(cropIntent, PIC_CROP);
         } catch (ActivityNotFoundException anfe) {
             String errorMessage = "Whoops - your device doesn't support the crop action!";

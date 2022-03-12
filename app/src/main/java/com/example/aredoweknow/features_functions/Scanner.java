@@ -61,12 +61,12 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
         scannerView.stopCamera();
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        scannerView.setResultHandler(this);
-//        scannerView.startCamera();
-//    }
+    @Override // ------------------------------------------
+    protected void onResume() {
+        super.onResume();
+        scannerView.setResultHandler(this);
+        scannerView.startCamera();
+    }// ------------------------------------------
 
     @Override
     protected void onPostResume() {

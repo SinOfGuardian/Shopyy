@@ -1,31 +1,17 @@
 package com.example.aredoweknow;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
 
 import com.example.aredoweknow.databases_folder.Database;
-import com.example.aredoweknow.features_functions.AddItem;
-import com.example.aredoweknow.features_functions.Scanner;
-import com.example.aredoweknow.features_functions.Web;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-//import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -37,8 +23,6 @@ import com.example.aredoweknow.databinding.ActivityDashboardNewBinding;
 
 public class DashboardNew extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private AppBarConfiguration mAppBarConfiguration;
-    Button browser_btn, scan_btn, add_btn;
-    AppCompatImageButton barc_search;
 
     private String user_name = "";
     private String store_name = "";
@@ -80,39 +64,6 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-        //--------------------------------Open Web View
-        browser_btn = findViewById(R.id.fab1);
-        browser_btn.setOnClickListener(v -> {
-            Intent intent1 = new Intent(DashboardNew.this, Web.class);
-            intent1.putExtra("ToSearch", "");
-            startActivity(intent1);
-        });
-
-        //---------------------------------Open camera for scan
-        scan_btn = findViewById(R.id.fab2);
-        scan_btn.setOnClickListener(v -> {
-            if (CamPermissionGranted()) {
-                Intent intent12 = new Intent(DashboardNew.this, Scanner.class);
-                intent12.putExtra("update", "seraching_item_web");
-                startActivity(intent12);
-            }
-        });
-
-        //------------------Open Add
-        add_btn = findViewById(R.id.fab3);
-        add_btn.setOnClickListener(v -> {
-            Intent intent13 = new Intent(DashboardNew.this, AddItem.class);
-            startActivity(intent13);
-        });
-
-        barc_search = findViewById(R.id.barc_searcher);
-        barc_search.setOnClickListener(v -> {
-            if (CamPermissionGranted()) {
-                Intent intent12 = new Intent(DashboardNew.this, Scanner.class);
-                intent12.putExtra("update", "searching_item");
-                startActivity(intent12);
-            }
-        });
 
     }//DULO NG onCreate
 
@@ -132,15 +83,15 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-     //   Toast.makeText(getApplicationContext(), "Hello Javatpoint", Toast.LENGTH_LONG).show();
         return true;
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_settings) {
             new AlertDialog.Builder(this)
-                    .setIcon(getDrawable(R.drawable.shopyy_icon))
+                    .setIcon(getDrawable(R.drawable.logout_24px))
                     .setTitle("Shopyy")
                     .setMessage("Do you want to Logout?")
                     .setPositiveButton("Yes", (dialog, which) -> {
@@ -160,18 +111,8 @@ public class DashboardNew extends AppCompatActivity implements NavigationView.On
                 .setIcon(getDrawable(R.drawable.shopyy_icon))
                 .setTitle("Shopyy")
                 .setMessage("Are you sure do you want to exit?")
-                .setPositiveButton("Yes", (dialog, which) -> finish()).setNegativeButton("No", null).show();
+                .setPositiveButton("Yes", (dialog, which) -> finish()
+                ).setNegativeButton("No", null).show();
     }
 
-    //--------- Check Camera Permission
-    private boolean CamPermissionGranted() {
-        //--------------CAMERA CODE
-        if (ContextCompat.checkSelfPermission(DashboardNew.this,
-                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(DashboardNew.this, new String[]{Manifest.permission.CAMERA}, 100);
-            return false;
-        }else {
-            return true;
-        }
-    }
 }
