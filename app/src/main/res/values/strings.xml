@@ -45,4 +45,31 @@
 
     <string name="linklabel">Shopyy Source Code is Open Source</string>
     <string name="hyper">Repository: <a href="https://github.com/SinOfGuardian/Shopyy.git">Github</a> </string>
+    <string name="required">Required</string>
+    <string name="item">Item</string>
+    <string name="item_name">Item Name</string>
+    <string name="barcode">Barcode</string>
+    <string name="description">Description</string>
+    <string name="quantity">Quantity</string>
+    <string name="price">Price</string>
+    <string name="del">DEL</string>
+    <string name="save">SAVE</string>
+    <string name="plus_sign">+</string>
+    <string name="add">ADD</string>
+    <string name="back">back</string>
+    <string name="edit">Edit</string>
+    <string name="john_lloyd">John Lloyd Gabriel</string>
+    <string name="lloyd_email">asteloid15@gmail.com</string>
+    <string name="leo_marc">Leo Marc Boco</string>
+    <string name="leo_email">marbok836@gmail.com</string>
+    <string name="valenzuela_nathaniel">Valenzuela, Nathaniel Rosell.</string>
+    <string name="nath_email">kienielvalenzuela05@gmail.com</string>
+    <string name="jerreme_detorres">Jerreme B. De Torres</string>
+    <string name="jerreme_email">jerremedetorres029@gmail.com</string>
+    <string name="jayvie_email">balilijayvie201@gmail.com</string>
+    <string name="jayvie_balili">Jayvie M. Balili</string>
+    <string name="developer_contact">Developer Contact</string>
+    <string name="about_the_app">Shopyy is an offline app that are designed to managed stocks and items. It is developed to manage goods in a small shop or home inventory storage. Shopyy helps to keep track of your stock of any kind of items.</string>
+    <string name="about">About the app</string>
+    <string name="app_version">Version 1.1.2</string>
 </resources>

@@ -1,11 +1,13 @@
 package com.example.aredoweknow.features_functions;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.ImageViewCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -36,13 +38,14 @@ import com.example.aredoweknow.other_class.REFRESH;
 import com.example.aredoweknow.other_class.dialogClass;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.file.Path;
 
 
 public class AddItem extends AppCompatActivity implements View.OnFocusChangeListener {
 
     AppCompatImageButton backbtn;
     Button cameraBTN, GalleryBTN, AddBTN;
-    ImageButton scanBTN;
+    AppCompatImageButton scanBTN;
 
     DatabaseHandler dataHandler;
     @SuppressLint("StaticFieldLeak")
@@ -54,6 +57,10 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 
     ImageView imageView;
     CardView cardView;
+
+    //keep track of cropping intent
+    final int PIC_CROP = 2, PIC_GALLERY = 3, PIC_CAMERA = 100;
+    private String data;
 
     @SuppressLint("CutPasteId")
     @Override
@@ -75,21 +82,23 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         quantity_field = findViewById(R.id.quantity_val);
         price_field = findViewById(R.id.price_val);
 
-        imageView = findViewById(R.id.image_val2);
+        imageView = findViewById(R.id.image_val);
         cardView = findViewById(R.id.image_panel);
 
         //------------------Back to Dashboard
         backbtn = findViewById(R.id.back_btn);
-        backbtn.setOnClickListener(v -> finish());
+        backbtn.setOnClickListener(v -> {
+            onBackPressed();
+        });
 
         //--------------------Open gallery
         GalleryBTN = findViewById(R.id.gallery_btn);
         GalleryBTN.setOnClickListener(v -> {
             if (CamPermissionGranted()) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 3);
+                startActivityForResult(intent, PIC_GALLERY);
 
-                //--------------------------RREFrESH
+                //--------------------------REFRESH
                 REFRESH r = new REFRESH();
                 r.updateArrayList2(this);
             }
@@ -100,9 +109,9 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         cameraBTN.setOnClickListener(v -> {
             if (CamPermissionGranted()) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, PIC_CAMERA);
 
-                //--------------------------RREFrESH
+                //--------------------------REFRESH
                 REFRESH r = new REFRESH();
                 r.updateArrayList2(this);
             }
@@ -121,31 +130,32 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         //-------------------Add New Item
         AddBTN = findViewById(R.id.add_btn);
         AddBTN.setOnClickListener(v -> {
-            if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
+            if (!isFieldsEmpty() && !wrongInputFormat()) {
                 String name = name_field.getText().toString();
                 String barcode = "" + barcode_field.getText().toString();
-                String description = description_field.getText().toString();
+                String description = "" + description_field.getText().toString();
                 int quantity = Integer.parseInt(quantity_field.getText().toString());
                 double price = Double.parseDouble(price_field.getText().toString());
 
                 Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-                Bitmap.createScaledBitmap(bitmap, 100, 100, false);
 //                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.image_val);
                 ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 90, byteArray);
                 byte[] img = byteArray.toByteArray();
 
                 //----------------------image insert to database------------------------
                 long res = dataHandler.insertItem(name, img, barcode, description, quantity, price);
                 if (res > 0) {
-                    //TODO: first item to add in database, not refreshing the HOME
-                    Toast.makeText(AddItem.this, name + " Added Recently", Toast.LENGTH_SHORT).show();
-                    display_messageDialog("Item Added Successfully.");
+
                     //----------REFRESH
                     REFRESH r = new REFRESH();
                     r.updateArrayList2(this);
+
                     //--------------------
-                    resetFields();
+//                    resetFields();
+//                    display_messageDialog("Item Added Successfully.");
+                    finish();
+                    Toast.makeText(AddItem.this, name + " Added Successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(AddItem.this, "Adding " + name + " Item Failed!", Toast.LENGTH_SHORT).show();
                     display_messageDialog("Error Adding Item!");
@@ -155,23 +165,52 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 
         name_field.setOnFocusChangeListener(this);
 //        barcode_field.setOnFocusChangeListener(this);
-        description_field.setOnFocusChangeListener(this);
+//        description_field.setOnFocusChangeListener(this);
         quantity_field.setOnFocusChangeListener(this);
         price_field.setOnFocusChangeListener(this);
+
+        data = name_field.getText().toString() +
+                barcode_field.getText().toString() +
+                description_field.getText().toString() +
+                quantity_field.getText().toString() +
+                price_field.getText().toString() +
+                imageView.getDrawable().toString();
+
     }
     //----------------------------------------------------------------------------------------------
 
-
-    //--------------Removes Warning on Text Fields when received focus
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
+    public void onBackPressed() {
+        String data2 = name_field.getText().toString() +
+                barcode_field.getText().toString() +
+                description_field.getText().toString() +
+                quantity_field.getText().toString() +
+                price_field.getText().toString() +
+                imageView.getDrawable().toString();
+
+        if (data2.equals(data)) {
+            super.onBackPressed();
+        }else {
+            new AlertDialog.Builder(this)
+                    .setIcon(getDrawable(R.drawable.undo_32px))
+                    .setTitle("Add Item")
+                    .setMessage("" +
+                            "Discard Adding Item?")
+                    .setPositiveButton("Yes", (dialog, which) -> finish()
+                    ).setNegativeButton("No", null).show();
+        }
+    }
+
+    @Override //--------------Removes Warning on Text Fields when received focus
     public void onFocusChange(View view, boolean hasFocus) {
         if (view.isFocused()) {
             view.setSelected(false); //--> Remove Highlight red
         }
     }
 
-    //---------------capture camera code And pick picture in Gallery
-    @Override
+
+    @Override //---------------capture camera code And pick picture in Gallery
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 //        Toast.makeText(this, requestCode + " | " + resultCode, Toast.LENGTH_SHORT).show();
@@ -180,14 +219,21 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         if (CamPermissionGranted() && data != null && resultCode == RESULT_OK) {
             System.out.println(requestCode + " | " + resultCode);
             try {
-                if (requestCode == 3) {  //--> Choose from gallery
+                if (requestCode == PIC_GALLERY) {  //--> Choose from gallery
                     image_Uri = data.getData();
 //                image_Bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_Uri);
 //                imageView.setImageURI(selectedImage);
                     performCrop(); //--> Requires Cropping the image
                 }
+                if (requestCode == PIC_CAMERA) {
+                    image_Bitmap = (Bitmap) data.getExtras().get("data");
 
-                if (requestCode == PIC_CROP || requestCode == 100) { //100
+                    String path = MediaStore.Images.Media.insertImage(getContentResolver(), image_Bitmap, "Shopyy_Item_Capture", null);
+                    image_Uri = Uri.parse(path.toString());
+                    performCrop(); //--> Requires Cropping the image
+                }
+
+                if (requestCode == PIC_CROP ) { //100
                     image_Bitmap = data.getExtras().getParcelable("data");
 //                image_Bitmap = Bitmap.createScaledBitmap(image_Bitmap, 100, 100, false);
 
@@ -201,9 +247,8 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         }
     }
 
-    //keep track of cropping intent
-    final int PIC_CROP = 2;
 
+    //Try cropping the image
     public void performCrop() {
         try {
             Intent cropIntent = new Intent("com.android.camera.action.CROP");   //call the standard crop action intent (the user device may not support it)
@@ -216,7 +261,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
             cropIntent.putExtra("outputY", 420);
             cropIntent.putExtra("return-data", true);   //retrieve data on return
 
-            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri);
+//            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri); //this thing writes the cropped image
             startActivityForResult(cropIntent, PIC_CROP);
         } catch (ActivityNotFoundException anfe) {
             String errorMessage = "Whoops - your device doesn't support the crop action!";
@@ -236,10 +281,10 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
 //            isEmpty = true;
 //            barcode_field.setSelected(true); //--> Highlight red
 //        }
-        if (description_field.getText().toString().trim().equals("")) {
-            isEmpty = true;
-            description_field.setSelected(true); //--> Highlight red
-        }
+//        if (description_field.getText().toString().trim().equals("")) {
+//            isEmpty = true;
+//            description_field.setSelected(true); //--> Highlight red
+//        }
         if (quantity_field.getText().toString().trim().equals("")) {
             isEmpty = true;
             quantity_field.setSelected(true); //--> Highlight red
@@ -250,7 +295,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         }
 
         if (isEmpty) {
-            display_messageDialog("One or more field/s is Empty!");
+            display_messageDialog("Required field/s cannot be empty!");
         }
         return isEmpty;
     }
@@ -279,7 +324,6 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         }
 
         if (isWrongFormat) {
-            barcode_field.setSelected(true);
             display_messageDialog("Invalid Format/s");
         }
         return isWrongFormat;
@@ -316,7 +360,7 @@ public class AddItem extends AppCompatActivity implements View.OnFocusChangeList
         resulttextview.setText("");
 
         cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
-        @SuppressLint("UseCompatLoadingForDrawables") Drawable myDrawable = getResources().getDrawable(R.drawable.image_100px);
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable myDrawable = getResources().getDrawable(R.drawable.no_productimage);
         imageView.setImageBitmap(((BitmapDrawable) myDrawable).getBitmap());
 
         cardView.setFocusableInTouchMode(true);

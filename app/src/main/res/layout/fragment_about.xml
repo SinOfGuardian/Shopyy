@@ -37,7 +37,8 @@
                         android:layout_marginBottom="50dp"
                         android:padding="30dp"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/shopyy_logo" />
+                        app:srcCompat="@drawable/shopyy_logo"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -54,7 +55,7 @@
                         android:layout_below="@+id/pic1"
                         android:gravity="center"
 
-                        android:text="Version 1.0"
+                        android:text="@string/app_version"
                         android:textColor="@color/gray1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -65,7 +66,7 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="10dp"
                         android:gravity="center"
-                        android:text="About the app"
+                        android:text="@string/about"
                         android:textSize="22sp"
                         android:textStyle="bold" />
 
@@ -76,7 +77,7 @@
                         android:gravity="center"
                         android:paddingStart="60dp"
                         android:paddingEnd="60dp"
-                        android:text="     Shopyy is an offline app that are designed to managed stocks and items. It is developed to manage goods in a small shop or home inventory storage. Shopyy helps to keep track of your stock of any kind of items."
+                        android:text="@string/about_the_app"
                         android:textSize="14sp" />
 
                     <TextView
@@ -85,8 +86,8 @@
                         android:layout_marginTop="30dp"
                         android:gravity="center"
                         android:textStyle="bold"
-                        android:textSize="22dp"
-                        android:text="Developer Contact"/>
+                        android:textSize="22sp"
+                        android:text="@string/developer_contact"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -99,12 +100,14 @@
                             android:orientation="horizontal"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:paddingStart="20dp">
+                            android:paddingStart="20dp"
+                            tools:ignore="RtlSymmetry">
 
                             <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
-                                android:src="@drawable/jayvie_balili" />
+                                android:src="@drawable/jayvie_balili"
+                                tools:ignore="ContentDescription" />
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -115,21 +118,22 @@
                                     android:paddingTop="12dp"
                                     android:paddingStart="14dp"
 
-                                    android:text="Jayvie M. Balili"
+                                    android:text="@string/jayvie_balili"
                                     android:textColor="@color/fab_col1"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
-                                    />
+                                    tools:ignore="RtlSymmetry" />
                                 <TextView
+                                    android:id="@+id/contact1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingStart="15dp"
-                                    android:text="balilijayvie201@gmail.com"
+                                    android:text="@string/jayvie_email"
                                     android:textStyle="bold"
                                     android:textSize="12sp"
-                                    android:drawableLeft="@drawable/gmail_12px"
                                     android:drawablePadding="10dp"
-                                    />
+                                    app:drawableLeftCompat="@drawable/gmail_12px"
+                                    tools:ignore="RtlSymmetry" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -140,12 +144,14 @@
                             android:layoutDirection="rtl"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:paddingStart="20dp">
+                            android:paddingStart="20dp"
+                            tools:ignore="RtlSymmetry">
 
                             <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
-                                android:src="@drawable/gabriel" />
+                                android:src="@drawable/gabriel"
+                                tools:ignore="ContentDescription" />
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -156,21 +162,21 @@
                                     android:paddingTop="12dp"
                                     android:paddingStart="14dp"
 
-                                    android:text="John Lloyd Gabriel"
-                                    android:textColor="@color/fab_col2"
+                                    android:text="@string/john_lloyd"
+                                    android:textColor="@color/add_col"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
-                                    />
+                                    tools:ignore="RtlSymmetry" />
                                 <TextView
+                                    android:id="@+id/contact2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingStart="15dp"
-                                    android:text="asteloid15@gmail.com"
+                                    android:text="@string/lloyd_email"
                                     android:textStyle="bold"
                                     android:textSize="12sp"
-                                    android:drawableLeft="@drawable/gmail_12px"
                                     android:drawablePadding="10dp"
-                                    />
+                                    app:drawableLeftCompat="@drawable/gmail_12px" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -180,12 +186,14 @@
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:orientation="horizontal"
-                            android:paddingStart="20dp">
+                            android:paddingStart="20dp"
+                            tools:ignore="RtlSymmetry">
 
                             <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
-                                android:src="@drawable/boco" />
+                                android:src="@drawable/boco"
+                                tools:ignore="ContentDescription" />
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -196,21 +204,22 @@
                                     android:paddingTop="12dp"
                                     android:paddingStart="14dp"
 
-                                    android:text="Leo Marc Boco"
+                                    android:text="@string/leo_marc"
                                     android:textColor="@color/fab_col3"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     />
+
                                 <TextView
+                                    android:id="@+id/contact3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:paddingStart="15dp"
-                                    android:text="marbok839@gmail.com"
-                                    android:textStyle="bold"
-                                    android:textSize="12sp"
-                                    android:drawableLeft="@drawable/gmail_12px"
                                     android:drawablePadding="10dp"
-                                    />
+                                    android:paddingStart="15dp"
+                                    android:text="@string/leo_email"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    app:drawableLeftCompat="@drawable/gmail_12px" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -221,12 +230,14 @@
                             android:paddingBottom="5dp"
                             android:orientation="horizontal"
                             android:layoutDirection="rtl"
-                            android:paddingStart="20dp">
+                            android:paddingStart="20dp"
+                            tools:ignore="RtlSymmetry">
 
                             <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
-                                android:src="@drawable/nathaniel_valenzuela" />
+                                android:src="@drawable/nathaniel_valenzuela"
+                                tools:ignore="ContentDescription" />
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -237,21 +248,21 @@
                                     android:paddingTop="12dp"
                                     android:paddingStart="14dp"
 
-                                    android:text="Valenzuela, Nathaniel Rosell."
-                                    android:textColor="@color/fab_col1"
+                                    android:text="@string/valenzuela_nathaniel"
+                                    android:textColor="@color/gray2"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     />
                                 <TextView
+                                    android:id="@+id/contact4"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingStart="15dp"
-                                    android:text="kienielvalenzuela05@gmail.com"
+                                    android:text="@string/nath_email"
                                     android:textStyle="bold"
                                     android:textSize="12sp"
-                                    android:drawableLeft="@drawable/gmail_12px"
                                     android:drawablePadding="10dp"
-                                    />
+                                    app:drawableLeftCompat="@drawable/gmail_12px" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -261,12 +272,14 @@
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:orientation="horizontal"
-                            android:paddingStart="20dp">
+                            android:paddingStart="20dp"
+                            tools:ignore="RtlSymmetry">
 
                             <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
-                                android:src="@drawable/jerreme_profile" />
+                                android:src="@drawable/jerreme_profile"
+                                tools:ignore="ContentDescription" />
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -277,21 +290,21 @@
                                     android:paddingTop="12dp"
                                     android:paddingStart="14dp"
 
-                                    android:text="Jerreme B. De Torres"
+                                    android:text="@string/jerreme_detorres"
                                     android:textColor="@color/fab_col2"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     />
                                 <TextView
+                                    android:id="@+id/contact5"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingStart="15dp"
-                                    android:text="jerremedetorres029@gmail.com"
+                                    android:text="@string/jerreme_email"
                                     android:textStyle="bold"
                                     android:textSize="12sp"
-                                    android:drawableLeft="@drawable/gmail_12px"
                                     android:drawablePadding="10dp"
-                                    />
+                                    app:drawableLeftCompat="@drawable/gmail_12px" />
                             </LinearLayout>
 
                         </LinearLayout>

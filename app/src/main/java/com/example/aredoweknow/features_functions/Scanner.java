@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.aredoweknow.fragments_folder.Home;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -34,10 +35,14 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
 //        onBackPressed();
 
         switch (whom_toUpdate) {
-            case "searching_item":
+            case "seraching_item_web":
                 Intent intent = new Intent(this, Web.class);
                 intent.putExtra("ToSearch", result.getText());
                 startActivity(intent);
+                break;
+            case "searching_item":
+                Home.sv_static.setQuery(result.getText(), true);
+                Home.sv_static.setIconified(false);
                 break;
             case "adding_item":
                 AddItem.resulttextview.setText(result.getText());
@@ -56,12 +61,12 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
         scannerView.stopCamera();
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        scannerView.setResultHandler(this);
-//        scannerView.startCamera();
-//    }
+    @Override // ------------------------------------------
+    protected void onResume() {
+        super.onResume();
+        scannerView.setResultHandler(this);
+        scannerView.startCamera();
+    }// ------------------------------------------
 
     @Override
     protected void onPostResume() {

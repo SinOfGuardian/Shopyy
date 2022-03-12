@@ -16,15 +16,16 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.cardview.widget.CardView;
@@ -33,43 +34,39 @@ import androidx.core.content.ContextCompat;
 
 import com.example.aredoweknow.R;
 import com.example.aredoweknow.databases_folder.DatabaseHandler;
-import com.example.aredoweknow.other_class.GetterSetter;
 import com.example.aredoweknow.other_class.REFRESH;
 import com.example.aredoweknow.other_class.dialogClass;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 
-public class VieweditActivity extends AppCompatActivity {
-    private boolean editw = true;
+public class VieweditActivity extends AppCompatActivity implements View.OnFocusChangeListener {
+    private boolean edit_mode = true;
 
-    DatabaseHandler db;
-    AppCompatImageButton backbtn;
+    DatabaseHandler dbh;
+    AppCompatImageButton backBTN, scanBTN, editBTN;
 
-    Button cameraBTN, galleryBTN, editBTN, delBTN;
+    Button cameraBTN, galleryBTN, delBTN;
     FrameLayout saveBTN;
     Uri image_Uri;
-    ImageButton scanBTN;
+    Intent intent;
 
-    DatabaseHandler dataHandler;
     EditText name_field, barcode_field, description_field, quantity_field, price_field;
     Bitmap captureImage;
     ImageView imageView;
     CardView cardView;
-    Toolbar toolbar;
 
-    Intent intent;
-    String name;
-    String price;
-    String barcode;
-    String description;
-    String quantity;
+    String name, price, barcode, description, quantity;
     Bitmap image;
+
+    //keep track of cropping intent
+    final int PIC_CROP = 2, PIC_GALLERY = 3, PIC_CAMERA = 100;
+    TextView req_label1, req_label2, req_label3;
+    private String data;
 
     @SuppressLint("StaticFieldLeak")
     public static EditText static_barcode;
 
-    @SuppressLint("CutPasteId")
+    @SuppressLint({"CutPasteId", "UseCompatLoadingForDrawables"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,8 +76,10 @@ public class VieweditActivity extends AppCompatActivity {
         String final_un = sf.getString("final_username", "");
 
         //Database
-        db = new DatabaseHandler(this, final_un);
-//==================VARIABLE XML
+        dbh = new DatabaseHandler(this, final_un);
+        cardView = findViewById(R.id.image_panel2);
+
+        //==================VARIABLE XML
         name_field = findViewById(R.id.itemname_val2);
         barcode_field = findViewById(R.id.barcode_val2);
 
@@ -90,9 +89,8 @@ public class VieweditActivity extends AppCompatActivity {
         price_field = findViewById(R.id.price_val2);
         imageView = findViewById(R.id.image_val2);
 
-//==============GET INTENT=====================
+        //==============GET INTENT EXTRAS=====================
         intent = getIntent();
-
         name = intent.getStringExtra("name");
         price = intent.getStringExtra("price");
         barcode = intent.getStringExtra("barcode");
@@ -107,9 +105,16 @@ public class VieweditActivity extends AppCompatActivity {
         quantity_field.setText(quantity);
         price_field.setText(price);
 
+        //-------------------Labels
+        req_label1 = findViewById(R.id.required1);
+        req_label2 = findViewById(R.id.required2);
+        req_label3 = findViewById(R.id.required3);
+
         //--------------BACK TO DASHBOARD--------------
-        backbtn = findViewById(R.id.view_back_btn);
-        backbtn.setOnClickListener(v -> finish());
+        backBTN = findViewById(R.id.view_back_btn);
+        backBTN.setOnClickListener(v -> {
+            this.onBackPressed();
+        });
 
         //-------------------Open Scanner
         scanBTN = findViewById(R.id.barscan_btn2);
@@ -126,10 +131,9 @@ public class VieweditActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, 3);
 
-            //--------------------------RREFrESH
+            //--------------------------REFRESH
             REFRESH r = new REFRESH();
             r.updateArrayList2(this);
-
         });
         //-----------------> Capture Mode
         cameraBTN = findViewById(R.id.camera_btn2);
@@ -138,7 +142,7 @@ public class VieweditActivity extends AppCompatActivity {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 100);
 
-                //--------------------------RREFrESH
+                //--------------------------REFRESH
                 REFRESH r = new REFRESH();
                 r.updateArrayList2(this);
             }
@@ -147,78 +151,121 @@ public class VieweditActivity extends AppCompatActivity {
         //----------------> Toggles Edit
         editBTN = findViewById(R.id.edit_btn);
         editBTN.setOnClickListener(v -> {
-            if (editw) {
+            if (edit_mode) {
                 editBTN_clicked(false);
             } else {
                 editBTN_clicked(true);
             }
         });
+
         //-----------------> Save Button
         saveBTN = findViewById(R.id.save_btn);
         saveBTN.setOnClickListener(v -> {
-            //TODO save function here
+            String data2 = name_field.getText().toString() +
+                    barcode_field.getText().toString() +
+                    description_field.getText().toString() +
+                    quantity_field.getText().toString() +
+                    price_field.getText().toString() +
+                    imageView.getDrawable().toString();
 
-            if (!isFieldsEmpty() && !wrongInputFormat() && !wrongInputFormat() && !nullImage()) {
-              //  Toast.makeText(VieweditActivity.this, "SAVE SAVE", Toast.LENGTH_SHORT).show();
+            if (data2.equals(data)) {
 
-
+            }
+            if (!isFieldsEmpty() && !wrongInputFormat()) {
                 String id = intent.getStringExtra("id");
                 String name = name_field.getText().toString();
                 String barcode = "" + barcode_field.getText().toString();
-                String description = description_field.getText().toString();
+                String description = "" + description_field.getText().toString();
                 int quantity = Integer.parseInt(quantity_field.getText().toString());
                 double price = Double.parseDouble(price_field.getText().toString());
 
                 Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-                Bitmap.createScaledBitmap(bitmap, 100, 100, false);
 //                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.image_val);
                 ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray);
                 byte[] img = byteArray.toByteArray();
                 int res = Integer.parseInt(id);
 
-                db.updateAccount(res, name, img, barcode, description, quantity, price);
+                dbh.updateAccount(res, name, img, barcode, description, quantity, price);
 
-                //--------------------------RREFrESH
+                //--------------------------REFRESH
                 REFRESH r = new REFRESH();
                 r.updateArrayList2(this);
 
-                Toast.makeText(VieweditActivity.this, name + " Update Recently", Toast.LENGTH_SHORT).show();
-                display_messageDialog("Item Updated Successfully.");
-
-                Toast.makeText(VieweditActivity.this, " Data Did Not Change", Toast.LENGTH_SHORT).show();
-
-
+                Toast.makeText(VieweditActivity.this, "Item Updated Successfully", Toast.LENGTH_SHORT).show();
+                editBTN_clicked(false);
             }
-
         });
+
         //----------------> Delete Button
         delBTN = findViewById(R.id.delete_btn);
         delBTN.setOnClickListener(v -> {
-            //TODO delete function here
-            String id = intent.getStringExtra("id");
-            if (id.equals("")) {
-                Toast.makeText(VieweditActivity.this, "Please fill the ITEM    ", Toast.LENGTH_SHORT).show();
-            } else {
-                long l = Long.parseLong(id);
-                db.deleteAccount(l);
-                Toast.makeText(VieweditActivity.this, " Successful Remove Item ", Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(this)
+                    .setIcon(getDrawable(R.drawable.delete_red_28px))
+                    .setTitle("Delete Item")
+                    .setMessage("Are you sure do want to delete this item?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        String id = intent.getStringExtra("id");
+                        long l = Long.parseLong(id);
+                        dbh.deleteAccount(l);
 
+                        //REFRESH
+                        REFRESH r = new REFRESH();
+                        r.updateArrayList2(this);
 
-                //REFRESH
-                REFRESH r = new REFRESH();
-                r.updateArrayList2(this);
+//                        delBTN.refreshDrawableState();
+//                        ArrayList<GetterSetter> al = new ArrayList<>();
 
-                delBTN.refreshDrawableState();
-                ArrayList<GetterSetter> al = new ArrayList<>();
-
-                finish();
-            }
+                        Toast.makeText(VieweditActivity.this, " Item Remove Successfully", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }).setNegativeButton("No", null).show();
         });
-        editBTN_clicked(false);
-    }
-//----------------ewan
 
+        name_field.setOnFocusChangeListener(this);
+//        barcode_field.setOnFocusChangeListener(this);
+//        description_field.setOnFocusChangeListener(this);
+        quantity_field.setOnFocusChangeListener(this);
+        price_field.setOnFocusChangeListener(this);
+
+        data = name_field.getText().toString() +
+                barcode_field.getText().toString() +
+                description_field.getText().toString() +
+                quantity_field.getText().toString() +
+                price_field.getText().toString() +
+                imageView.getDrawable().toString();
+        editBTN_clicked(false);
+    }//-------------------------------------------------------------------------------------------
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @Override
+    public void onBackPressed() {
+        String data2 = name_field.getText().toString() +
+                barcode_field.getText().toString() +
+                description_field.getText().toString() +
+                quantity_field.getText().toString() +
+                price_field.getText().toString() +
+                imageView.getDrawable().toString();
+
+        if (data2.equals(data)) {
+            super.onBackPressed();
+        }else {
+            new AlertDialog.Builder(this)
+                    .setIcon(getDrawable(R.drawable.undo_32px))
+                    .setTitle("Edit Item")
+                    .setMessage("" +
+                            "Discard Changes?")
+                    .setPositiveButton("Yes", (dialog, which) -> finish()
+                    ).setNegativeButton("No", null).show();
+        }
+    }
+
+
+    @Override //--------------Removes Warning on Text Fields when received focus
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (view.isFocused()) {
+            view.setSelected(false); //--> Remove Highlight red
+        }
+    }
 
     //----------------This Reset the fields after successful add
     public void resetFields() {
@@ -229,7 +276,7 @@ public class VieweditActivity extends AppCompatActivity {
         price_field.setText("");
 
         cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
-        @SuppressLint("UseCompatLoadingForDrawables") Drawable myDrawable = getResources().getDrawable(R.drawable.image_100px);
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable myDrawable = getResources().getDrawable(R.drawable.no_productimage);
         imageView.setImageBitmap(((BitmapDrawable) myDrawable).getBitmap());
 
         cardView.setFocusableInTouchMode(true);
@@ -241,9 +288,8 @@ public class VieweditActivity extends AppCompatActivity {
         Dialog dialog1 = new Dialog(this);
         dialogClass dialog = new dialogClass();
 
-
-        cardView.setFocusableInTouchMode(true);
-        cardView.requestFocus();
+        saveBTN.setFocusableInTouchMode(true);
+        saveBTN.requestFocus();
         dialog.simpleDialog(dialog1, message); //--> show simple dialog
     }
 
@@ -266,21 +312,20 @@ public class VieweditActivity extends AppCompatActivity {
 //        System.out.println(requestCode + " | " + resultCode);
 
         if (data != null && resultCode == RESULT_OK) {
-            System.out.println(requestCode + " | " + resultCode);
             try {
-                if (requestCode == 3) {  //--> Choose from gallery
+                if (requestCode == PIC_GALLERY) {  //--> Choose from gallery
                     image_Uri = data.getData();
 //                image_Bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_Uri);
 //                imageView.setImageURI(selectedImage);
                     performCrop(); //--> Requires Cropping the image
                 }
 
-                if (requestCode == PIC_CROP || requestCode == 100) { //3
+                if (requestCode == PIC_CROP || requestCode == PIC_CAMERA) {
                     captureImage = data.getExtras().getParcelable("data");
 //                image_Bitmap = Bitmap.createScaledBitmap(image_Bitmap, 100, 100, false);
 
                     imageView.setImageBitmap(captureImage);
-                    cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
+//                    cardView.setCardBackgroundColor(getResources().getColor(R.color.gray1));
                 }
 
             } catch (Exception e) {
@@ -289,19 +334,16 @@ public class VieweditActivity extends AppCompatActivity {
         }
     }
 
-    //keep track of cropping intent
-    final int PIC_CROP = 2;
-
     public void performCrop() {
         try {
-            Intent cropIntent = new Intent("com.android.camera.action.CROP");   //call the standard crop action intent (the user device may not support it)
-
+            //call the standard crop action intent (the user device may not support it)
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
             cropIntent.setDataAndType(image_Uri, "image/*");    //indicate image type and Uri
             cropIntent.putExtra("crop", "true");    //set crop properties
             cropIntent.putExtra("aspectX", 1);  //indicate aspect of desired crop
             cropIntent.putExtra("aspectY", 1);
-            cropIntent.putExtra("outputX", 420);    //indicate output X and Y
-            cropIntent.putExtra("outputY", 420);
+            cropIntent.putExtra("outputX", 520);    //indicate output X and Y
+            cropIntent.putExtra("outputY", 520);
             cropIntent.putExtra("return-data", true);   //retrieve data on return
 
             cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_Uri);
@@ -312,41 +354,32 @@ public class VieweditActivity extends AppCompatActivity {
             String errorMessage = "Whoops - your device doesn't support the crop action!";
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
         }
-
     }
 
     public void editBTN_clicked(boolean state) {
+        // false = Disable Editing, true = Enable Editing
+        name_field.setEnabled(state);
+        barcode_field.setEnabled(state);
+        description_field.setEnabled(state);
+        quantity_field.setEnabled(state);
+        price_field.setEnabled(state);
+
+        galleryBTN.setEnabled(state);
+        cameraBTN.setEnabled(state);
+        scanBTN.setEnabled(state);
+
+        saveBTN.setEnabled(state);
+        delBTN.setEnabled(state);
+        edit_mode = state;
+
         if (!state) { // --> CAN NOT TYPE/EDIT
-            name_field.setEnabled(false);
-            barcode_field.setEnabled(false);
-            description_field.setEnabled(false);
-            quantity_field.setEnabled(false);
-            price_field.setEnabled(false);
-
-
-            galleryBTN.setEnabled(false);
-            cameraBTN.setEnabled(false);
-            scanBTN.setEnabled(false);
-
-            saveBTN.setEnabled(false);
-            delBTN.setEnabled(false);
-            editw = false;
-
+            req_label1.setVisibility(View.INVISIBLE);
+            req_label2.setVisibility(View.INVISIBLE);
+            req_label3.setVisibility(View.INVISIBLE);
         } else { // --> CAN TYPE/EDIT
-            name_field.setEnabled(true);
-            barcode_field.setEnabled(true);
-            description_field.setEnabled(true);
-            quantity_field.setEnabled(true);
-            price_field.setEnabled(true);
-
-            galleryBTN.setEnabled(true);
-            cameraBTN.setEnabled(true);
-            scanBTN.setEnabled(true);
-
-            saveBTN.setEnabled(true);
-            delBTN.setEnabled(true);
-            editw = true;
-
+            req_label1.setVisibility(View.VISIBLE);
+            req_label2.setVisibility(View.VISIBLE);
+            req_label3.setVisibility(View.VISIBLE);
         }
     }
 
@@ -363,10 +396,10 @@ public class VieweditActivity extends AppCompatActivity {
 //            isEmpty = true;
 //            barcode_field.setSelected(true); //--> Highlight red
 //        }
-        if (description_field.getText().toString().trim().equals("")) {
-            isEmpty = true;
-            description_field.setSelected(true); //--> Highlight red
-        }
+//        if (description_field.getText().toString().trim().equals("")) {
+//            isEmpty = true;
+//            description_field.setSelected(true); //--> Highlight red
+//        }
         if (quantity_field.getText().toString().trim().equals("")) {
             isEmpty = true;
             quantity_field.setSelected(true); //--> Highlight red
@@ -377,7 +410,7 @@ public class VieweditActivity extends AppCompatActivity {
         }
 
         if (isEmpty) {
-            display_messageDialog("One or more field/s is Empty!");
+            display_messageDialog("Required field/s cannot be empty!");
         }
         return isEmpty;
     }
@@ -399,14 +432,13 @@ public class VieweditActivity extends AppCompatActivity {
             quantity_field.setSelected(true);
         }
         //check price
-        Double price = Double.parseDouble(price_field.getText().toString().trim());
+        double price = Double.parseDouble(price_field.getText().toString().trim());
         if (price < 1) {
             isWrongFormat = true;
             price_field.setSelected(true);
         }
 
         if (isWrongFormat) {
-            barcode_field.setSelected(true);
             display_messageDialog("Invalid Format/s");
         }
         return isWrongFormat;

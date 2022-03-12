@@ -20,7 +20,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageButton
-
             android:id="@+id/back_btn"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="60dp"
@@ -28,33 +27,16 @@
             android:layout_alignParentStart="true"
             android:padding="10dp"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/left_48px" />
-
+            app:srcCompat="@drawable/back_page_36px" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_toEndOf="@+id/back_btn"
             android:gravity="center"
-            android:text="back"
+            android:text="@string/add_item"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/add_btn"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:drawableEnd="@drawable/add_28px"
-            android:drawablePadding="15dp"
-            android:text="ADD"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -68,13 +50,12 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
-            android:layout_marginTop="12dp"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="30dp">
+                android:layout_height="wrap_content"
+                android:padding="5dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/image_panel"
@@ -84,43 +65,47 @@
                     app:cardBackgroundColor="@color/gray1">
 
                     <ImageView
-                        android:id="@+id/image_val2"
+                        android:id="@+id/image_val"
                         android:layout_width="110dp"
                         android:layout_height="110dp"
                         android:layout_gravity="center"
                         android:background="@color/white"
                         android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/image_100px" />
+                        app:srcCompat="@drawable/no_productimage"
+                        tools:ignore="ContentDescription" />
                 </androidx.cardview.widget.CardView>
                 <!--                android:scaleType="fitCenter"-->
+                <!--                android:scaleType="centerCrop"-->
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_toEndOf="@+id/image_panel"
                     android:orientation="vertical">
 
                     <Button
                         android:id="@+id/gallery_btn"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/gr1_start"
-                        android:drawableRight="@drawable/photo_gallery_26px"
-                        android:text="+"
-                        android:textSize="25sp" />
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="65dp"
+                        android:layout_height="50dp"
+                        android:drawableEnd="@drawable/image_gallery_24px"
+                        android:drawablePadding="5dp"
+                        android:text="@string/plus_sign"
+                        android:textColor="@color/primary_col"
+                        android:textSize="18sp" />
 
                     <Button
                         android:id="@+id/camera_btn"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/gr1_end"
-                        android:drawableRight="@drawable/camera_26px"
-                        android:text="+"
-                        android:textSize="25sp" />
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="65dp"
+                        android:layout_height="50dp"
+                        android:drawableEnd="@drawable/camera_24px"
+                        android:drawablePadding="5dp"
+                        android:text="@string/plus_sign"
+                        android:textColor="@color/temp1"
+                        android:textSize="18sp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -136,16 +121,34 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="55dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="60dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Item:"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/item"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingStart="12dp"
+                            android:text="@string/required"
+                            android:textColor="@color/primary_col"
+                            android:textSize="12sp"
+                            android:textStyle="bold|italic"
+                            tools:ignore="RtlSymmetry" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
                     <EditText
                         android:id="@+id/itemname_val"
@@ -154,9 +157,9 @@
                         android:layout_marginStart="40dp"
                         android:layout_marginEnd="40dp"
                         android:layout_marginBottom="10dp"
-                        android:autofillHints="name"
+                        android:autofillHints="Item"
                         android:background="@drawable/edittext_round"
-                        android:hint="Item Name"
+                        android:hint="@string/item_name"
                         android:inputType="text|textNoSuggestions"
                         android:lineHeight="5dp"
                         android:maxWidth="@dimen/maxwidth_edittext"
@@ -193,7 +196,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="60dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Barcode:"
+                        android:text="@string/barcode"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -212,7 +215,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="2"
                             android:background="@drawable/edittext_round"
-                            android:hint="Barcode"
+                            android:hint="@string/barcode"
                             android:importantForAutofill="no"
                             android:inputType="text|textNoSuggestions"
                             android:lineHeight="5dp"
@@ -228,7 +231,7 @@
                             android:textStyle="bold"
                             tools:targetApi="p" />
 
-                        <ImageButton
+                        <androidx.appcompat.widget.AppCompatImageButton
                             android:id="@+id/barscan_btn"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="match_parent"
@@ -236,8 +239,8 @@
                             android:layout_marginEnd="40dp"
                             android:layout_marginBottom="10dp"
                             android:layout_weight="6"
-                            android:scaleType="centerInside"
-                            app:srcCompat="@drawable/barcode_32px" />
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/scan_icon" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -262,7 +265,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="60dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Description:"
+                        android:text="@string/description"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -274,7 +277,7 @@
                         android:layout_marginEnd="40dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/edittext_round"
-                        android:hint="Description"
+                        android:hint="@string/description"
                         android:importantForAutofill="no"
                         android:inputType="text|textNoSuggestions"
                         android:lineHeight="5dp"
@@ -304,32 +307,49 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <TextView
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="55dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginEnd="60dp"
                             android:layout_marginBottom="10dp"
-                            android:text="Quantity:"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/quantity"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingStart="12dp"
+                                android:text="@string/required"
+                                android:textColor="@color/primary_col"
+                                android:textSize="12sp"
+                                android:textStyle="bold|italic" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
                         <EditText
                             android:id="@+id/quantity_val"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="40dp"
-                            android:layout_marginEnd="20dp"
+                            android:layout_marginEnd="15dp"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/edittext_round"
-                            android:hint="Quantity"
+                            android:hint="@string/quantity"
+                            android:importantForAutofill="no"
                             android:inputType="numberSigned"
                             android:lineHeight="5dp"
                             android:maxWidth="@dimen/maxwidth_edittext"
                             android:maxLength="5"
-                            android:maxLines="1"
 
+                            android:maxLines="1"
                             android:paddingStart="25dp"
                             android:paddingTop="15dp"
                             android:paddingEnd="25dp"
@@ -346,26 +366,43 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <TextView
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="35dp"
+                            android:layout_marginStart="30dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginEnd="60dp"
+                            android:layout_marginEnd="40dp"
                             android:layout_marginBottom="10dp"
-                            android:text="Price:"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/price"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingStart="12dp"
+                                android:text="@string/required"
+                                android:textColor="@color/primary_col"
+                                android:textSize="12sp"
+                                android:textStyle="bold|italic"
+                                tools:ignore="RtlSymmetry" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <EditText
                             android:id="@+id/price_val"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
+                            android:layout_marginStart="15dp"
                             android:layout_marginEnd="40dp"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/edittext_round"
-                            android:hint="Price"
+                            android:hint="@string/price"
                             android:importantForAutofill="no"
                             android:inputType="numberDecimal"
                             android:lineHeight="5dp"
@@ -384,6 +421,37 @@
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl"
+                    android:paddingTop="10dp">
+
+                    <Button
+                        android:id="@+id/add_btn"
+                        style="?android:attr/buttonStyle"
+                        android:layout_width="155dp"
+                        android:layout_height="60dp"
+
+                        android:layout_gravity="end"
+                        android:layout_marginStart="40dp"
+                        android:background="@drawable/del_button_state"
+                        android:backgroundTint="@color/add_col"
+                        android:drawableRight="@drawable/add_btn_28px"
+                        android:drawablePadding="12dp"
+                        android:gravity="right|center"
+                        android:paddingStart="38dp"
+                        android:paddingEnd="45dp"
+                        android:text="@string/add"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
