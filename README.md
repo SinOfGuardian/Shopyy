@@ -7,7 +7,6 @@
 
 Members :
 Nathaniel Valenzuela
-Jerreme De Torres
-Leo Marc Boco
-John Lloyd Gabriel
-Jayvie Balili
+John Dominick Lariosa
+Baron Mimay Muyano
+John Carlo Rivera
