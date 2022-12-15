@@ -28,6 +28,7 @@
             android:scaleType="centerInside"
             app:srcCompat="@drawable/back_page_36px"
             tools:ignore="SpeakableTextPresentCheck" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -47,13 +48,14 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
+
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/edit_btn"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:padding="11dp"
             android:layout_alignParentEnd="true"
+            android:padding="11dp"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/pencil_edit"
             tools:ignore="SpeakableTextPresentCheck" />

@@ -84,6 +84,26 @@
         <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.242" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/mipmap-anydpi-v26/shoppy_icons.xml" value="0.242" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/Shopyy/app/src/main/res/mipmap-anydpi-v26/shoppy_icons_round.xml" value="0.242" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/activity_add_item.xml" value="0.264" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/activity_dashboard_new.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/activity_login.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/activity_main.xml" value="0.18699186991869918" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/activity_scanner.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/activity_store_name.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/activity_viewedit.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/activity_web.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/app_bar_dashboard_new.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/content_dashboard_new.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/custom_recycler_grid.xml" value="0.4" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/dialog_alert.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/fragment_about.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/fragment_feedback.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/fragment_list.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/layout/nav_header_dashboard_new.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/menu/activity_main_drawer.xml" value="0.25" />
+        <entry key="..\:/Users/natha/OneDrive/Documents/GitHub/Shopyy/app/src/main/res/menu/dashboard_new.xml" value="0.25" />
       </map>
     </option>
   </component>

@@ -33,13 +33,11 @@ public class About extends Fragment implements View.OnClickListener{
         dev2 = view.findViewById(R.id.contact2);
         dev3 = view.findViewById(R.id.contact3);
         dev4 = view.findViewById(R.id.contact4);
-        dev5 = view.findViewById(R.id.contact5);
 
         dev1.setOnClickListener(this);
         dev2.setOnClickListener(this);
         dev3.setOnClickListener(this);
         dev4.setOnClickListener(this);
-        dev5.setOnClickListener(this);
 
         return view;
     }
@@ -51,20 +49,18 @@ public class About extends Fragment implements View.OnClickListener{
 
         switch (v.getId()) {
             case R.id.contact1:
-                dev_emailAdd = getResources().getString(R.string.jayvie_email);
+                dev_emailAdd = getResources().getString(R.string.baron_email);
                 break;
             case R.id.contact2:
-                dev_emailAdd = getResources().getString(R.string.lloyd_email);
+                dev_emailAdd = getResources().getString(R.string.carlo_email);
                 break;
             case R.id.contact3:
-                dev_emailAdd = getResources().getString(R.string.leo_email);
+                dev_emailAdd = getResources().getString(R.string.lariosa_email);
                 break;
             case R.id.contact4:
                 dev_emailAdd = getResources().getString(R.string.nath_email);
                 break;
-            case R.id.contact5:
-                dev_emailAdd = getResources().getString(R.string.jerreme_email);
-                break;
+
             default:
                 break;
         }

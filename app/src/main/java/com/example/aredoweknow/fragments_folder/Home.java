@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aredoweknow.R;
 import com.example.aredoweknow.features_functions.AddItem;
+import com.example.aredoweknow.features_functions.History;
 import com.example.aredoweknow.features_functions.Scanner;
 import com.example.aredoweknow.features_functions.Web;
 import com.example.aredoweknow.other_class.REFRESH;
@@ -31,7 +32,7 @@ public class Home extends Fragment {
     public static SearchView sv_static;
 
     AppCompatImageButton barc_search;
-    Button browser_btn, scan_btn, add_btn;
+    Button browser_btn, scan_btn, add_btn, history_btn;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -56,6 +57,13 @@ public class Home extends Fragment {
         // We now use the REFRESH as if it contains the search function
         REFRESH r = new REFRESH();
         r.updateArrayList2(getContext());
+
+        //--------------------------------Open History
+        history_btn = view.findViewById(R.id.history);
+        history_btn.setOnClickListener(v -> {
+            Intent intent99 = new Intent(getContext(), History.class);
+            startActivity(intent99);
+        });
 
         //--------------------------------Open Web View
         browser_btn = view.findViewById(R.id.fab1);

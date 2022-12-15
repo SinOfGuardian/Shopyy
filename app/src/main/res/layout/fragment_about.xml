@@ -106,7 +106,7 @@
                             <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
-                                android:src="@drawable/jayvie_balili"
+                                android:src="@drawable/person1"
                                 tools:ignore="ContentDescription" />
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
                                     android:paddingTop="12dp"
                                     android:paddingStart="14dp"
 
-                                    android:text="@string/jayvie_balili"
+                                    android:text="@string/baron"
                                     android:textColor="@color/fab_col1"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
@@ -128,7 +128,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingStart="15dp"
-                                    android:text="@string/jayvie_email"
+                                    android:text="@string/baron_email"
                                     android:textStyle="bold"
                                     android:textSize="12sp"
                                     android:drawablePadding="10dp"
@@ -150,7 +150,7 @@
                             <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
-                                android:src="@drawable/gabriel"
+                                android:src="@drawable/person2"
                                 tools:ignore="ContentDescription" />
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -162,7 +162,7 @@
                                     android:paddingTop="12dp"
                                     android:paddingStart="14dp"
 
-                                    android:text="@string/john_lloyd"
+                                    android:text="@string/carlo"
                                     android:textColor="@color/add_col"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
@@ -172,7 +172,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingStart="15dp"
-                                    android:text="@string/lloyd_email"
+                                    android:text="@string/carlo_email"
                                     android:textStyle="bold"
                                     android:textSize="12sp"
                                     android:drawablePadding="10dp"
@@ -192,7 +192,7 @@
                             <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
-                                android:src="@drawable/boco"
+                                android:src="@drawable/person3"
                                 tools:ignore="ContentDescription" />
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -204,7 +204,7 @@
                                     android:paddingTop="12dp"
                                     android:paddingStart="14dp"
 
-                                    android:text="@string/leo_marc"
+                                    android:text="@string/lariosa"
                                     android:textColor="@color/fab_col3"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
@@ -216,7 +216,7 @@
                                     android:layout_height="wrap_content"
                                     android:drawablePadding="10dp"
                                     android:paddingStart="15dp"
-                                    android:text="@string/leo_email"
+                                    android:text="@string/lariosa_email"
                                     android:textSize="12sp"
                                     android:textStyle="bold"
                                     app:drawableLeftCompat="@drawable/gmail_12px" />
@@ -259,48 +259,6 @@
                                     android:layout_height="wrap_content"
                                     android:paddingStart="15dp"
                                     android:text="@string/nath_email"
-                                    android:textStyle="bold"
-                                    android:textSize="12sp"
-                                    android:drawablePadding="10dp"
-                                    app:drawableLeftCompat="@drawable/gmail_12px" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:orientation="horizontal"
-                            android:paddingStart="20dp"
-                            tools:ignore="RtlSymmetry">
-
-                            <ImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/jerreme_profile"
-                                tools:ignore="ContentDescription" />
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:paddingTop="12dp"
-                                    android:paddingStart="14dp"
-
-                                    android:text="@string/jerreme_detorres"
-                                    android:textColor="@color/fab_col2"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    />
-                                <TextView
-                                    android:id="@+id/contact5"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:paddingStart="15dp"
-                                    android:text="@string/jerreme_email"
                                     android:textStyle="bold"
                                     android:textSize="12sp"
                                     android:drawablePadding="10dp"

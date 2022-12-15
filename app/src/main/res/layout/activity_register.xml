@@ -116,8 +116,8 @@
                     tools:ignore="TextFields" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
-                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:id="@+id/eyeButton1"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="29dp"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
@@ -159,12 +159,12 @@
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/eyeButton2"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="29dp"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="14dp"
-                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:onClick="reg_eye_clicked"
                     android:padding="5dp"
 

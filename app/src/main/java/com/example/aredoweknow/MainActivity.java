@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         //------------------------------------------------------
 
         handler.postDelayed(new Runnable() {
-            @Override
+            @Override   
             public void run() {
 //                Intent activity = new Intent(MainActivity.this, AddItem.class);
 
